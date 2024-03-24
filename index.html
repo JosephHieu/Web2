@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<link rel="icon" type="image/png" href="images/LOGO.webp">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <title>Trang chủ</title>
+</head>
+<body style="background: #fff;">
+ <section id="header" style="background:#fff;">
+  <a href="index.html">
+    <img src="images/LOGO.webp" class="logo" alt="Logo thương hiệu" >
+ </a>
+<div>
+
+ <ul id="icons">
+  
+<li id="menu"><a  class="act-on" class="choose" ><span class="act-on">Trang Chủ</span></a></li>
+        <li id="menu" ><a href="brand.html" class="choose"><span>Nhãn Hàng</span></a></li>
+       
+        <li id="menu" ><a href="shop.html" class="choose"><span>Cửa Hàng</span></a></li>
+        
+    
+        <!-- <li id="menu"><a href="contact.html" class="choose"><span>Liên hệ</span></a></li> -->
+  
+    <div class="group" id="search">
+    <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
+  <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+    <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+</svg>
+</div> 
+    <li id="menu" id="lg-bag"><a href="shop.html"><i class="fa-solid fa-cart-shopping"></i></a>
+    </li>
+   
+    <li id="menu" id="lg-user"><a href="register.html" id="userlogin"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+    </li>
+   
+    <a id="close"><i class="fa-solid fa-x"></i></a>
+ </ul>
+</div>
+<div id="mobile"> 
+
+  <a href="shop.html"><i class="fa-solid fa-cart-shopping"></i></a>
+  <a id="glass-search" onclick="showbar()" ><i class="fa-solid fa-magnifying-glass"></i> </a>
+<a href="register.html"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+
+<i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
+
+</div>
+<div class="search-bars">
+  <input type="text" placeholder="SEARCH...">
+  <i class="fa-solid fa-xmark" id="xmark" onclick="closebar()"></i>
+  </div>
+ </section>
+ <div id="overlay"></div>
+ <section class="commercial-index" >
+  <img src="images/Bừng khí chất.jpg" alt="kiến trúc cho tương lai" style="width: 100%;">
+</section>
+
+
+
+ <div id="bet"><h5>Sản Phẩm Bán Chạy</h5></div>
+ <section id="all">
+  <div class="wrapper">
+    <i id="left" class="fa-solid fa-arrow-left"></i>
+    <div class="carousel">
+      
+      <img src="images/mota1.jpg" alt="intro1" draggable="false" >
+      <img src="images/mota2.jpg" alt="intro2" draggable="false" >  
+      <img src="images/mota3.jpg" alt="intro3" draggable="false" >
+      <img src="images/mota4.jpg" alt="intro3" draggable="false" >    
+      <img src="images/mota5.jpg" alt="intro3" draggable="false" >    
+      <img src="images/mota6.jpg" alt="intro3" draggable="false" >    
+
+    </div>
+    <i id="right" class="fa-solid fa-arrow-right"></i>
+  </div>
+
+  </section>
+
+ <div id="bet"><h5>Thông Tin Giới Thiệu</h5></div>
+ 
+ <section class="postcard">
+  
+  <div class="box">
+    <img src="images/kiến trúc cho tương lai.jpg">
+    <h2 style="letter-spacing: 0.5px;">Kiến trúc cho tương lai</h2>
+    <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
+      <button id="btn-blog" onclick="window.location.href='brand.html'">Xem sản phẩm</button>
+    </div>
+  <div class="box">
+    <img src="images/sẵn sàng cho một ngày mới.jpg">
+    <h2 style="letter-spacing: 0.5px;">Sẵn sàng cho một ngày mới</h2>  
+    <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
+      <button id="btn-blog" onclick="window.location.href='shop.html'">Xem sản phẩm</button>
+    </div>
+    <div class="box">
+      <img src="images/Đồng  hành cùng công nghệ.png">
+      <h2 style="letter-spacing: 0.5px;">Đồng hành cùng công nghệ</h2>  
+      <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
+        <button id="btn-blog" onclick="window.location.href='shop.html'">Xem sản phẩm</button>
+      </div>
+ </section>
+
+
+ <footer style="background:#fff;">
+  <div id="all-footer">
+  <div id="fo-text" style="width: 100%;">
+    <div class="alldrinklogo">
+  <img src="">
+  
+    </div>
+    <div id="long1">
+      <div id="seprator1">
+        <hr class="ruler1">
+      </div>
+    </div>
+      <div id="col">
+        <h2 style="color: red;">Trợ giúp</h2>
+        <ul>
+          <li><a href="" target="_blank">Giới thiệu</a></li>
+          <li><a href="" target="_blank">Chính sách đổi trả</a></li>
+          <li><a href="" target="_blank">Qui định thanh toán và vận chuyển</a></li>
+          <li><a href="" target="_blank">Chính sách bảo mật thông tin khách hàng</a></li>        
+        </ul>
+      </div>
+  
+      <div id="col">
+        <h2 style="color: red;">Thông tin liên hệ</h2>
+        <ul>
+          <li><a href="" target="_blank">HotLine: 1900 882 982</a></li>
+          <li><a href="" target="_blank">Email: nguyenhoanghieu@gmail.com</a></li>
+          <li><a href="" target="_blank">Fanpage: DoDungHocTap</a></li>
+        </ul>
+      </div>
+    <div id="col">
+      <h2 style="color: red;">Chi nhánh cửa hàng phía bắc</h2>
+      <ul>
+        <li><a href="" target="_blank">250 Kim Ngưu, Q. Hai Bà Trưng, Hà Nội</a></li>
+        <li><a href="" target="_blank">58 Chùa Láng, Q. Đống Đa, Hà Nội</a></li>
+        <li><a href="" target="_blank">500 Lê Văn Sỹ, p.14, Quận Ba Đình, Hà Nội</a></li>
+      </ul>
+    </div>
+    <div id="col">
+      <h2 style="color: red;">Chi nhánh cửa hàng phía nam</h2>
+      <ul>
+        <li><a href="" target="_blank">250 Kim Ngưu, Q. Phú Nhuận, TP.HCM</a></li>
+        <li><a href="" target="_blank">58 Lê Thái Tổ, Q. 7, TP.HCM</a></li>
+        <li><a href="" target="_blank">500 Lê Văn Sỹ, p.14, Quận 3, TP.HCM</a></li>
+      </ul>
+    </div>
+      <div id="long">
+        <div id="seprator">
+          <hr class="ruler">
+        </div>
+      </div>
+  
+     <div class="copyright">
+      <p>© 2024 - Củng cố ước mơ Việt</p>
+      </div>
+  
+  </div>
+     
+     </footer>
+   <script>
+    const bar = document.getElementById('bar');
+    const icon = document.getElementById('icons');
+   
+    if(bar){
+      bar.addEventListener('click',() =>{
+    icon.classList.add('active');
+      })}
+   
+    const icons = document.getElementById("icons");
+  const dong = document.getElementById("close");
+  const barmenu = document.getElementById('bar');
+  dong.addEventListener("click", function() {
+  
+  icons.style.right = "-300px";
+  });
+  barmenu.addEventListener("click", function() {
+  
+  icons.style.right = "0"; 
+   overlay.style.display = 'none';
+  htmlElement.style.overflowY = 'scroll';
+  searchbars.classList.remove("active25");
+        searchbars.style.opacity="0";
+        searchbars.style.pointerEvents = 'none';
+    
+  });
+  
+  
+  window.addEventListener("resize", function() {
+  
+    if (window.innerWidth >= 1136) {
+      overlay.style.display = 'none';
+      cart.classList.remove("act");
+      icons.style.right="-300px";
+        searchbars.classList.remove("active25");
+        searchbars.style.opacity="0";
+        searchbars.style.pointerEvents = 'none';
+      icons.classList.remove('active');
+      htmlElement.style.overflowY = "scroll";
+    }
+   else{
+    icons.style.right="-300px";
+   }
+    }
+  );
+     </script>
+  
+  <script>
+  var htmlElement = document.querySelector('html');
+const searchbars=document.querySelector(".search-bars");
+  const glasssearch=document.getElementById("glass-search");
+function showbar(){
+      searchbars.classList.add('active25');
+      searchbars.style.pointerEvents = 'all';
+      htmlElement.style.overflow = 'hidden';
+      searchbars.style.opacity="1";
+      overlay.style.display='block';
+      overlay.style.zIndex = '98';
+  }
+  function closebar(){
+
+      searchbars.classList.remove('active25');
+      htmlElement.style.overflowY = 'scroll';
+      searchbars.style.opacity="0";
+      searchbars.style.pointerEvents = 'none';
+      overlay.style.display='none';
+  }
+    document.getElementById('overlay').addEventListener('click', function() {
+  closebar();
+
+});
+    </script>
+
+  <script>
+    const carousel = document.querySelector(".carousel"),
+firstImg = carousel.querySelectorAll("img")[0],
+arrowIcons = document.querySelectorAll(".wrapper i");
+
+let isDragStart = false, isDragging = false, prevPageX, prevScrollLeft, positionDiff;
+
+const showHideIcons = () => {
+   
+    let scrollWidth = carousel.scrollWidth - carousel.clientWidth; 
+    arrowIcons[0].style.display = carousel.scrollLeft == 0 ? "none" : "block";
+    arrowIcons[1].style.display = carousel.scrollLeft == scrollWidth ? "none" : "block";
+}
+
+arrowIcons.forEach(icon => {
+    icon.addEventListener("click", () => {
+        let firstImgWidth = firstImg.clientWidth + 14; 
+       
+        carousel.scrollLeft += icon.id == "left" ? -firstImgWidth : firstImgWidth;
+        setTimeout(() => showHideIcons(), 60); 
+    });
+});
+
+const autoSlide = () => {
+
+    if(carousel.scrollLeft - (carousel.scrollWidth - carousel.clientWidth) > -1 || carousel.scrollLeft <= 0) return;
+
+    positionDiff = Math.abs(positionDiff); 
+    let firstImgWidth = firstImg.clientWidth + 14;
+  
+    let valDifference = firstImgWidth - positionDiff;
+
+    if(carousel.scrollLeft > prevScrollLeft) {
+        return carousel.scrollLeft += positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
+    }
+
+    carousel.scrollLeft -= positionDiff > firstImgWidth / 3 ? valDifference : -positionDiff;
+}
+
+const dragStart = (e) => {
+    isDragStart = true;
+    prevPageX = e.pageX || e.touches[0].pageX;
+    prevScrollLeft = carousel.scrollLeft;
+}
+
+const dragging = (e) => {
+    if(!isDragStart) return;
+    e.preventDefault();
+    isDragging = true;
+    carousel.classList.add("dragging");
+    positionDiff = (e.pageX || e.touches[0].pageX) - prevPageX;
+    carousel.scrollLeft = prevScrollLeft - positionDiff;
+    showHideIcons();
+}
+
+const dragStop = () => {
+    isDragStart = false;
+    carousel.classList.remove("dragging");
+
+    if(!isDragging) return;
+    isDragging = false;
+    autoSlide();
+}
+
+carousel.addEventListener("mousedown", dragStart);
+carousel.addEventListener("touchstart", dragStart);
+
+document.addEventListener("mousemove", dragging);
+carousel.addEventListener("touchmove", dragging);
+
+document.addEventListener("mouseup", dragStop);
+carousel.addEventListener("touchend", dragStop);
+
+
+
+const search = () => {
+    if (event.keyCode === 13) {
+window.location.href='shop.html';
+    }};
+</script>
+
+
+
+
+
+

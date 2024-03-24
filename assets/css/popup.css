@@ -1,0 +1,183 @@
+.container-popup{
+    display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000; 
+}
+
+.popup{
+width: 410px;
+position: fixed;
+top:50%;
+left: 50%;
+
+  background-color: white;
+  border: 2px solid black;
+  padding: 12px 8px;
+transform: translate(-50%,-50%);
+display: none;
+z-index: 2; 
+
+}
+
+.label {
+  font-family: 'Open Sans', sans-serif;
+border: 2px solid black;
+
+font-size: 22px;
+}
+#nutrifact #close-ic{
+position: absolute;
+right:2%;
+top:2%;
+font-size: 30px;
+cursor: pointer;
+
+
+}
+#submit-ic{
+position: absolute;
+right:3%;
+top:90%;
+font-size: 55px;
+cursor: pointer;
+color:#69CB45;
+animation: moveUpDown 1.1s ease-in-out infinite;
+visibility: hidden;
+}
+@keyframes moveUpDown {
+  0%, 100% {
+    top: 90%;
+  }
+  50% {
+    top: 89%;
+  }
+}
+.popup input{
+  width: 31px;
+height: 25px;
+border: none;
+  font-size: 18px;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+ 
+}
+.popup input::placeholder{
+  color: black;
+}
+#nutrifact h1 {
+  font-weight: 800;
+text-align: center;
+margin: -4px 0;
+letter-spacing: 0.15px;
+padding: 5px 0;
+}
+
+.popup p {
+margin: 0;
+display: flex;
+font-size: 18px;
+justify-content: space-between;
+padding: 3px 0;
+}
+
+.divider {
+border-bottom: 1px solid #888989;
+margin: 2px 0;
+}
+
+
+
+.large {
+height: 10px;
+}
+
+.large, .medium {
+background-color: black;
+border: 0;
+}
+
+.medium {
+height: 5px;
+}
+
+.small-text {
+font-size: 0.85rem;
+}
+
+
+.calories-info {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+}
+
+.calories-info h2 {
+margin: 0;
+}
+
+.left-container p {
+margin: -5px -2px;
+font-size: 2em;
+font-weight: 700;
+}
+
+.calories-info span {
+margin: -7px -2px;
+font-size: 2.4em;
+font-weight: 700;
+}
+
+.right {
+justify-content: flex-end;
+}
+
+.indent {
+margin-left: 1em;
+}
+
+.double-indent {
+margin-left: 2em;
+}
+
+.daily-value p:not(.no-divider) {
+border-bottom: 1px solid #888989;
+}
+
+@media(max-width:480px){
+  .popup p{
+      font-size: 16px;
+     
+  }
+  #nutrifact h1{
+      font-size: 20px;
+  }
+  .popup{
+      width: 330px;
+     
+  }
+  .popup input{
+      font-size: 16px;
+      width: 29px;
+  }
+}
+@media(max-width:400px){
+  .popup p{
+      font-size: 15px;
+  }
+  #nutrifact h1{
+      font-size: 19px;
+  }
+  .popup{
+      width: 320px;
+   
+  }
+  .popup input{
+      font-size: 15px;
+      width: 28px;
+  }
+}

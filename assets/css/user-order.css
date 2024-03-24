@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+body{font-family: 'Open Sans',serif}
+.container{
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+.card-body{
+    z-index: 0;
+}
+.card{
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.10rem
+}
+.card-header:first-child{
+    border-radius: calc(0.37rem - 1px) calc(0.37rem - 1px) 0 0
+}
+.card-header{
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1)
+}
+.track{
+    position: relative;
+    background-color: #ddd;
+    height: 7px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 60px;
+    margin-top: 50px
+}
+.track .step{
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    width: 25%;
+    margin-top: -18px;
+    text-align: center;
+    position: relative
+}
+.track .step.active:before{
+    background: #2DC258
+}
+.track .step::before{
+    height: 7px;
+    position: absolute;
+    content: "";
+    width: 100%;
+    left: 0;
+    top: 18px
+}
+.track .step.active .icon{
+    background: #2DC258;
+    color: #fff
+}
+.track .icon{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+    border-radius: 100%;
+    background: #ddd
+}
+.track .step.active .text{
+    font-weight: 400;
+    color: #000
+}
+.track .text{
+    display: block;
+    margin-top: 7px
+}
+.itemside{
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%
+}
+.itemside .aside{
+    position: relative;
+    -ms-flex-negative: 0;
+    flex-shrink: 0
+}
+.img-sm{
+    width: 80px;
+    height: 80px;
+    padding: 7px
+}
+.col strong{
+    font-size: 15px;
+}
+ul.row, ul.row-sm{list-style: none;padding: 0}
+.itemside .info{padding-left: 15px;padding-right: 7px}
+    .itemside .title{
+        display: block;
+        margin-bottom: 5px;
+        color: #212529
+    }p{margin-top: 0;margin-bottom: 1rem}.btn-warning{color: #ffffff;background-color: #ee5435;border-color: #ee5435;border-radius: 1px}.btn-warning:hover{color: #ffffff;background-color: #ff2b00;border-color: #ff2b00;border-radius: 1px}
+
+.payments-item img.mr-3 {
+    width: 47px;
+}
+.order-list .btn {
+    border-radius: 2px;
+    min-width: 121px;
+    font-size: 13px;
+    padding: 7px 0 7px 0;
+}
+.step .text{
+    font-size: 15px;
+}
+.osahan-account-page-left .nav-link {
+    padding: 18px 20px;
+    border: none;
+    font-weight: 600;
+    color: #535665;
+}
+.osahan-account-page-left .nav-link i {
+    width: 28px;
+    height: 28px;
+    background: #535665;
+    display: inline-block;
+    text-align: center;
+    line-height: 29px;
+    font-size: 15px;
+    border-radius: 50px;
+    margin: 0 7px 0 0px;
+    color: #fff;
+}
+.osahan-account-page-left .nav-link.active {
+    background: #f3f7f8;
+    color: #282c3f !important;
+}
+.osahan-account-page-left .nav-link.active i {
+    background: #282c3f !important;
+}
+.osahan-user-media img {
+    width: 90px;
+}
+.card offer-card h5.card-title {
+    border: 2px dotted #000;
+}
+.card.offer-card h5 {
+    border: 1px dotted #daceb7;
+    display: inline-table;
+    color: #17a2b8;
+    margin: 0 0 19px 0;
+    font-size: 15px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 2px;
+    background: #fffae6;
+    position: relative;
+}
+.card.offer-card h5 img {
+    height: 22px;
+    object-fit: cover;
+    width: 22px;
+    margin: 0 8px 0 0;
+    border-radius: 2px;
+}
+.card.offer-card h5:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    bottom: 0;
+}
+.card.offer-card h5:before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    top: 0;
+}
+.payments-item .media {
+    align-items: center;
+}
+.payments-item .media img {
+    margin: 0 40px 0 11px !important;
+}
+.reviews-members .media .mr-3 {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+.order-list img.mr-4 {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+    border-radius: 2px;
+    border: 1px solid #DFDFDF;
+}
+.osahan-cart-item p.text-gray.float-right {
+    margin: 3px 0 0 0;
+    font-size: 12px;
+}
+.osahan-cart-item .food-item {
+    vertical-align: bottom;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+a:hover{
+    text-decoration:none;
+}
+@media (width>1200px){
+    .container{
+        max-width: 1400px;
+    }  
+}
+@media (769px<= width<= 1200px){
+.container{
+    max-width: 1400px;
+}
+}
+@media(max-width:768px){
+    #logo-history img{
+        width: 25%;
+        }
+        .container{
+            max-width: 720px;
+        }   
+}
+@media(max-width:480px){
+ #logo-history img{
+width: 35%;
+}  
+.container{
+    margin: 12px 0 12px 0;
+}  
+
+}
+@media(width<=600px){
+    .track .text{
+        display: none;
+    }
+}
+.flex-container p{
+   display: inline;
+  }
+  .flex-container p:nth-child(1){
+    margin-right: 20px;
+  
+   font-size: 18px;
+   font-weight: 600;
+  }
+  #total-money{
+    font-size: 20px;
+  }

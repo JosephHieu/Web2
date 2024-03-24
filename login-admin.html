@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="icon" type="image/png" href="assets/images/pic/logoicon.png">
+    <link rel="stylesheet" href="assets/css/lg-admin.css">
+         
+    <title>Login For Admin</title> 
+</head>
+<body>
+    
+    <div class="container">
+        <div class="forms">
+            <div class="form login">
+                <span class="title">Login For Admin</span>
+
+                <form action="#">
+                    <div class="input-field">
+                        <input id="username" type="text" placeholder="Enter your username" required>
+                        <i class="uil uil-user icon"></i>
+                    </div>
+                    <div class="input-field">
+                        <input id="password" type="password" class="password" placeholder="Enter your password" required>
+                        <i class="uil uil-lock icon"></i>
+                        <i class="uil uil-eye-slash showHidePw"></i>
+                    </div>
+
+                    <div class="checkbox-text">
+                        <div class="checkbox-content">
+                            <input type="checkbox" id="logCheck">
+                            <label for="logCheck" class="text">Remember me</label>
+                        </div>
+                        
+                    
+                    </div>
+
+                    <div class="input-field button">
+                        <input type="submit" value="Login" onclick="checkLogin()">
+                    </div>
+                </form>
+
+        
+            </div>
+
+        
+        </div>
+    </div>
+
+  
+</body>
+</html>
+
+<script>
+      function checkLogin() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+
+      if (username === 'admin456' && password === '456789') {
+        window.location.href = 'admin-strator.html';
+        alert('Welcome back admin');
+      } else {
+        alert('Incorrect username or password. Please try again.');
+      }
+    }
+</script>
+
+<script>
+  const container = document.querySelector(".container"),
+      pwShowHide = document.querySelectorAll(".showHidePw"),
+      pwFields = document.querySelectorAll(".password"),
+      signUp = document.querySelector(".signup-link"),
+      login = document.querySelector(".login-link");
+
+    //   js code to show/hide password and change icon
+    pwShowHide.forEach(eyeIcon =>{
+        eyeIcon.addEventListener("click", ()=>{
+            pwFields.forEach(pwField =>{
+                if(pwField.type ==="password"){
+                    pwField.type = "text";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye-slash", "uil-eye");
+                    })
+                }else{
+                    pwField.type = "password";
+
+                    pwShowHide.forEach(icon =>{
+                        icon.classList.replace("uil-eye", "uil-eye-slash");
+                    })
+                }
+            }) 
+        })
+    })
+
+    // js code to appear signup and login form
+    signUp.addEventListener("click", ( )=>{
+        container.classList.add("active");
+    });
+    login.addEventListener("click", ( )=>{
+        container.classList.remove("active");
+    });
+</script>
+

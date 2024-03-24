@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="assets/css/nutri.css">
+<link rel="icon" type="image/png" href="images/LOGO.webp">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/header.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<html>
+<head>
+
+  <meta name="viewport" content="width=device-width,  initial-scale=1,maximum-scale=1">
+  <title>Shop</title>
+</head>
+<body>
+  <section id="header">
+    <a href="index.html">
+      <img src="images/LOGO.webp" class="logo" alt="" >
+   </a>
+  <div>
+   <ul id="icons">
+    
+  <li id="menu"><a href="index-user.html"  class="choose" ><span>Trang Chủ</span></a></li>
+          <li id="menu"><a href="brand-user.html" class="choose"><span>Nhãn Hàng</span></a></li>
+         
+          <li id="menu" ><a href="shop-user.html" class="choose"><span>Cửa Hàng</span></a></li>
+          <!-- <li id="menu"><a href="contact-user.html" class="choose"><span>Contact</span></a></li> -->
+    
+      <div class="group" id="search">
+      <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
+    <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+      <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+  </svg>
+  </div> 
+      <li id="menu" id="lg-bag"><a href="shop-user.html"><i class="fa-solid fa-cart-shopping"></i></a>
+      </li>
+      <li id="menu" id="lg-bag"> <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
+      </li>
+   
+      <a id="close"><i class="fa-solid fa-x"></i></a>
+   </ul>
+  </div>
+  <div class="sub-menu-wrap" id="subMenu">
+    <div class="sub-menu">
+  <div class="user-info">
+  
+  <h2>Chào ngày mới <3</h2>
+  </div>
+  <hr>
+  <a href="user.html" class="sub-menu-index-link">
+    <p>> Tài khoản</p>
+  </a>
+  
+  <a href="history.html" class="sub-menu-index-link">
+    <p>> Lịch sử mua hàng</p>
+  </a>
+  
+  <a href="login.html" class="sub-menu-index-link">
+    <p>> Đăng xuất</p>
+  
+  </a>
+  
+    </div>
+  </div>
+  <div id="mobile"> 
+  
+    <a href="shop-user.html"><i class="fa-solid fa-cart-shopping"></i></a>
+    <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
+
+  
+  <i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
+  
+  </div>
+   </section>
+
+   <section id="prodetails" class="section-p1">
+  
+    <div class="single-pro-image">
+        <img src="images/butbi1.png" width="100%" id="MainImg" alt="">
+    <div class="small-img-group">
+    <div class="small-img-col">
+    <img src="images/butbi2.png" width="100%" class="small-img" alt="">
+    </div>
+   
+           <div class="small-img-col">
+        <img src="images/butbi3.png" width="100%" class="small-img" alt="">
+        </div>
+        <div class="small-img-col">
+          <img src="images/butbi4.png" width="100%" class="small-img" alt="">
+          </div>
+    </div>
+    </div>
+    
+    <div class="single-pro-details">
+    <h6 id="text1">Bút bi thiên long</h6>
+    <h2 id="text2">5.000vnđ</h2>
+  
+    
+   <div id="infor-nutri">
+    <h3>Chi tiết sản phẩm</h3>
+    <i id="nutri-open" class="fa-solid fa-angle-up fa-rotate-180"></i>
+    <div class="label">
+      <p>-Chiếc bút bi tròn nhẵn nằm trên bàn, lẻ loi giữa những tờ giấy trắng. <br><br>
+        -Với thân bằng nhựa trong suốt, nó như là một viên ngọc quý lung linh.<br><br>
+         -Đầu bút mảnh mai, sắc nét, sẵn sàng để tạo nên những đường nét chính xác và lưu giữ những ý tưởng sáng tạo.</p>
+      </div>
+  
+  
+  <div class="divider medium">
+  </div>
+    <a href="shop-user.html" class="btn-buy">Quay lại cửa hàng </a>
+    </div>
+  </div>
+    </div>
+    </section>
+
+
+
+  <section id="product12" class="section-p12">
+    <h2>Những Sản phẩm khác</h2>
+  <div class="pro-container2">
+    <div class="pro2">
+      <a href="product2.html">
+  <img src="images/note4.jpg" alt="">
+</a>
+ 
+   
+    <h5>Giấy note 5x5</h5>
+    
+    <h4>15.000vnđ</h4>
+
+  <div id="buttoncart">
+    <button onclick="window.location.href='product2.html'"><i class="fa-solid fa-cart-shopping"></i></button>
+  </div>
+  </div> 
+
+  <div class="pro2">
+    <a href="product4.html">
+    <img src="images/tap4-2.jpg" alt="">
+  </a>
+   
+       
+      <h5>Tập học sinh 90 trang</h5>
+    
+      <h4>8.000vnđ</h4>
+ 
+    <div id="buttoncart">
+      <button onclick="window.location.href='product4.html'"><i class="fa-solid fa-cart-shopping"></i></button>
+    </div>
+    </div> 
+
+    <div class="pro2">
+      <a href="product17.html">
+      <img src="images/note2-2.jpg" alt="">
+      </a>
+   
+        
+        <h5>Giấy note trong suốt</h5>
+     
+        <h4>24.000vnđ</h4>
+   
+      <div id="buttoncart">
+        <button onclick="window.location.href='product17.html'"><i class="fa-solid fa-cart-shopping"></i></button>
+      </div>
+      </div> 
+
+      <div class="pro2">
+        <a href="product3.html">
+        <img src="images/butchigo2.png" alt="">
+      </a>
+      
+          <h5>Bút chì gỗ</h5>
+     <h4>7.000vnđ</h4>
+        <div id="buttoncart">
+          <button onclick="window.location.href='product3.html'"><i class="fa-solid fa-cart-shopping"></i></button>
+        </div>
+        </div> 
+              
+  </div>
+  </section>
+
+  <footer style="background:#fff;">
+    <div id="all-footer">
+    <div id="fo-text" style="width: 100%;">
+      <div class="alldrinklogo">
+    <img src="">
+    
+      </div>
+      <div id="long1">
+        <div id="seprator1">
+          <hr class="ruler1">
+        </div>
+      </div>
+        <div id="col">
+          <h2 style="color: red;">Trợ giúp</h2>
+          <ul>
+            <li><a href="" target="_blank">Giới thiệu</a></li>
+            <li><a href="" target="_blank">Chính sách đổi trả</a></li>
+            <li><a href="" target="_blank">Qui định thanh toán và vận chuyển</a></li>
+            <li><a href="" target="_blank">Chính sách bảo mật thông tin khách hàng</a></li>        
+          </ul>
+        </div>
+    
+        <div id="col">
+          <h2 style="color: red;">Thông tin liên hệ</h2>
+          <ul>
+            <li><a href="" target="_blank">HotLine: 1900 882 982</a></li>
+            <li><a href="" target="_blank">Email: nguyenhoanghieu@gmail.com</a></li>
+            <li><a href="" target="_blank">Fanpage: DoDungHocTap</a></li>
+          </ul>
+        </div>
+      <div id="col">
+        <h2 style="color: red;">Chi nhánh cửa hàng phía bắc</h2>
+        <ul>
+          <li><a href="" target="_blank">250 Kim Ngưu, Q. Hai Bà Trưng, Hà Nội</a></li>
+          <li><a href="" target="_blank">58 Chùa Láng, Q. Đống Đa, Hà Nội</a></li>
+          <li><a href="" target="_blank">500 Lê Văn Sỹ, p.14, Quận Ba Đình, Hà Nội</a></li>
+        </ul>
+      </div>
+      <div id="col">
+        <h2 style="color: red;">Chi nhánh cửa hàng phía nam</h2>
+        <ul>
+          <li><a href="" target="_blank">250 Kim Ngưu, Q. Phú Nhuận, TP.HCM</a></li>
+          <li><a href="" target="_blank">58 Lê Thái Tổ, Q. 7, TP.HCM</a></li>
+          <li><a href="" target="_blank">500 Lê Văn Sỹ, p.14, Quận 3, TP.HCM</a></li>
+        </ul>
+      </div>
+        <div id="long">
+          <div id="seprator">
+            <hr class="ruler">
+          </div>
+        </div>
+    
+       <div class="copyright">
+        <p>© 2024 - Củng cố ước mơ Việt</p>
+        </div>
+    
+    </div>
+       
+       </footer>
+
+ <script>
+  const bar = document.getElementById('bar');
+  const icon = document.getElementById('icons');
+
+  if(bar){
+    bar.addEventListener('click',() =>{
+  icon.classList.add('active');
+    })}
+ 
+  const icons = document.getElementById("icons");
+const dong = document.getElementById("close");
+const barmenu = document.getElementById('bar');
+dong.addEventListener("click", function() {
+ 
+  icons.style.right = "-300px";
+});
+barmenu.addEventListener("click", function() {
+  icons.style.right = "0px";
+});
+
+window.addEventListener("resize", function() {
+
+if (window.innerWidth >= 1138) {
+  icons.classList.remove('active');
+}
+else{
+    icons.style.right="-300px";
+   }
+}
+);
+
+  var nutri= document.querySelector('.label');
+var nutriopen=document.getElementById("nutri-open");
+
+let isHidden = true;
+let isRotate = true;
+nutriopen.onclick = function() {
+  isHidden = !isHidden;
+ isRotate=!isRotate;
+nutriopen.style.transform = isRotate ? "rotate(180deg)" : "rotate(0deg)";
+  setTimeout(() => {
+    nutri.style.display = isHidden ? "block" : "none";
+  }, 240);
+};
+
+  var MainImg  =document.getElementById("MainImg");
+var small = document.getElementsByClassName("small-img");
+
+small[0].onclick = function(){
+  document.getElementById("text1").innerHTML = "Bút bi thiên long";
+  document.getElementById("text2").innerHTML = "5.000vnđ";
+MainImg.src = small[0].src;
+}
+small[1].onclick = function(){
+  document.getElementById("text1").innerHTML = "Bút bi thiên long";
+  document.getElementById("text2").innerHTML = "5.000vnđ";
+MainImg.src = small[1].src;
+}
+small[2].onclick = function(){
+MainImg.src = small[2].src;
+}
+small[3].onclick = function(){
+MainImg.src = small[3].src;
+}
+
+
+   </script>
+
+<script>
+  let subMenu = document.getElementById("subMenu");
+  function toggleMenu(){
+    subMenu.classList.toggle("open-menu");
+  }
+  const search = () => {
+    if (event.keyCode === 13) {
+window.location.href='shop-user.html';
+    }};
+    </script>
+
+
+
+
+
+
+
