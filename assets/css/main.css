@@ -811,6 +811,7 @@ transform: translateX(-320px);
  background-color: #fff;
   z-index: 999;
   padding: 25px 20px;
+  border-right: 2px solid black;
 }
 #advan-search-container h1{
   text-align: left;

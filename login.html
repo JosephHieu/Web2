@@ -76,7 +76,7 @@
      <a href="#" id="forget">Quên mật khẩu</a></div>
              </div>
              <div class="b-field">
-                 <button type="submit"  id="subtn">Đăng Nhập</button>
+                 <button type="submit"  id="subtn" onclick="window.location.href='shop-user.html'">Đăng Nhập</button>
             <button type="button" onclick="window.location.href='register.html'" id="sibtn">Đăng ký</button>
             
          </div>
@@ -243,7 +243,7 @@ const validateInputs = () => {
         setError(username, 'Tên đăng nhập trống');
     } 
     else if (usernameValue.length < 6 ) {
-        setError(username, 'Mật khẩu phải chứa 6 ký tự.')
+        setError(username, 'Tên phải chứa ít nhất 6 ký tự.')
    
     }
     else {
