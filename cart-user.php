@@ -98,7 +98,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
 }else {
     echo "<div class='empty_text'>
         Giỏ hàng hiện trống
-        <a href='shop.php' class='bottom_btn'>Tiếp tục mua sắm</a>
+        <a href='shop-user.php' class='bottom_btn'>Tiếp tục mua sắm</a>
     </div>
     ";
 }
@@ -113,7 +113,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
         
     
         <div class='table_bottom'>
-            <a href='shop.php' 
+            <a href='shop-user.php' 
             class='bottom_btn'>Tiếp tục mua sắm</a>
             <h3 class='bottom_btn'>Tổng tiền: <span><?php echo $grand_total?>.000vnđ</span></h3>
             <a href='pay.php' class='bottom_btn'>Thanh toán</a>

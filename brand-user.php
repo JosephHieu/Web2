@@ -1,3 +1,12 @@
+<?php
+  include "connect.php";
+
+  // pagelayout tdn = tendangnhap
+  // tendangnhap là khóa chính của khách hàng
+  $tdn = $_GET['brand'];
+  echo $tdn;
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,27 +17,28 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Brands</title>
+  <title>Thương hiệu</title>
 </head>
 <body>
-  <section id="header">
-    <a href="index-user.php">
+  <!-- header -->
+<section id="header">
+    <a href="index-user.php?tdn=<?php echo $tdn?>">
   <img src="images/LOGO.webp" class="logo" alt="" >
    </a>
   <div>
    <ul id="icons">
     
-  <li id="menu"><a href="index-user.php"  class="choose" ><span>Trang Chủ</span></a></li>
+  <li id="menu"><a href="index-user.php?tdn=<?php echo $tdn?>"  class="choose" ><span>Trang Chủ</span></a></li>
           <li id="menu"><a  class="act-on" class="choose"><span class="act-on">Nhãn Hàng</span></a></li>
          
-          <li id="menu" ><a href="shop-user.php" class="choose"><span>Cửa Hàng</span></a></li>    
+          <li id="menu" ><a href="shop-user.php?s-user=<?php echo $tdn?>" class="choose"><span>Cửa Hàng</span></a></li>    
       <div class="group" id="search">
       <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
   </svg>
   </div> 
-      <li id="menu" id="lg-bag"><a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>
+      <li id="menu" id="lg-bag"><a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a>
       </li>
       <li id="menu" id="lg-bag"> <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
       </li>
@@ -38,31 +48,24 @@
   </div>
   <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
-  <div class="user-info">
-  
-  <h2>Chào ngày mới <3</h2>
-  </div>
-  <hr>
-  <a href="user.php" class="sub-menu-index-link">
-    <p>> Tài khoản</p>
-  
-  </a>
-  
-  <a href="history.php" class="sub-menu-index-link">
-    <p>> Lịch sử mua hàng</p>
-  
-  </a>
-  
-  <a href="login.php" class="sub-menu-index-link">
-    <p>> Đăng xuất</p>
-  
-  </a>
-  
+      <div class="user-info"> 
+        <h2><?php echo $tdn?></h2>
+      </div>
+      <hr>
+      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Tài khoản</p>  
+      </a> 
+      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Lịch sử mua hàng</p> 
+      </a>
+      <a href="logout.php" class="sub-menu-index-link">
+        <p onclick="return confirm('Bạn có muốn đăng xuất không ?');">> Đăng xuất</p> 
+      </a> 
     </div>
   </div>
   <div id="mobile"> 
   
-    <a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>
+    <a href="shop-user.php?s-user=<?php echo $btn?>"><i class="fa-solid fa-cart-shopping"></i></a>
     <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
 
   
@@ -111,6 +114,7 @@
    
 </section>
 
+<!-- footer -->
 <footer style="background:#fff;">
   <div id="all-footer">
   <div id="fo-text" style="width: 100%;">
@@ -168,47 +172,46 @@
       </div>
   
   </div>
-     
-     </footer>
+</footer>
 
 <script>
-  const bar = document.getElementById('bar');
-  const icon = document.getElementById('icons');
- 
-  if(bar){
-    bar.addEventListener('click',() =>{
-  icon.classList.add('active');
-    })}
-  
-  const icons = document.getElementById("icons");
-const dong = document.getElementById("close");
-const barmenu = document.getElementById('bar');
-dong.addEventListener("click", function() {
- 
-  icons.style.right = "-300px";
-});
-barmenu.addEventListener("click", function() {
-  icons.style.right = "0px";
-});
-window.addEventListener("resize", function() {
+      const bar = document.getElementById('bar');
+      const icon = document.getElementById('icons');
+    
+      if(bar){
+        bar.addEventListener('click',() =>{
+      icon.classList.add('active');
+        })}
+      
+      const icons = document.getElementById("icons");
+    const dong = document.getElementById("close");
+    const barmenu = document.getElementById('bar');
+    dong.addEventListener("click", function() {
+    
+      icons.style.right = "-300px";
+    });
+    barmenu.addEventListener("click", function() {
+      icons.style.right = "0px";
+    });
+    window.addEventListener("resize", function() {
 
-if (window.innerWidth >= 1138) {
-  icons.classList.remove('active');
-}
-else{
-    icons.style.right="-300px";
-   }
-}
-);
-   </script>
+    if (window.innerWidth >= 1138) {
+      icons.classList.remove('active');
+    }
+    else{
+        icons.style.right="-300px";
+      }
+    }
+    );
+</script>
 
 <script>
-  let subMenu = document.getElementById("subMenu");
-  function toggleMenu(){
-    subMenu.classList.toggle("open-menu");
-  }
-  const search = () => {
-    if (event.keyCode === 13) {
-window.location.href='shop-user.php';
-    }};
-    </script>
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+      subMenu.classList.toggle("open-menu");
+    }
+    const search = () => {
+      if (event.keyCode === 13) {
+  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
+      }};
+</script>

@@ -1,12 +1,18 @@
 <?php 
   include "connect.php";
   
+  // pagelayout tdn = tendangnhap
+  // tendangnhap là khóa chính của khách hàng
+  $tdn = $_GET['tdn'];
   if(isset($_GET['tdn'])) {
     $tendangnhap = $_GET['tdn'];
     echo "<script>
       alert('Xin chào ".$tendangnhap."')
     </script>";
   }
+
+  $sql = "select * from khachhang where tendangnhap = '$tdn'";
+  $result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +36,8 @@
     <ul id="icons">
   
       <li id="menu"><a  class="act-on" class="choose" ><span class="act-on">Trang chủ</span></a></li>
-        <li id="menu" ><a href="brand-user.php" class="choose"><span>Nhãn Hàng</span></a></li> 
-        <li id="menu" ><a href="shop-user.php" class="choose"><span>Cửa hàng</span></a></li>
+        <li id="menu" ><a href="brand-user.php?brand=<?php echo $tdn?>" class="choose"><span>Nhãn Hàng</span></a></li> 
+        <li id="menu" ><a href="shop-user.php?s-user=<?php echo $tdn?>" class="choose"><span>Cửa hàng</span></a></li>
         <div class="group" id="search">
           <!-- tìm kiếm cơ bản -->
           <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
@@ -39,7 +45,7 @@
           <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
           </svg>
         </div> 
-        <li id="menu" id="lg-bag"><a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a></li>
+        <li id="menu" id="lg-bag"><a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a></li>
         <li id="menu" id="lg-user"><a id="userlogin" onclick="toggleMenu()"><i class="fa-solid fa-circle-user"></i></a></li>
         <a id="close"><i class="fa-solid fa-x"></i></a>
     </ul>
@@ -55,24 +61,24 @@
             $result = mysqli_query($conn, $sql);
           ?>
 
-        <h2>Chào ngày mới <3</h2>
+        <h2><?php echo $tdn?></h2>
       </div>
       <hr>
-      <a href="user.php" class="sub-menu-index-link">
+      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
         <p>> Tài khoản</p>
       </a>
 
-      <a href="history.php" class="sub-menu-index-link">
+      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
         <p>> Lịch sử mua hàng</p>
       </a>
       <a href="logout.php" class="sub-menu-index-link">
-        <p>> Đăng xuất</p>
+        <p onclick="return confirm('Bạn có muốn đăng xuất không ?');">> Đăng xuất</p>
       </a>
     </div>
   </div>
 
   <div id="mobile"> 
-    <a href="shop-user.php" ><i class="fa-solid fa-cart-shopping"></i></a>
+    <a href="shop-user.php?s-user=<?php echo $tdn?>" ><i class="fa-solid fa-cart-shopping"></i></a>
     <a  id="userlogin" onclick="toggleMenu()"><i class="fa-solid fa-circle-user"></i></a>
     <i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
   </div>
@@ -110,19 +116,19 @@
     <img src="images/kiến trúc cho tương lai.jpg">
     <h2 style="letter-spacing: 0.5px;">Kiến trúc cho tương lai </h2>
     <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
-    <button id="btn-blog" onclick="window.location.href='brand-user.php'">Xem sản phẩm</button>
+    <button id="btn-blog" onclick="window.location.href='shop-user.php?s-user=<?php echo $tdn?>'">Xem sản phẩm</button>
   </div>
   <div class="box">
     <img src="images/sẵn sàng cho một ngày mới.jpg">
     <h2 style="letter-spacing: 0.5px;">Sẵn sàng cho một ngày mới</h2>  
     <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
-    <button id="btn-blog" onclick="window.location.href='shop-user.php'">Xem sản phẩm</button>
+    <button id="btn-blog" onclick="window.location.href='shop-user.php?s-user=<?php echo $tdn?>'">Xem sản phẩm</button>
     </div>
   <div class="box">
     <img src="images/Đồng  hành cùng công nghệ.png">
     <h2 style="letter-spacing: 0.5px;">Đồng hành cùng công nghệ</h2>  
     <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
-    <button id="btn-blog" onclick="window.location.href='shop-user.php'">Xem sản phẩm</button>
+    <button id="btn-blog" onclick="window.location.href='shop-user.php?s-user=<?php echo $tdn?>'">Xem sản phẩm</button>
   </div>
  </section>
 
@@ -248,6 +254,6 @@
   }
   const search = () => {
       if (event.keyCode === 13) {
-  window.location.href='shop-user.php';
+  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
       }};
 </script>

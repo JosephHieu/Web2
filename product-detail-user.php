@@ -1,6 +1,14 @@
 
 <?php
     include "connect.php";
+
+    $id = $_GET['id'];
+
+    // cắt chuỗi
+    $catchuoi = explode('=', $id);
+
+    $tdn = $catchuoi[1];
+    echo $tdn;
 ?>
 
 <!DOCTYPE html>
@@ -18,17 +26,18 @@
     <title>Chi tiết sản phẩm</title>
 </head>
 <body>
+  <!-- header -->
 <section id="header">
-    <a href="index-user.php">
+    <a href="index-user.php?tdn=<?php echo $tdn?>">
       <img src="images/LOGO.webp" class="logo" alt="" >
    </a>
   <div>
    <ul id="icons">
     
-  <li id="menu"><a href="index-user.php"  class="choose" ><span>Trang Chủ</span></a></li>
-          <li id="menu"><a href="brand-user.php" class="choose"><span>Nhãn Hàng</span></a></li>
+  <li id="menu"><a href="index-user.php?tdn=<?php echo $tdn?>"  class="choose" ><span>Trang Chủ</span></a></li>
+          <li id="menu"><a href="brand-user.php?brand=<?php echo $tdn?>" class="choose"><span>Nhãn Hàng</span></a></li>
          
-          <li id="menu" ><a href="shop-user.php" class="choose"><span>Cửa Hàng</span></a></li>
+          <li id="menu" ><a href="shop-user.php?s-user=<?php echo $tdn?>" class="choose"><span>Cửa Hàng</span></a></li>
     
       <div class="group" id="search">
       <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
@@ -36,17 +45,33 @@
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
   </svg>
   </div> 
-      <li id="menu" id="lg-bag"><a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>
-      </li>
+      
      
       <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
       </li>
       <a id="close"><i class="fa-solid fa-x"></i></a>
    </ul>
   </div>
+  <div class="sub-menu-wrap" id="subMenu">
+    <div class="sub-menu">
+      <div class="user-info"> 
+        <h2><?php echo $tdn?></h2>
+      </div>
+      <hr>
+      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Tài khoản</p>  
+      </a> 
+      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Lịch sử mua hàng</p> 
+      </a>
+      <a href="logout.php" class="sub-menu-index-link">
+        <p onclick="return confirm('Bạn có muốn đăng xuất không ?');">> Đăng xuất</p> 
+      </a> 
+    </div>
+  </div>
   <div id="mobile"> 
   
-    <a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>
+    <a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a>
    
   <a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
   
@@ -107,7 +132,7 @@
 
     <!-- Quay lại cửa hàng -->
     <div class="divider medium"></div>
-    <a href="shop-user.php" class="btn-buy">Quay lại cửa hàng </a>
+    <a href="shop-user.php?s-user=<?php echo $tdn?>" class="btn-buy">Quay lại cửa hàng </a>
     </div>
     </div>
     </div>
@@ -242,8 +267,49 @@
 
     const search = () => {
         if (event.keyCode === 13) {
-    window.location.href='shop-user.php';
+    window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
         }};
+</script>
+<script>
+      const bar = document.getElementById('bar');
+      const icon = document.getElementById('icons');
+    
+      if(bar){
+        bar.addEventListener('click',() =>{
+      icon.classList.add('active');
+        })}
+      
+      const icons = document.getElementById("icons");
+    const dong = document.getElementById("close");
+    const barmenu = document.getElementById('bar');
+    dong.addEventListener("click", function() {
+    
+      icons.style.right = "-300px";
+    });
+    barmenu.addEventListener("click", function() {
+      icons.style.right = "0px";
+    });
+    window.addEventListener("resize", function() {
+
+    if (window.innerWidth >= 1138) {
+      icons.classList.remove('active');
+    }
+    else{
+        icons.style.right="-300px";
+      }
+    }
+    );
+</script>
+
+<script>
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+      subMenu.classList.toggle("open-menu");
+    }
+    const search = () => {
+      if (event.keyCode === 13) {
+  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
+      }};
 </script>
 
 

@@ -1,6 +1,9 @@
 <?php 
   include "connect.php";
 
+  // pagelayout tdn = tendangnhap
+  // tendangnhap là khóa chính của khách hàng
+  $tdn = $_GET['s-user'];
 
   // Phần giỏ hàng
   if(isset($_POST['add_to_cart'])) {
@@ -13,6 +16,7 @@
     $select_cart = mysqli_query($conn, "select * from giohang where tensp='$products_name'");
     if(mysqli_num_rows($select_cart) > 0) {
       $display_message[] = "Sản phẩm này đã có trong giỏ hàng";
+      
     }
     else {
       // chèn dữ liệu giỏ hàng trong bảng giỏ hàng
@@ -67,14 +71,14 @@
 <body id="<?php echo $id?>">
   <!-- header -->
 <section id="header">
-  <a href="index.php">
+  <a href="index-user.php?tdn=<?php echo $tdn?>">
     <img src="images/LOGO.webp" class="logo" alt="" >
   </a>
   <div>
   <ul id="icons">  
-    <li id="menu"><a href="index.php"  class="choose" ><span>Trang Chủ</span></a></li>
-    <li id="menu"><a href="brand.php" class="choose"><span>Nhãn Hàng</span></a></li>       
-    <li id="menu" ><a class="act-on" href="shop.php" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
+    <li id="menu"><a href="index-user.php?tdn=<?php echo $tdn?>" class="choose" ><span>Trang Chủ</span></a></li>
+    <li id="menu"><a href="brand-user.php?brand=<?php echo $tdn?>" class="choose"><span>Nhãn Hàng</span></a></li>       
+    <li id="menu" ><a class="act-on" href="shop-user.php?s-user=<?php echo $tdn?>" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
     <div class="group" id="search">
     <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()"  tabindex="1">
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +92,7 @@
   $row_count = mysqli_num_rows($select_product);
       ?>
       <li id="menu" >
-        <a href="cart-user.php" id="cart-icon">
+        <a href="cart-user.php?c-user=<?php echo $tdn?>" id="cart-icon">
         <div class="cart-follow-icon">
           <!-- shopping cart icon -->
           <i class="fa-solid fa-cart-shopping add-cart"></i>
@@ -98,11 +102,33 @@
         </a>
       </li>
      
-      <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+      
+      <li id="menu" id="lg-bag"> <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
       </li>
-      <a  id="close"><i class="fa-solid fa-x"></i></a>
+    
+      <a id="close"><i class="fa-solid fa-x"></i></a>
+   </ul>
    </ul>
   </div>
+
+  <div class="sub-menu-wrap" id="subMenu">
+    <div class="sub-menu">
+      <div class="user-info"> 
+        <h2><?php echo $tdn?></h2>
+      </div>
+      <hr>
+      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Tài khoản</p>  
+      </a> 
+      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
+        <p>> Lịch sử mua hàng</p> 
+      </a>
+      <a href="logout.php" class="sub-menu-index-link">
+        <p onclick="return confirm('Bạn có muốn đăng xuất không ?');">> Đăng xuất</p> 
+      </a> 
+    </div>
+  </div>
+
   <div id="mobile"> 
     <a id="cart-icon1">
       <div class="cart-follow-icon">
@@ -158,9 +184,10 @@
           while($fetch_product = $result->fetch_assoc()) {
             ?>
             <div class="pro1 pepsi product-box">
-              <form action="shop.php" method="post" enctype="multipart/form-data">
-                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>">
-                <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt=""></a>           
+              <form action="shop-user.php?s-user=<?php echo $tdn?>" method="post" enctype="multipart/form-data">
+                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>?prod-user=<?php echo $tdn?>">
+                 <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt="">
+                </a>           
                 <h5 class="product-title"><?php echo $fetch_product['tensp']?></h5>
                 <h2 style="display: none;"><?php echo $fetch_product['tensp']?></h2>
                 <h4 class="product-price"><?php echo $fetch_product['giaban']?>vnđ</h4>
@@ -202,13 +229,13 @@
     <!-- displaying the pagination buttons -->
     <div class="pagination" style="display: flex; justify-content: center; padding-top: 20px;">
       <!-- Tới trang đầu tiên -->
-      <a href="?page-nr=1" style="padding: 0 15px;">Trang đầu</a>
+      <a href="?page-nr=1?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang đầu</a>
 
       <!-- Tới trang trước -->
       <?php 
         if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1) {
       ?>
-          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>" style="padding: 0 15px;">Trang trước</a>            
+          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang trước</a>            
       <?php
         } else {
           ?>
@@ -221,7 +248,7 @@
         <?php
           for($counter=1; $counter <= $pages; $counter++) {
             ?>
-              <a href="?page-nr=<?php echo $counter?>" style="padding: 0 15px;"><?php echo $counter?></a>
+              <a href="?page-nr=<?php echo $counter?>?page=<?php echo $tdn?>" style="padding: 0 15px;"><?php echo $counter?></a>
             <?php
           }
         ?>
@@ -231,7 +258,7 @@
       <?php
         if(!isset($_GET['page-nr'])) {
           ?>
-          <a href="?page-nr=2" style="padding: 0 15px;">Trang sau</a>
+          <a href="?page-nr=2?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang sau</a>
           <?php
         } else {
           if($_GET['page-nr'] >= $pages) {
@@ -240,14 +267,14 @@
             <?php
           } else {
             ?>
-            <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>" style="padding: 0 15px;">Trang sau</a>
+            <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang sau</a>
             <?php
           }
         }
       ?>
 
       <!-- Go to the last page -->
-      <a href="?page-nr=<?php echo $pages?>" style="padding: 0 15px;">Trang cuối</a>
+      <a href="?page-nr=<?php echo $pages?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang cuối</a>
     </div>
 
     <!-- footer -->
@@ -261,6 +288,48 @@
     let links = document.querySelectorAll('.page-numbers > a');
     let bodyId = parseInt(document.body.id) - 1;
     links[bodyId].classList.add("active");
+</script>
+
+<script>
+      const bar = document.getElementById('bar');
+      const icon = document.getElementById('icons');
+    
+      if(bar){
+        bar.addEventListener('click',() =>{
+      icon.classList.add('active');
+        })}
+      
+      const icons = document.getElementById("icons");
+    const dong = document.getElementById("close");
+    const barmenu = document.getElementById('bar');
+    dong.addEventListener("click", function() {
+    
+      icons.style.right = "-300px";
+    });
+    barmenu.addEventListener("click", function() {
+      icons.style.right = "0px";
+    });
+    window.addEventListener("resize", function() {
+
+    if (window.innerWidth >= 1138) {
+      icons.classList.remove('active');
+    }
+    else{
+        icons.style.right="-300px";
+      }
+    }
+    );
+</script>
+
+<script>
+    let subMenu = document.getElementById("subMenu");
+    function toggleMenu(){
+      subMenu.classList.toggle("open-menu");
+    }
+    const search = () => {
+      if (event.keyCode === 13) {
+  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
+      }};
 </script>
 
 
