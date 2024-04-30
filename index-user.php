@@ -50,7 +50,7 @@
       <a href="history.php" class="sub-menu-index-link">
         <p>> Lịch sử mua hàng</p>
       </a>
-      <a href="login.php" class="sub-menu-index-link">
+      <a href="logout.php" class="sub-menu-index-link">
         <p>> Đăng xuất</p>
       </a>
     </div>
