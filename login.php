@@ -7,8 +7,8 @@
     header('location: index-user.php');
   }
 
+  $tendangnhap = $_POST['tendangnhap'];
   if(isset($_POST['dangnhap'])) {
-    $tendangnhap = $_POST['tendangnhap'];
     $matkhau     = md5($_POST['matkhau']); // mã hóa md5
 
     // truy vấn để lấy dữ liệu đăng nhập
@@ -21,11 +21,7 @@
 
     if(mysqli_num_rows($result) == 1) {
       $_SESSION['mySession'] = $tendangnhap;
-      echo "<script>
-        alert('Chào mừng đến với cửa hàng chúng mình <3');
-        window.location.href('index-user.php');        
-        </script>";
-      // header('location: index-user.php');
+      header('location: index-user.php?tdn='.$tendangnhap.'');
     } else {
       echo "<script>
         alert('Tên đăng nhập hoặc mật khẩu không chính xác');
@@ -119,11 +115,10 @@
            <div id="fpass">
            <a href="#" id="forget">Quên mật khẩu</a></div>
              </div>
-             <div class="b-field">
-                 <button type="submit" name="dangnhap" id="subtn">Đăng Nhập</button>
-            <button type="button" onclick="window.location.href='register.php'" id="sibtn">Đăng ký</button>
-            
-         </div>        
+            <div class="b-field">
+                <button type="submit" name="dangnhap" id="subtn">Đăng Nhập</button>
+                <button type="button" onclick="window.location.href='register.php'" id="sibtn">Đăng ký</button>  
+            </div>        
         </form>
     
      
@@ -137,8 +132,8 @@
   include "footer.php";
 ?>
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <!-- hiện mật khẩu -->
 <script>
     $(document).ready(function(){
@@ -152,7 +147,4 @@
           }
       });
   });
-
-
-
 </script>

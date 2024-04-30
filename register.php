@@ -1,5 +1,17 @@
 <?php
   include "connect.php";
+  // hàm kiểm tra tên đăng nhâp
+  function kiemTraChuoi($chuoi) {
+    // Biểu thức chính quy để kiểm tra chuỗi
+    $regex = '/[!@#$%^&*()\-_=+*\/?><,.|\\\\]/';
+
+    // Sử dụng hàm preg_match để kiểm tra xem chuỗi có chứa các ký tự không mong muốn không
+    if (preg_match($regex, $chuoi)) {
+        return false; 
+    } else {
+        return true; 
+    }
+}
 
   // hàm kiểm tra mật khẩu
   function passwords_match($password1, $password2) {
@@ -53,7 +65,7 @@
       if(strlen($tendangnhap < 6)) {
         $display_message = "Tên đăng nhập dài phải hơn 6 ký tự";
       }
-      elseif(!preg_match("/^[a-zA-Z]*$/", $tendangnhap)) {
+      elseif(kiemTraChuoi($tendangnhap) == false) {
         $display_message = "Tên đăng nhập không được chứa ký tự đặc biệt";
       } 
       elseif(is_valid_email($email) == false) {

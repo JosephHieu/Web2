@@ -1,8 +1,17 @@
-<?php include "connect.php"?>
+<?php 
+  include "connect.php";
+  
+  if(isset($_GET['tdn'])) {
+    $tendangnhap = $_GET['tdn'];
+    echo "<script>
+      alert('Xin chào ".$tendangnhap."')
+    </script>";
+  }
+?>
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
   <link rel="icon" type="image/png" href="images/LOGO.webp">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/footer.css">
@@ -40,6 +49,12 @@
   <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
       <div class="user-info">
+        <!-- php code -->
+          <?php
+            $sql = "select * from khachhang";
+            $result = mysqli_query($conn, $sql);
+          ?>
+
         <h2>Chào ngày mới <3</h2>
       </div>
       <hr>
@@ -70,6 +85,7 @@
 
 <div id="bet"><h5>Sản Phẩm Bán Chạy</h5></div>
 
+<!-- phần mô tả -->
 <section id="all">
   <div class="wrapper">
     <i id="left" class="fa-solid fa-arrow-left"></i>
@@ -86,6 +102,7 @@
   </div>
 </section>
 
+<!-- Phần giới thiệu -->
 <div id="bet"><h5>Thông Tin Giới Thiệu</h5></div>
  
 <section class="postcard">
