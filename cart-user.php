@@ -40,9 +40,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <button type="submit" class="btn">
-        <h2 style="text-align: right; color: black;"><a href="login.php">Đăng nhập</a></h2>
-    </button>
     <div class="container">
         <section class="shopping_cart">
             <h1 class="heading">Giỏ hàng của tôi</h1>
@@ -119,8 +116,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
             <a href='shop.php' 
             class='bottom_btn'>Tiếp tục mua sắm</a>
             <h3 class='bottom_btn'>Tổng tiền: <span><?php echo $grand_total?>.000vnđ</span></h3>
-            <a href='#' class='bottom_btn'
-            onclick="return confirm('Bạn cần đăng nhập để thanh toán.')">Thanh toán</a>
+            <a href='pay.php' class='bottom_btn'>Thanh toán</a>
         </div>";
           
 

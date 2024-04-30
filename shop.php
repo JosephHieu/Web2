@@ -40,8 +40,7 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    
+<head>  
     <meta name="viewport" content="width=device-width,  initial-scale=1,maximum-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -51,6 +50,7 @@
     <link rel="stylesheet" href="assets/css/header.css">
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/update.css">
+    <link rel="stylesheet" href="boostrap/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Cửa Hàng</title>
@@ -77,7 +77,12 @@
     <li id="menu"><a href="brand.php" class="choose"><span>Nhãn Hàng</span></a></li>       
     <li id="menu" ><a class="act-on" href="shop.php" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
     <div class="group" id="search">
-    <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()"  tabindex="1">
+    <!-- Tìm sản phẩm cơ bản -->
+    <form action="shop.php" method="post">
+      <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="search" class="input" onkeyup="search()"  tabindex="1">
+      <button class="btn btn-dark btn-sm" name="timkiem">Tìm</button>
+    </form>
+
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
     </svg>
@@ -121,6 +126,7 @@
   </div>
 </section>
 
+<!-- Thông báo sản phẩm đã thêm vào giỏ hàng -->
 <div style="position: absolute; top: 18%; color: green; font-weight: 600; margin-left: 50px;">
   <?php
       if(isset($display_message)) {
@@ -147,67 +153,18 @@
     </div>
   </div>
     <div id="overlay"></div>
-    <div id="advan-search-container">
-      <h1>Tìm kiếm sản phẩm</h1>
-      <i class="fa-solid fa-x" id="x-icon-close"></i>
-      <hr style="margin: 20px 0;">
-
-  <!-- form tìm kiếm nâng cao -->
-  <form>
-    <div>
-      <label>> Tên:</label>
-      <input placeholder="Nhập tên sản phẩm">
-    </div>
-
-    <div>
-      <label>> Giá tiền từ:</label>
-      <input placeholder="Tổi thiểu" style="margin-bottom: 10px;">
-    <label>> đến</label>
-      <input placeholder="Tối đa">
-    </div>
-
-    <hr style="margin: 20px 0;  border: 1px solid #ccc;">
-
-    <div>
-      <label>> Loại</label>
-    <select>
-      <option>Bút bi, bút chì</option>
-      <option>Tập ô li</option>
-      <option>Giấy note</option>
-      <option>Thước kẻ</option>
-    </select>
-    </div>
-
-    <div>
-      <label>> Nhãn hàng</label>
-    <select>
-      <option>Thiên long</option>
-      <option>Điểm 10</option>
-      <option>Colorkit</option>
-      <option>flex-office</option>
-      <option>Bizner</option>
-    </select>
-    </div>
-
-    <hr style="margin: 20px 0;  border: 1px solid #ccc;">
-
-    <div>
-      <button id="btn-apply-ad-search" style="border-radius: 5px; background-color: blue;">Ok</button>
-    </div>
-  </form>
-</div>
 
 <!-- Hiển thị sản phẩm -->
 <div class="pro-container1" id="product-list" >
       <?php 
-        // truy vấn lấy sản phẩn trong bảng sp
+        // truy vấn lấy sản phẩn trong bảng sanpham
         $select_products = mysqli_query($conn, "select * from sanpham");
         if(mysqli_num_rows($select_products)>0) {
           // while($fetch_product = mysqli_fetch_assoc($select_products)) {
           while($fetch_product = $result->fetch_assoc()) {
             ?>
             <div class="pro1 pepsi product-box">
-              <form action="" method="post" enctype="multipart/form-data">
+              <form action="shop.php" method="post" enctype="multipart/form-data">
                 <a href="product-detail.php?id=<?php echo $fetch_product['manh']?>">
                 <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt=""></a>           
                 <h5 class="product-title"><?php echo $fetch_product['tensp']?></h5>
@@ -224,12 +181,15 @@
         <?php
           }
         } else {
-          echo "Ko có sản phẩm nào";
+            echo "ko có sản phẩm"
         }
     ?>
 </div> 
 
-    <!-- Phân trang -->
+  </div>
+</div>
+</section>
+<!-- Phân trang -->
     <!-- displaying the page info text -->
     <div class="page-info">
       <?php
@@ -239,7 +199,10 @@
           $page = $_GET['page-nr'];
         }
       ?>
+      <div style="text-align: center">
+
       Hiện <?php echo $page?> trên <?php echo $pages?> trang
+      </div>
     </div>
 
     <!-- displaying the pagination buttons -->
@@ -292,10 +255,6 @@
       <!-- Go to the last page -->
       <a href="?page-nr=<?php echo $pages?>" style="padding: 0 15px;">Trang cuối</a>
     </div>
-
-  </div>
-</div>
-</section>
 
     <!-- footer -->
     <?php include "footer.php"?>

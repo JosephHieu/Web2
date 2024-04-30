@@ -12,37 +12,35 @@
 </head>
 <body style="background: #fff;">
   <section id="header">
-    <a href="index.html">
+    <a href="index.php">
   <img src="images/LOGO.webp" class="logo" alt="Logo thương hiệu" >
    </a>
   <div>
    <ul id="icons">
     
-  <li id="menu"><a href="index.html"  class="choose" ><span>Trang Chủ</span></a></li>
+  <li id="menu"><a href="index.php"  class="choose" ><span>Trang Chủ</span></a></li>
           <li id="menu"><a  class="act-on" class="choose"><span class="act-on">Nhãn Hàng</span></a></li>
          
-          <li id="menu" ><a href="shop.html" class="choose"><span>Cửa Hàng</span></a></li>
-          <!-- <li id="menu"><a href="contact.html" class="choose"><span>Contact</span></a></li> -->
-    
+          <li id="menu" ><a href="shop.php" class="choose"><span>Cửa Hàng</span></a></li>    
       <div class="group" id="search">
       <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
   </svg>
   </div> 
-      <li id="menu" id="lg-bag"><a href="shop.html"><i class="fa-solid fa-cart-shopping"></i></a>
+      <li id="menu" id="lg-bag"><a href="shop.php"><i class="fa-solid fa-cart-shopping"></i></a>
       </li>
      
-      <li id="menu" id="lg-user"><a href="register.html"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+      <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
       </li>
       <a id="close"><i class="fa-solid fa-x"></i></a>
    </ul>
   </div>
   <div id="mobile"> 
   
-    <a href="shop.html"><i class="fa-solid fa-cart-shopping"></i></a>
+    <a href="shop.php"><i class="fa-solid fa-cart-shopping"></i></a>
    
-  <a href="register.html"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+  <a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
   
   <i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
   
@@ -180,6 +178,6 @@ else{
 
 const search = () => {
     if (event.keyCode === 13) {
-window.location.href='shop.html';
+window.location.href='shop.php';
     }};
    </script>
