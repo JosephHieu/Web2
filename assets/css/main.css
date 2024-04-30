@@ -35,6 +35,11 @@ button{
   cursor: pointer;
 }
 
+/* phân trang */
+
+
+/* cart */
+
 .simply-cart{
   display: flex;
   flex-direction: column;

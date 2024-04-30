@@ -25,10 +25,15 @@
         color:black;
         cursor: pointer;
     }
+
     #menu-toggle {
         display: none;
     }
     
+
+    /* của phần phân trang */
+
+
     .sidebar {
         position: fixed;
         height: 100%;
@@ -64,6 +69,25 @@
     .side-content::-webkit-scrollbar {
       width: 5px;
     }
+/* display message */
+    .display_message {
+        background-color: var(#35858b);
+        padding: 2.5rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .display_message span {
+        font-size: 1.5rem;
+      }
+      .display_message i {
+        font-size: 2.5rem;
+        cursor: pointer;
+      }
+      
+      .display_message i:hover {
+        color: var(rgb(238, 62, 62));
+      }
     
     /* Track */
     .side-content::-webkit-scrollbar-track {
@@ -368,6 +392,7 @@
     }
     
     .table-responsive {
+        margin-top: 300px;
         width: 100%;
         overflow: auto;
     }
@@ -433,7 +458,18 @@
         display: inline-block;
         font-size: 1.5rem;
         margin-right: .5rem;
-    
+    }
+    /* xóa sửa theo dõi sản phẩm */
+    .delete_product_btn,
+    .update_product_btn {
+    text-align: center;
+    color: var(rgb(238, 62, 62));
+    font-size: 1.7rem;
+    padding: 0 1rem;
+    cursor: pointer;
+    }
+    .update_product_btn {
+    color: var(#35858b);
     }
     
     .paid {
@@ -750,9 +786,9 @@ display: none;
 }
 .user-tab{
     width: 410px;
-border: 1.5px solid black;
+    border: 1.5px solid black;
     position: fixed;
-    top:50%;
+    top:40%;
     left: 50%;
     float: left;
     background-color: white;
