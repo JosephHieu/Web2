@@ -83,7 +83,9 @@
    <input type="checkbox" id="menu-toggle">
    <!-- phần sidebar -->
   <div class="sidebar">
-    <div class="side-header" style="background: #35858b;"></div>       
+    <div class="side-header" style="background: #35858b;">
+      <img src="images/Tình AE.jpg" alt="" width="165px" height="60px;">
+    </div>       
       <div class="side-content" style="background: #aefeff;">
         <div class="profile">
           <div class="profile">
@@ -198,7 +200,11 @@
             <option value="thuocke">Thước kẻ</option>
           </select>
         </div>
-        <div class="ada1">
+        
+        
+      </div>
+      <div class="add_product_admin" style="display: flex; justify-content: space-around; align-items: center; padding-top: 20px;">
+      <div class="ada1">
           <label for="hang">Nhãn hàng</label>
           <select name="hang" id="hang" required>
             <option value="0">Chọn</option>
@@ -209,10 +215,7 @@
             <option value="555">flexoffice</option>
           </select>
         </div>
-        
-      </div>
-      <div class="add_product_admin" style="display: flex; justify-content: space-around; align-items: center; padding-top: 20px;">
-      <div class="ada1">
+        <div class="ada1">
           <label for="giaban">Giá bán</label>
           <input type="number" name="giaban" id="giaban" required>
         </div>
@@ -220,12 +223,13 @@
           <label for="soluong">Số lượng</label>
           <input type="number" min="1" name="soluong" id="soluong" required>
         </div>
-        <div class="ada1">
-          <label for="ngaythem">Ngày thêm</label>
-          <input type="date" name="ngaythem" id="ngaythem" required>
-        </div>
+        
       </div>
       <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; align-items: center;">
+        <div class="ada1">
+            <label for="ngaythem">Ngày thêm</label>
+            <input type="date" name="ngaythem" id="ngaythem" required>
+          </div>
         <div>
         <label for="mota">Mô tả: </label>
         <input type="text" style="padding: 15px 20px;" name="mota" id="mota" required>
@@ -235,23 +239,6 @@
       
     </form>
 </div>
-   <!--Phần tìm kiếm chưa làm  -->
-<div class="records table-responsive" style="margin-top: 20px;">
-  <div class="record-header">
-  
-    <div class="browse">
-      <input type="search" placeholder="Tìm kiếm" class="record-search">  
-    </div>
-    <div class="add">
-      <span>Mục</span>
-      <select name="" id="">
-          <option value="">10</option>
-          <option value="">16</option>
-          <option value="">20</option>
-      </select>
-    </div>
-  </div>
-<div>
 
       <!-- Phần show sản phẩm -->
     <!-- php code -->

@@ -45,7 +45,9 @@
    <input type="checkbox" id="menu-toggle">
    <div class="sidebar">
     <!-- side header -->
-    <div class="side-header" style="background: #35858b;"></div>       
+    <div class="side-header" style="background: #35858b;">
+        <img src="images/Tình AE.jpg" alt="" width="165px" height="60px;">
+    </div>       
       <div class="side-content" style="background: #aefeff;">
         <div class="profile">
           <div class="profile">
@@ -182,20 +184,6 @@
             </div>
             
             <div class="records table-responsive" style="margin-top: 30px;">             
-                <div class="record-header">                     
-                    <div class="browse">
-                       <input type="Tìm kiếm" placeholder="Tìm kiếm" class="record-search">                     
-                    </div>
-                   
-                    <div class="add">
-                        <span>Mục</span>
-                        <select name="" id="">                      
-                            <option value="">10</option>
-                            <option value="">16</option>
-                            <option value="">20</option>
-                        </select>                      
-                    </div>          
-                </div>
 
                 <div>
                 <!-- php code -->
@@ -232,14 +220,38 @@
                         <?php echo $row['diachi']?>
                         </td>
                         <td>
-                        <?php echo $row['trangthai']?>
+                        <?php 
+                        // echo $row['trangthai'];
+                        ?>
+                        <!-- block admin strator -->
+                        <?php
+                            if($row['trangthai'] == 1) {
+                                echo "
+                                    <p>
+                                        <a href='block-strator.php?tdn=".$row['tendangnhap']."
+                                        &trangthai=0' style='color: green;''>
+                                        Hoạt động 
+                                        <i class='fa fa-unlock-alt' aria-hidden='true'></i>
+                                        </a>
+                                    </p>";
+                            } else {
+                                echo "
+                                    <p>
+                                        <a href='block-strator.php?tdn=".$row['tendangnhap']."
+                                        &trangthai=1' style='color: red;'>
+                                        Không hoạt động
+                                        <i class='fa fa-lock' aria-hidden='true'></i>
+                                        </a>
+                                    </p>";
+                            }
+                        ?>
                         </td>
                         <td>
                             <div class="actions">
                                 <a href="admin-update-strator.php?edit=<?php echo $row['tendangnhap']?>">
-                                    <span class="las la-edit"></span>
+                                    Sửa<span class="las la-edit"></span>
                                 </a>
-                                <span class="las la-lock"></span>
+                                <!-- <span class="las la-lock"></span> -->
                             </div>
                         </td>
                     </tr>
