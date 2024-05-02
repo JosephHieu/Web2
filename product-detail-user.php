@@ -4,11 +4,23 @@
 
     $id = $_GET['id'];
 
-    // cắt chuỗi
-    $catchuoi = explode('=', $id);
+    // cắt chuỗi lấy id
+    $parts_id = explode('?', $id);
+    $first_parts_id = $parts_id[0];
+    // echo $first_parts_id;
 
-    $tdn = $catchuoi[1];
-    echo $tdn;
+    // Cắt chuỗi lấy tensp
+    $parts_tensp = explode('?', $id);
+    $product_info = $parts_tensp[1];
+    $product_parts_tensp = explode('=', $product_info);
+    $tensp = $product_parts_tensp[1];
+    // echo $tensp;
+
+    // cắt chuỗi lấy tendangnhap
+    preg_match('/prod-user=([^&]+)/', $id, $matches);
+    $tdn = urldecode($matches[1]); // Giải mã URL nếu cần
+    // echo $tdn;
+
 ?>
 
 <!DOCTYPE html>
@@ -45,9 +57,9 @@
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
   </svg>
   </div> 
-      
-     
-      <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
+     <li id="menu" id="lg-bag"><a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a>
+      </li>
+      <li id="menu" id="lg-bag"> <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
       </li>
       <a id="close"><i class="fa-solid fa-x"></i></a>
    </ul>
@@ -84,9 +96,8 @@
 
     <!-- php code -->
     <?php
-        if(isset($_GET['id'])) {
             $manh = $_GET['id'];
-            $sql = "select * from sanpham where manh = '$manh'";
+            $sql = "select * from sanpham where manh = '$manh' and tensp = '$tensp'";
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) > 0) {
                 $fetch_data = mysqli_fetch_assoc($result);
@@ -121,13 +132,9 @@
                             Mô tả sản phẩm: <?php echo $fetch_data['mota']?>
                         </p>
                     </div>
-                </div>
-    
-    
+                </div>   
     <?php
             }
-
-        }
     ?>
 
     <!-- Quay lại cửa hàng -->
@@ -199,77 +206,6 @@
 <?php
     include "footer.php";
 ?>
-
-<script>
-   const bar = document.getElementById('bar');
-   const icon = document.getElementById('icons');
-
-   if(bar){
-        bar.addEventListener('click',() =>{
-        icon.classList.add('active');
-    })}
- 
-    const icons = document.getElementById("icons");
-    const dong = document.getElementById("close");
-    const barmenu = document.getElementById('bar');
-    dong.addEventListener("click", function() {
-    
-    icons.style.right = "-300px";
-    });
-    barmenu.addEventListener("click", function() {
-    icons.style.right = "0px";
-    });
-
-    window.addEventListener("resize", function() {
-
-    if (window.innerWidth >= 1138) {
-    icons.classList.remove('active');
-    }
-    else{
-        icons.style.right="-300px";
-    }
-    }
-    );
-
-    var nutri= document.querySelector(".label");
-    var nutriopen=document.getElementById("nutri-open");
-
-    let isHidden = true;
-    let isRotate = true;
-    nutriopen.onclick = function() {
-    isHidden = !isHidden;
-    isRotate=!isRotate;
-    nutriopen.style.transform = isRotate ? "rotate(180deg)" : "rotate(0deg)";
-    setTimeout(() => {
-        nutri.style.display = isHidden ? "block" : "none";
-    }, 240);
-    };
-
-    var MainImg  =document.getElementById("MainImg");
-    var small = document.getElementsByClassName("small-img");
-
-    small[0].onclick = function(){
-    document.getElementById("text1").innerHTML = "Bút bi thiên long";
-    document.getElementById("text2").innerHTML = "5.000vnđ";
-    MainImg.src = small[0].src;
-    }
-    small[1].onclick = function(){
-    document.getElementById("text1").innerHTML = "Bút bi thiên long";
-    document.getElementById("text2").innerHTML = "5.000vnđ";
-    MainImg.src = small[1].src;
-    }
-    small[2].onclick = function(){
-    MainImg.src = small[2].src;
-    }
-    small[3].onclick = function(){
-    MainImg.src = small[3].src;
-    }
-
-    const search = () => {
-        if (event.keyCode === 13) {
-    window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
-        }};
-</script>
 <script>
       const bar = document.getElementById('bar');
       const icon = document.getElementById('icons');

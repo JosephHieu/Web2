@@ -41,7 +41,7 @@
 </head>
 <body>
     <button type="submit" class="btn">
-        <h2 style="text-align: right; color: black;"><a href="login.php">Đăng nhập</a></h2>
+        <h2 style="text-align: right; color: black;"><a href="register.php">Đăng nhập</a></h2>
     </button>
     <div class="container">
         <section class="shopping_cart">

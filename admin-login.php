@@ -1,3 +1,33 @@
+<?php
+    include "connect.php";
+
+    session_start();
+
+    if(isset($_SESSION['mySession'])) {
+        header('location: admin-strator.php');
+    }
+
+    if(isset($_POST['dangnhap'])) {
+        $tendangnhap = $_POST['tendangnhap'];
+        $matkhau     = md5($_POST['matkhau']);
+
+        // 
+        $sql = "select * from nguoiquantri where
+        tendangnhap='$tendangnhap' and matkhau ='$matkhau'";
+
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($result) == 1) {
+            $_SESSION['mySession'] = $tendangnhap;
+            header('location: admin-strator.php');
+        } else {
+            echo "<script>
+                alert('Tên đăng nhập hoặc mật khẩu không chính xác');
+            </script>";
+        }
+    }
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -7,67 +37,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    <link rel="icon" type="image/png" href="assets/images/pic/logoicon.png">
+    <link rel="icon" type="image/png" href="images/LOGO.webp">
     <link rel="stylesheet" href="assets/css/lg-admin.css">
          
-    <title>Login For Admin</title> 
+    <title>Đăng nhập Admin</title> 
 </head>
 <body>
     
     <div class="container">
         <div class="forms">
             <div class="form login">
-                <span class="title">Login For Admin</span>
-
-                <form action="#">
+                <span class="title">Đăng nhập Admin</span>
+                <!-- form đăng nhập admin -->
+                <form action="admin-login.php" method="post" enctype="multipart/form-data">
                     <div class="input-field">
-                        <input id="username" type="text" placeholder="Enter your username" required>
+                        <input id="username" type="text" name="tendangnhap" placeholder="Tên đăng nhập" required>
                         <i class="uil uil-user icon"></i>
                     </div>
+
                     <div class="input-field">
-                        <input id="password" type="password" class="password" placeholder="Enter your password" required>
+                        <input id="password" type="password" name="matkhau" class="password" placeholder="Mật khẩu" required>
                         <i class="uil uil-lock icon"></i>
                         <i class="uil uil-eye-slash showHidePw"></i>
                     </div>
 
-                    <div class="checkbox-text">
-                        <div class="checkbox-content">
-                            <input type="checkbox" id="logCheck">
-                            <label for="logCheck" class="text">Remember me</label>
-                        </div>
-                        
-                    
-                    </div>
-
                     <div class="input-field button">
-                        <input type="submit" value="Login" onclick="checkLogin()">
+                        <input type="submit" value="Đăng nhập" name="dangnhap">
                     </div>
-                </form>
-
-        
-            </div>
-
-        
+                </form>       
+            </div>       
         </div>
-    </div>
-
-  
+    </div> 
 </body>
 </html>
-
-<script>
-      function checkLogin() {
-      var username = document.getElementById('username').value;
-      var password = document.getElementById('password').value;
-
-      if (username === 'admin456' && password === '456789') {
-        window.location.href = 'admin-strator.html';
-        alert('Welcome back admin');
-      } else {
-        alert('Incorrect username or password. Please try again.');
-      }
-    }
-</script>
 
 <script>
   const container = document.querySelector(".container"),

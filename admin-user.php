@@ -12,54 +12,53 @@
 </head>
 <body>
    <input type="checkbox" id="menu-toggle">
-    <div class="sidebar">
-        <div class="side-header">
-        
+   <div class="sidebar">
+    <!-- side header -->
+    <div class="side-header" style="background: #35858b;"></div>       
+      <div class="side-content" style="background: #aefeff;">
+        <div class="profile">
+          <div class="profile">
+            <img src="images/LOGO.webp" alt="" width="50px" height="50px">
+            <h4>Đồ dùng học tập</h4>                   
+          </div>
         </div>
-        
-        <div class="side-content">
-            <div class="profile">
-                <div class="profile">
-                    <ion-icon name="water-outline" style="font-size: 40px; color:white;"></ion-icon>
-                    <h4>H20</h4>
-                   
-                </div>
-            </div>
-
-            <div class="side-menu">
-                <ul>
-                   
-                    <li>
-                        <a href="admin-strator.html">
-                             <span class="las la-address-card"></span>
-                             <small>Administrator</small>
-                         </a>
-                     </li>
-                    <li >
-                       <a href="admin-user.html">
-                            <span class="las la-user-alt" style="color: #fff;"></span>
-                            <small style="color: #fff;">Customers</small>
-                        </a>
-                    </li>
-                 
-                    <li>
-                       <a href="admin-product.html">
-                            <span class="las la-clipboard-list"></span>
-                            <small>Products</small>
-                        </a>
-                    </li>
-                    <li>
-                       <a href="admin-order.html">
-                            <span class="las la-shopping-cart"></span>
-                            <small>Orders</small>
-                        </a>
-                    </li>
-                
-              
-                </ul>
-            </div>
-        </div>
+        <!-- phần side menu -->
+          <div class="side-menu">
+            <ul>
+              <li>
+                <a href="admin-strator.php">
+                  <span class="las la-address-card"></span>
+                  <small>Quản trị viên</small>
+                </a>
+              </li>
+              <li>
+                <a href="admin-user.php">
+                  <span class="las la-user-alt" style="color: #fff;"></span>
+                  <small style="color: #fff;">Khách hàng</small>
+                </a>
+              </li>             
+              <li>
+                <a href="admin-product.php">
+                  <span class="las la-clipboard-list"></span>
+                  <small>Sản phẩm</small>
+                </a>
+              </li>
+              <li>
+                <a href="admin-order.php">
+                      <span class="las la-shopping-cart"></span>
+                      <small>Đơn hàng</small>
+                  </a>
+              </li>
+              <li>
+                <a href="admin-order.php">
+                      <span class="las la-shopping-cart"></span>
+                      <small>Thống kê</small>
+                  </a>
+              </li>               
+            </ul>
+          </div>
     </div>
+  </div>
     
     <div class="main-content">
         

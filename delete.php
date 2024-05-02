@@ -1,6 +1,7 @@
 <?php
     include 'connect.php';
 
+    // Xóa sản phẩm bên admin-product
     if(isset($_GET['delete'])) {
         $delete_id = $_GET['delete'];
         $delete_query = mysqli_query($conn, "delete from sanpham where masp='$delete_id'")

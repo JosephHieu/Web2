@@ -154,7 +154,7 @@
                       
                         
                         <span style="font-size: 25px;cursor: pointer;" class="las la-power-off" onclick="window.location.href='login-admin.php'"></span>
-                        <span style="font-size: 20px; cursor: pointer;" onclick="window.location.href='login-admin.php'">Đăng xuất</span>
+                        <span style="font-size: 20px; cursor: pointer;" onclick="window.location.href='admin-login.php'">Đăng xuất</span>
                     </div>
                 </div>
             </div>
@@ -178,8 +178,8 @@
     <div>
       <button style="margin-bottom: 8px;" id="showadd" onclick="showadd()"><i class="fa-solid fa-circle-plus" style="margin-right: 4px;"></i>  Thêm sản phẩm</button>
     </div>
-    <form action="" method="post" enctype="multipart/form-data">
-      <div class="add_product_admin" style="display: flex; justify-content: space-between; align-items: center;">
+    <form action="admin-product.php" method="post" enctype="multipart/form-data">
+      <div class="add_product_admin" style="display: flex; justify-content: space-around; align-items: center;">
         <div class="ada1">
           <label for="tensp">Tên sản phẩm</label>
           <input type="text" name="tensp" id="tensp" required>
@@ -209,7 +209,10 @@
             <option value="555">flexoffice</option>
           </select>
         </div>
-        <div class="ada1">
+        
+      </div>
+      <div class="add_product_admin" style="display: flex; justify-content: space-around; align-items: center; padding-top: 20px;">
+      <div class="ada1">
           <label for="giaban">Giá bán</label>
           <input type="number" name="giaban" id="giaban" required>
         </div>
@@ -222,22 +225,25 @@
           <input type="date" name="ngaythem" id="ngaythem" required>
         </div>
       </div>
-      <div style="margin-top: 20px; display: flex; justify-content: left-start; align-items: center;">
+      <div style="margin-top: 20px; display: flex; justify-content: center; gap: 20px; align-items: center;">
+        <div>
         <label for="mota">Mô tả: </label>
         <input type="text" style="padding: 15px 20px;" name="mota" id="mota" required>
+        </div>       
         <button type="submit" name="add_product" style="padding: 15px 20px;">Thêm +</button>
       </div>
+      
     </form>
 </div>
    <!--Phần tìm kiếm chưa làm  -->
-<div class="records table-responsive">
+<div class="records table-responsive" style="margin-top: 20px;">
   <div class="record-header">
   
     <div class="browse">
-      <input type="search" placeholder="Tìm kiếm (ID)" class="record-search">  
+      <input type="search" placeholder="Tìm kiếm" class="record-search">  
     </div>
     <div class="add">
-      <span>Entries</span>
+      <span>Mục</span>
       <select name="" id="">
           <option value="">10</option>
           <option value="">16</option>

@@ -185,7 +185,7 @@
             ?>
             <div class="pro1 pepsi product-box">
               <form action="shop-user.php?s-user=<?php echo $tdn?>" method="post" enctype="multipart/form-data">
-                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>?prod-user=<?php echo $tdn?>">
+                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>?tensp=<?php echo $fetch_product['tensp']?>?prod-user=<?php echo $tdn?>">
                  <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt="">
                 </a>           
                 <h5 class="product-title"><?php echo $fetch_product['tensp']?></h5>
