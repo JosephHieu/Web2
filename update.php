@@ -6,6 +6,7 @@
         $masp              = $_POST['masp'];
         $manh              = $_POST['manh'];
         $tensp             = $_POST['tensp'];
+        $loaisp             = $_POST['loaisp'];
         $giaban            = $_POST['giaban'];
         $soluongton        = $_POST['soluongton'];
         $trangthaiban      = $_POST['trangthaiban'];
@@ -17,7 +18,7 @@
 
         // update query
         $update_products = mysqli_query($conn, "update sanpham set 
-        manh='$manh', tensp='$tensp', giaban='$giaban',
+        manh='$manh', tensp='$tensp', loaisp='$loaisp', giaban='$giaban',
         soluongton='$soluongton', trangthaiban='$trangthaiban',
         hinhanh='$hinhanh', mota='$mota', ngaythem='$ngaythem'
         where masp='$masp'");
@@ -80,6 +81,8 @@
                 <input type="text"   value="<?php echo $fetch_data['manh']?>"   name="manh" id="manh" class="input_fields fields" required>
                 <h2 style="text-align: left;">Tên sản phẩm</h2>
                 <input type="text"   value="<?php echo $fetch_data['tensp']?>"   name="tensp" class="input_fields fields" required>
+                <h2 style="text-align: left;">Loại sản phẩm</h2>
+                <input type="text"   value="<?php echo $fetch_data['loaisp']?>"   name="loaisp" class="input_fields fields" required>
                 <h2 style="text-align: left;">Giá bán</h2>
                 <input type="text"   value="<?php echo $fetch_data['giaban']?>vnđ"   name="giaban" class="input_fields fields" required>
                 <h2 style="text-align: left;">Số lượng tồn</h2>

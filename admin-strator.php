@@ -229,7 +229,8 @@
                                 echo "
                                     <p>
                                         <a href='block-strator.php?tdn=".$row['tendangnhap']."
-                                        &trangthai=0' style='color: green;''>
+                                        &trangthai=0' style='color: green;'
+                                        '>
                                         Hoạt động 
                                         <i class='fa fa-unlock-alt' aria-hidden='true'></i>
                                         </a>
@@ -237,7 +238,7 @@
                             } else {
                                 echo "
                                     <p>
-                                        <a href='block-strator.php?tdn=".$row['tendangnhap']."
+                                        <a href='open-strator.php?tdn=".$row['tendangnhap']."
                                         &trangthai=1' style='color: red;'>
                                         Không hoạt động
                                         <i class='fa fa-lock' aria-hidden='true'></i>

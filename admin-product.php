@@ -7,18 +7,18 @@
     $hinhanh          = $_FILES['hinhanh']['name'];
     $hinhanh_tmp_name = $_FILES['hinhanh']['tmp_name'];
     $hinhanh_folder   = 'images/' . $hinhanh;
-    $loaisp           = $_POST['loai'];
+    $loaisp           = $_POST['loaisp'];
     $manh             = $_POST['hang']; // int
     $giaban           = $_POST['giaban'];// double
     $soluongton       = $_POST['soluong'];// int
     $ngaythem         = $_POST['ngaythem'];
     $mota             = $_POST['mota'];
-    $trangthaiban        = 1;
+    $trangthaiban     = 1;
 
     // truy vấn thêm sản phẩm
     $insert_query = mysqli_query($conn, "insert into sanpham
-    (manh, tensp, giaban, soluongton, trangthaiban, hinhanh, mota, ngaythem)
-    values ('$manh', '$tensp', '$giaban', '$soluongton', '$trangthaiban', '$hinhanh', '$mota', '$ngaythem')")
+    (manh, tensp, loaisp, giaban, soluongton, trangthaiban, hinhanh, mota, ngaythem)
+    values ('$manh', '$tensp', '$loaisp', '$giaban', '$soluongton', '$trangthaiban', '$hinhanh', '$mota', '$ngaythem')")
     or die('truy vấn thất bại');
 
     if($insert_query) {
@@ -192,12 +192,12 @@
         </div>
         <div class="ada1">
           <label for="loai">Loại sản phẩm</label>
-          <select name="loai" id="loai" required>
+          <select name="loaisp" id="loai" required>
             <option value="0">Chọn</option>
-            <option value="but">Bút</option>
-            <option value="tap">Tập</option>
-            <option value="giaynote">Giấy note</option>
-            <option value="thuocke">Thước kẻ</option>
+            <option value="bút">Bút</option>
+            <option value="tập">Tập</option>
+            <option value="giấy note">Giấy note</option>
+            <option value="thước kẻ">Thước kẻ</option>
           </select>
         </div>
         
@@ -252,6 +252,7 @@ if(mysqli_num_rows($display_product)>0) {
       <th>Sl NO</th>
       <th> Hình ảnh </th>
       <th> Tên sản phẩm</th>
+      <th> Loại </th>
       <th> Giá bán </th>
       <th> Số lượng tồn</th>
       <th> Ngày thêm </th>
@@ -277,6 +278,9 @@ if(mysqli_num_rows($display_product)>0) {
         </td>
         <td>
           <?php echo $row['tensp']?>
+        </td>
+        <td>
+          <?php echo $row['loaisp']?>
         </td>
         <td>
           <?php echo $row['giaban']?>vnđ

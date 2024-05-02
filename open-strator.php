@@ -11,7 +11,7 @@
 
     if($result) {
         echo '<script>
-            confirm("Bạn có muốn khóa người này");
+            confirm("Bạn có muốn mở khóa người này");
             window.location.href=("admin-strator.php");
         </script>';
 
