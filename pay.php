@@ -1,3 +1,13 @@
+<?php 
+    include "connect.php";
+
+    // pagelayout tdn = tendangnhap
+    // tendangnhap là khóa chính của khách hàng
+    if(isset($_GET['pay'])) {
+        $tdn = $_GET['pay'];
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +18,7 @@
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="assets/css/pay.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="icon" type="image/png" href="images/LOGO.webp">
     <title>Trang thanh toán</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
@@ -56,7 +67,7 @@
                                                             <label class="card-radio-label mb-0">
                                                                 <input type="radio" name="address" id="info-address2" class="card-radio-input" checked="">
                                                                 <div class="card-radio text-truncate p-3" >
-                                                                    <span class="fs-14 mb-4 d-block">Add Adress</span>                                                                  
+                                                                    <span class="fs-14 mb-4 d-block">Thêm địa chỉ</span>                                                                  
                                                                     <span style=" display: flex; align-items: center; justify-content: center;margin: 48px 0px ; font-size: 35px;"><i class="fa-sharp fa-regular fa-plus"></i></span>                                                         
                                                                 </div>
                                                             </label>                                                      
@@ -75,7 +86,7 @@
                                 <form id="address-info">
                                     <div> 
                                         <div class="mb-3">
-                                            <label class="form-label" for="billing-address">Address</label>
+                                            <label class="form-label" for="billing-address">Địa chỉ</label>
                                             <textarea maxlength="100" class="form-control" id="billing-address" rows="3" placeholder="Enter address"></textarea>
                                         </div> 
                                         <div class="row">
@@ -194,80 +205,39 @@
             <div class="card checkout-order-summary">
                 <div class="card-body">    
                     <div class="p-3 bg-light mb-3">    
-                        <h5 class="font-size-30 mb-0" style="font-weight: 600;">Order Summary </h5> 
+                        <h5 class="font-size-30 mb-0" style="font-weight: 600;">Đơn hàng</h5> 
                     </div>
                     <div class="table-responsive">
                         <table class="table table-centered mb-0 table-nowrap">
-                            <thead>
+                            <?php
+                    $select_cart_products = mysqli_query($conn, "select * from giohang");
+                    $grand_total = 0;
+                    if(mysqli_num_rows($select_cart_products)>0) {
+                        echo '
+                        <thead>
                                 <tr>
-                                    <th class="border-top-0" style="width: 110px;" scope="col">Product</th>
-                                    <th class="border-top-0" scope="col">Product Details</th>
-                                    <th class="border-top-0" scope="col">Price</th>
+                                    <th class="border-top-0" style="width: 110px;" scope="col">Sản phẩm</th>
+                                    <th class="border-top-0" scope="col">Chi tiết</th>
+                                    <th class="border-top-0" scope="col">Giá tiền</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row"><img src="assets/images/sp/coca1.png" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
-                                    <td>
-                                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">Coca Zero Sugar</a></h5>
-                                        <p class="text-muted mb-0 mt-1">$10.00 x 2</p>
-                                    </td>
-                                    <td>$20.00</td>
-                                </tr>
+                        ';
+                        while($fetch_cart_products=mysqli_fetch_assoc($select_cart_products)) {
+                            ?>
+                            <tr>
+                                <th scope="row"><img src="images/<?php echo $fetch_cart_products['hinhanh']?>" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                                <td>
+                                    <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark"><?php echo $fetch_cart_products['tensp']?></a></h5>
+                                    <p class="text-muted mb-0 mt-1"><?php echo $fetch_cart_products['giaban']?>vnđ x <?php echo $fetch_cart_products['soluong']?></p>
+                                </td>
+                                <td><?php echo ($fetch_cart_products['giaban'] * $fetch_cart_products['soluong'])?>vnđ</td>
+                            </tr>
+                        <?php
+                        }
+                    }
+                        ?>
 
-                                <tr>
-                                    <th scope="row"><img src="assets/images/sp/sprite1.png" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
-                                    <td>
-                                        <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">Sprite</a></h5>                                     
-                                        <p class="text-muted mb-0 mt-1">$10.00 x 1</p>
-                                    </td>
-                                    <td>$10.00</td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="2">
-                                        <h5 class="font-size-14 m-0">Sub Total :</h5>
-                                    </td>
-                                    <td>
-                                        $30.00
-                                    </td>
-                                </tr>
-
-                                <tr style="display: none;">
-                                    <td colspan="2">
-                                        <h5 class="font-size-14 m-0">Discount :</h5>
-                                    </td>
-                                    <td>
-                                        - $10.00
-                                    </td>
-                                </tr>
-  
-                                <tr>
-                                    <td colspan="2">
-                                        <h5 class="font-size-14 m-0">Shipping Charge :</h5>
-                                    </td>
-                                    <td>
-                                        $2.00
-                                    </td>
-                                </tr>
-
-                                <tr style="display: none;">
-                                    <td colspan="2">
-                                        <h5 class="font-size-14 m-0">VAT Tax :</h5>
-                                    </td>
-                                    <td>
-                                        10%
-                                    </td>
-                                </tr>                              
-                                      
-                                <tr class="bg-light">
-                                    <td colspan="2">
-                                        <h5 class="font-size-14 m-0">Total:</h5>
-                                    </td>
-                                    <td>
-                                        $32.00
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>                         
                     </div>

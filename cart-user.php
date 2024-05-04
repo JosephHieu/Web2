@@ -17,23 +17,22 @@
         soluong='$update_value' where masp='$update_id'");
         if($update_quantity_query) {
             // header('location: cart-user.php?c-user='.$tdn.'');
-            echo "<script> alert('Success'); window.location.href='cart-user.php?c-user={$tdn}'; </script>";
+            echo "<script>window.location.href='cart-user.php?c-user={$tdn}'; </script>";
         }
 
     }
     if(isset($_GET['remove'])) {
         $remove_id = $_GET['remove'];
-        
         // remove query
         mysqli_query($conn, "Delete from giohang where masp='$remove_id'");
-        // header('location: cart-user.php?c-user='.$tdn.'');
-        echo "<script> alert('Success'); window.location.href='cart-user.php?c-user={$tdn}'; </script>";
+        header('location: cart-user.php?c-user='.$_GET['tdn'].'');
+        // echo "<script>window.location.href='cart-user.php?c-user={$tdn}'; </script>";
     }
 
     if(isset($_GET['delete_all'])) {
         mysqli_query($conn, "delete from giohang");
-        // header('location: cart-user.php?c-user='.$tdn.'');
-        echo "<script> alert('Success'); window.location.href='cart-user.php?c-user={$tdn}'; </script>";
+        header('location: cart-user.php?c-user='.$_GET['delete_all'].'');
+        // echo "<script>window.location.href='cart-user.php?c-user={$tdn}'; </script>";
 
     }
 ?>
@@ -78,7 +77,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
             </td>
             <td><?php echo $fetch_cart_products['giaban']?> vnđ</td>
             <td>
-                <form action="" method="post">
+                <form action="cart-user.php?c-user=<?php echo $tdn?>" method="post">
                     <input type="hidden" value="<?php 
                     echo $fetch_cart_products['masp']?>" 
                     name="update_quantity_id">
@@ -94,7 +93,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
             <td><?php echo $subtotal=$fetch_cart_products['giaban'] *
             $fetch_cart_products['soluong']?> vnđ</td>
             <td>
-                <a href="cart-user.php?remove=<?php echo $fetch_cart_products['masp']?>"
+                <a href="cart-user.php?remove=<?php echo $fetch_cart_products['masp']?>&tdn=<?php echo $tdn?>"
                 onclick="return confirm('Bạn có muốn xóa sản phẩm khỏi giỏi hàng.')";>
                     <i class="fa fa-trash"></i>
                 </a>
@@ -131,7 +130,7 @@ if(mysqli_num_rows($select_cart_products) > 0) {
         </div>";
           
 
-            <a href="cart-user.php?delete_all=<?php ?>" class="delete_all_btn"
+            <a href="cart-user.php?delete_all=<?php echo $tdn?>" class="delete_all_btn"
             onclick="return confirm('Bạn có muốn xóa hết sản phẩm ra khỏi giở hàng');">
                 <i class="fas fa-trash"></i>Xóa tất cả
             </a>
