@@ -1,6 +1,12 @@
 
 <?php
     include "connect.php";
+
+    // cắt chuỗi lấy tên đăng nhập
+    $parts_tensp = explode('?', $id);
+    $product_info = $parts_tensp[1];
+    $product_parts_tensp = explode('=', $product_info);
+    $tensp = $product_parts_tensp[1];
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +64,10 @@
 
     <!-- php code -->
     <?php
-        if(isset($_GET['id'])) {
+        if(isset($_GET['id']) && isset($_GET['tensp'])) {
             $manh = $_GET['id'];
-            $sql = "select * from sanpham where manh = '$manh'";
+            $tensp = $_GET['tensp'];
+            $sql = "select * from sanpham where manh = '$manh' and tensp = '$tensp'";
             $result = mysqli_query($conn, $sql);
             if(mysqli_num_rows($result) > 0) {
                 $fetch_data = mysqli_fetch_assoc($result);

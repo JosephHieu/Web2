@@ -28,14 +28,20 @@
 
   // Phần phân trang
   $start = 0;
+
+  // đặt số lượng dòng để hiện trên một trang
   $rows_per_page = 8;
+
+  // lấy tổng số côt
   $records = $conn->query("select * from sanpham");
   $nr_of_rows = $records->num_rows;
 
+  // tính nr của pages
   $pages = ceil($nr_of_rows / $rows_per_page);
 
-  if(isset($_GET['page_nr'])) {
-    $page = $_GET['page_nr'] - 1;
+  // if the user clicks on the paginition buttons we set a new starting point
+  if(isset($_GET['page-nr'])) {
+    $page = $_GET['page-nr'] - 1;
     $start = $page * $rows_per_page;
   }
 
@@ -175,7 +181,7 @@
     <div id="overlay"></div>
 
 <!-- Hiển thị sản phẩm -->
-<div class="pro-container1" id="product-list" >
+<div class="pro-container1" id="product-list" style="position: relative;">
       <?php 
         // truy vấn lấy sản phẩn trong bảng sanpham
         $select_products = mysqli_query($conn, "select * from sanpham");
@@ -201,6 +207,71 @@
             </div> 
         <?php
           }
+          ?>
+<!-- Phần phân trang -->
+  <!-- displaying the page info text -->
+  <div class="page-info">
+    <?php 
+      if(!isset($_GET['page-nr'])) {
+          $page = 1;
+      } else {
+          $page = $_GET['page-nr'];
+      }
+    ?>
+  </div>
+  
+  <!-- displaying the pagination buttons -->
+  <div class="pagination" style="position: absolute; bottom: 0; display: flex;">
+    <!-- Tới trang đầu tiên -->
+    <a href="?page-nr=1" style="padding: 0 15px;">Trang đầu</a>
+
+    <!-- Tới trang trước -->
+    <?php 
+      if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1) {
+          ?>
+          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>" style="padding: 0 15px;">Trang trước</a>            
+          <?php
+      } else {
+          ?>
+          <a href="" style="padding: 0 15px;">Trang trước</a>
+          <?php
+      }
+    ?>
+
+        <!-- Output the page numbers -->
+        <div class="page-numbers">
+            <?php 
+                for($counter=1; $counter <= $pages; $counter++) {
+                    ?>
+                    <a href="?page-nr=<?php echo $counter?>" style="padding: 0 15px;"><?php echo $counter?></a>
+                    <?php
+                }
+            ?>
+        </div>
+
+        <!-- Go to the next page -->
+        <?php 
+            if(!isset($_GET['page-nr'])) {
+                ?>
+                <a href="?page-nr=2" style="padding: 0 15px;">Trang sau</a>
+                <?php
+            }else {
+                if($_GET['page-nr'] >= $pages) {
+                    ?>
+                    <a href="" style="padding: 0 15px;">Trang cuối</a>
+                    <?php
+                } else {
+                    ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>" style="padding: 0 15px;">Trang sau</a>
+                    <?php
+                }
+            }
+        ?>
+
+
+        <!-- Go to the last page -->
+        <a href="?page-nr=<?php echo $pages?>" style="padding: 0 15px;">Trang cuối</a>
+          <?php
         } else {
           echo "Ko có sản phẩm nào";
         }
@@ -210,73 +281,6 @@
   </div>
 </div>
 </section>
-<!-- Phân trang -->
-    <!-- displaying the page info text -->
-    <div class="page-info">
-      <?php
-        if(!isset($_GET['page-nr'])) {
-            $page = 1;
-        } else {
-          $page = $_GET['page-nr'];
-        }
-      ?>
-      <div style="text-align: center">
-
-      Hiện <?php echo $page?> trên <?php echo $pages?> trang
-      </div>
-    </div>
-
-    <!-- displaying the pagination buttons -->
-    <div class="pagination" style="display: flex; justify-content: center; padding-top: 20px;">
-      <!-- Tới trang đầu tiên -->
-      <a href="?page-nr=1?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang đầu</a>
-
-      <!-- Tới trang trước -->
-      <?php 
-        if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1) {
-      ?>
-          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang trước</a>            
-      <?php
-        } else {
-          ?>
-          <a href="" style="padding: 0 15px;">Trang trước</a>
-          <?php
-        }
-      ?>
-      <!-- Output the page numbers -->
-      <div class="page-numbers">
-        <?php
-          for($counter=1; $counter <= $pages; $counter++) {
-            ?>
-              <a href="?page-nr=<?php echo $counter?>?page=<?php echo $tdn?>" style="padding: 0 15px;"><?php echo $counter?></a>
-            <?php
-          }
-        ?>
-      </div>
-
-      <!-- Go to the next page -->
-      <?php
-        if(!isset($_GET['page-nr'])) {
-          ?>
-          <a href="?page-nr=2?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang sau</a>
-          <?php
-        } else {
-          if($_GET['page-nr'] >= $pages) {
-            ?>
-            <a href="" style="padding: 0 15px;">Trang cuối</a>
-            <?php
-          } else {
-            ?>
-            <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang sau</a>
-            <?php
-          }
-        }
-      ?>
-
-      <!-- Go to the last page -->
-      <a href="?page-nr=<?php echo $pages?>?page=<?php echo $tdn?>" style="padding: 0 15px;">Trang cuối</a>
-    </div>
-
     <!-- footer -->
     <?php include "footer.php"?>
  

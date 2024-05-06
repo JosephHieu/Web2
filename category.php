@@ -1,7 +1,8 @@
 <?php 
   include "connect.php";
 
-
+    $loaisp = $_GET['loaisp'];
+    echo $loaisp;
   // Phần giỏ hàng
   if(isset($_POST['add_to_cart'])) {
     $products_name     = $_POST['product_name'];
@@ -161,7 +162,7 @@
       </a>
       <a href="category.php?loaisp=thước kẻ">
         <button class="btn" id="btnfil">Thước Kẻ</button>   
-      </a>
+      </a>   
     <div>
       <button id="btn-ad-search" class="btn">Tìm kiếm <i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
@@ -172,7 +173,8 @@
 <div class="pro-container1" id="product-list" >
       <?php 
         // truy vấn lấy sản phẩn trong bảng sanpham
-        $select_products = mysqli_query($conn, "select * from sanpham");
+        $select_products = mysqli_query($conn, "select * from sanpham
+        where loaisp='$loaisp'");
         if(mysqli_num_rows($select_products)>0) {
           // while($fetch_product = mysqli_fetch_assoc($select_products)) {
           while($fetch_product = $result->fetch_assoc()) {

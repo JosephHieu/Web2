@@ -1,10 +1,6 @@
 <footer style="background:#fff;">
   <div id="all-footer">
   <div id="fo-text" style="width: 100%;">
-    <div class="alldrinklogo">
-  <img src="">
-  
-    </div>
     <div id="long1">
       <div id="seprator1">
         <hr class="ruler1">
