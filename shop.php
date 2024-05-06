@@ -80,7 +80,6 @@
     <!-- Tìm sản phẩm cơ bản -->
     <form action="shop.php" method="post">
       <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="search" class="input" onkeyup="search()"  tabindex="1">
-      <button class="btn btn-dark btn-sm" name="timkiem">Tìm</button>
     </form>
 
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">

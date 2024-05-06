@@ -1,3 +1,100 @@
+<?php
+  include "connect.php";
+
+  function kiemTraChuoi($chuoi) {
+    // Biểu thức chính quy để kiểm tra chuỗi
+    $regex = '/[!@#$%^&*()\-_=+*\/?><,.|\\\\]/';
+
+    // Sử dụng hàm preg_match để kiểm tra xem chuỗi có chứa các ký tự không mong muốn không
+    if (preg_match($regex, $chuoi)) {
+        return false; 
+    } else {
+        return true; 
+    }
+}
+
+  function is_valid_email($email) {
+    // Sử dụng hàm filter_var với FILTER_VALIDATE_EMAIL để kiểm tra tính hợp lệ của email
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return true; // Email hợp lệ
+    } else {
+        return false; // Email không hợp lệ
+    }
+}
+
+function passwords_match($password1, $password2) {
+  // Kiểm tra xem hai mật khẩu có giống nhau không
+  if ($password1 === $password2) {
+      return true; // Hai mật khẩu giống nhau
+  } else {
+      return false; // Hai mật khẩu không giống nhau
+  }
+}
+
+  if(isset($_POST['add_user'])) {
+    $tendangnhap = $_POST['tendangnhap'];
+    $hovaten     = $_POST['hovaten'];
+    $sdt         = $_POST['sdt'];
+    $email        = $_POST['email'];
+    $matkhau     = md5($_POST['matkhau']);
+    $matkhau1    = md5($_POST['matkhau1']);
+    $namsinh     = $_POST['namsinh'];
+    $quanhuyen   = $_POST['quanhuyen'];
+    $tptinh      = $_POST['tptinh'];
+    $quocgia     = $_POST['quocgia'];
+    $trangthai   = 1;
+
+    $insert_query = mysqli_query($conn, "insert into khachhang
+    (tendangnhap, hovaten, sdt, email, matkhau, namsinh, quanhuyen,
+    tptinh, quocgia, trangthai)
+    values ('$tendangnhap', '$hovaten', '$sdt', '$email', '$matkhau',
+    '$namsinh', '$quanhuyen', '$tptinh', '$quocgia', '$trangthai')")
+    or die('truy vấn thêm khách hàng thất bại');
+
+    if(strlen($tendangnhap) < 6) {
+      echo '<script>alert("Tên đăng nhập phải dài hơn 6 ký tự");</script>';
+    }
+    elseif(kiemTraChuoi($tendangnhap) == false) {
+      echo '<script>alert("Tên đăng nhập không được chứa ký tự đặc biệt");</script>';
+    }
+    elseif(passwords_match($matkhau, $matkhau1) == false) {
+      echo '<script>alert("Mật khẩu không khớp");</script>';
+    }
+    elseif(is_valid_email($email) == false) {
+      echo '<script>alert("email không hợp lệ");</script>';
+    } else {
+      if($insert_query) {
+        $display_message = "Thêm thành công";
+      }
+      else {
+        $display_message = "Thêm thất bại";
+      }
+    }
+
+  }
+
+  // phân trang
+  $start = 0;
+
+  // đặt số lượng dòng để hiện trên một trang
+  $rows_per_page = 4;
+
+  // lấy tổng số côt
+  $records = $conn->query("select * from khachhang");
+  $nr_of_rows = $records->num_rows;
+
+  // tính nr của pages
+  $pages = ceil($nr_of_rows / $rows_per_page);
+
+  // if the user clicks on the paginition buttons we set a new starting point
+  if(isset($_GET['page-nr'])) {
+    $page = $_GET['page-nr'] - 1;
+    $start = $page * $rows_per_page;
+  }
+
+  $result = $conn->query("select * from khachhang limit ".$start.", ".$rows_per_page."");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +103,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Admin User</title>
     <link rel="stylesheet" href="assets/css/admin.css">
-    <link rel="icon" type="image/png" href="assets/images/pic/logoicon.png">
+    <link rel="icon" type="image/png" href="images/LOGO.webp">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<!-- của phần phân trang -->
+<?php 
+  if(isset($_GET['page-nr'])) {
+    $id = $_GET['page-nr'];
+  } else {
+    $id = 1;
+  }
+?>
+
+<body idd="<?php echo $id?>">
    <input type="checkbox" id="menu-toggle">
    <div class="sidebar">
     <!-- side header -->
@@ -59,14 +166,13 @@
           </div>
     </div>
   </div>
-    
-    <div class="main-content">
-        
-        <header>
-            <div class="header-content">
-                <label for="menu-toggle" id="bar-admin">
-                    <span class="las la-bars" style="font-size: 28px; margin-top: 8px;"></span>
-                </label>
+  <!-- phần nội dung chính -->
+  <div class="main-content">
+    <header style="background: #35858b;">
+      <div class="header-content">
+        <label for="menu-toggle" id="bar-admin">
+          <span class="las la-bars" style="font-size: 28px; margin-top: 8px;"></span>
+        </label>
                 
                 <div class="header-menu">
                     <label for="">
@@ -75,508 +181,244 @@
                     
                     <div class="notify-icon">
                         <span class="las la-envelope"></span>
-                        <span class="notify">4</span>
+                        <span class="notify">43</span>
                     </div>
                     
                     <div class="notify-icon">
                         <span class="las la-bell"></span>
-                        <span class="notify">3</span>
+                        <span class="notify">13</span>
                     </div>
                     
                     <div class="user" style="margin-right: 8px;">
-                      
-                        
                         <span style="font-size: 25px;cursor: pointer;" class="las la-power-off" onclick="window.location.href='login-admin.html'"></span>
-                        <span style="font-size: 20px; cursor: pointer;" onclick="window.location.href='login-admin.html'">Logout</span>
+                        <span style="font-size: 20px; cursor: pointer;" onclick="window.location.href='admin-logout.php'">Đăng xuất</span>
                     </div>
                 </div>
             </div>
         </header>
 
 
-
-        <div class="page-content" style="margin-top: 50px;">
-            <h1 style="padding: 1.3rem 0rem;color: #74767d;" id="customer">Customers</h1>
-            <div >
-                <button style="margin-bottom: 8px;" id="showadd" onclick="showadd()"><i class="fa-solid fa-circle-plus" style="margin-right: 4px;"></i>  Add User</button>
-                       
+<main>
+  <div class="page-content" style="margin-top: 50px; padding-left: 0; padding-right: 0;">
+    <!-- display message -->
+    <?php
+  if(isset($display_message)) {
+    echo "<div class='display_message' style='color: red;'>
+    <span>$display_message</span>
+    <i class='fas fa-times' onclick='this.parentElement.style.display=`none`';></i>
+</div>"; 
+  }
+    ?>
+    <h1 style="padding: 1.3rem 1rem;color: #74767d;" id="customer">Khách hàng</h1>
+    <div >
+      <button style="margin-bottom: 8px; margin-left: 20px;" id="showadd" onclick="showadd()"><i class="fa-solid fa-circle-plus" style="margin-right: 4px;"></i>Thêm khách hàng</button>              
+    </div>
+      <!-- form thêm khách hàng -->
+      <form action="admin-user.php" method="post" enctype="multipart/form-data">
+        <div class="add_user_admin" style="display: flex; justify-content: space-around; align-items: center;">
+          <div class="ada1">
+            <label for="tendangnhap">Tên đăng nhập</label>
+            <input type="text" name="tendangnhap" id="tendangnhap" required>
+          </div>
+          <div class="ada1">
+            <label for="hovaten">Họ và tên</label>
+            <input type="text" name="hovaten" id="hovaten" required>
+          </div>
+          <div class="ada1">
+            <label for="sdt">SĐT</label>
+            <input type="number" name="sdt" id="sdt" required>
+          </div>
+          <div class="ada1">
+            <label for="namsinh">Ngày sinh</label>
+            <input type="date" name="namsinh" id="namsinh" required>
+          </div>
         </div>
+        <div class="add_user_admin" style="display: flex; justify-content: space-around; align-items: center; padding-top: 30px;">
+          <div class="ada1">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" required>
+          </div>
+          <div class="ada1">
+            <label for="quanhuyen">Quận/huyện</label>
+            <input type="text" name="quanhuyen" id="quanhuyen" required>
+          </div>
+          <div class="ada1">
+            <label for="tptinh">TP/tỉnh</label>
+            <input type="text" name="tptinh" id="tptinh" required>
+          </div>
+          <div class="ada1">
+            <label for="quocgia">Quốc gia</label>
+            <input type="text" name="quocgia" id="quocgia">
+          </div>
         </div>
+        <div class="add_user_admin" style="display: flex; justify-content: space-around; align-items: center; padding-top: 30px;">
+          <div class="ada1">
+            <label for="matkhau">Mật khẩu</label>
+            <input type="password" name="matkhau" id="matkhau">
+          </div>
+          <div class="ada1">
+            <label for="matkhau1">Nhập lại mật khẩu</label>
+            <input type="password" name="matkhau1" id="matkhau1">
+          </div>
+          <div>
+            <button type="submit" name="add_user" style="padding: 10px 15px;">Thêm +</button>
+          </div>
+        </div>
+      </form>
+  </div>
 
-            <div class="records table-responsive" >
-           
-                <div class="record-header">
-
-                    <div class="browse">
-                       <input type="search" placeholder="Search (#ID)" class="record-search">
-                     
-                    </div>
-
-                    <div class="add">
-                        <span>Entries</span>
-                    <select name="" id="">
-                        <option value="">10</option>
-                        <option value="">16</option>
-                        <option value="">20</option>
-                    </select> 
-                    </div>
-
-                </div>
-
+            <div class="records table-responsive" style="margin-top: 30px;">
                 <div>
-                    <table width="100%" id="table-user">
-                        <thead>
-                            <tr id="select-filter">
-                                <th>ID USER</th>
-                                <th>FULL NAME</th>
-                                <th>EMAIL</th>
-                           
-                                <th>BIRTHDAY</th>
-                                <th>ADDRESS</th>
-                               
-                                <th>STATUS</th>
-                                <th> ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-<td>#USER125</td>
-<td>Andrew Bruno</td>
-<td>bruno@crossover.org</td>
+                  <!-- php code -->
+                  <?php
+      $display_user = mysqli_query($conn, "select * from khachhang");
+      if(mysqli_num_rows($display_user)>0) {
+        echo '
+        <table width="100%" id="table-user">
+          <thead>
+              <tr id="select-filter">
+                  <th>Tên đăng nhập</th>
+                  <th>Họ tên</th>
+                  <th>EMAIL</th>                          
+                  <th>Ngày sinh</th>
+                  <th>Địa chỉ</th>                              
+                  <th>Trạng thái</th>
+                  <th> Thao tác</th>
+              </tr>
+          </thead>
+          <tbody>';
+          // while($row=mysqli_fetch_assoc($display_user)) {
+          while($row=$result->fetch_assoc()) {
 
-<td>1999-05-19</td>
-<td>45 Beaver St</td>
-
-                                <td>
-Normal                          
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-                       
-                            <tr>
-<td>#USER508</td>
-<td>Exty Bruno</td>
-<td>exty@crossover.org</td>
-
-<td>2002-09-10</td>
-<td>95 Starrs Rd</td>
-
-                                <td>
-Normal                                  
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-                            <tr>
-<td>#USER781</td>
-<td>Marilyn N. Relyea</td>
-<td>Majk@gmail.com</td>
-
-<td>2004-05-01</td>
-<td>16 Dietmar-Hopp-Allee </td>
-
-                                <td>
-Normal                       
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                     
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-                            <tr>
-<td>#USER150</td>
-<td>Christine K. Waddle</td>
-<td>Christine45@crossover.org</td>
-
-<td>1992-11-15</td>
-<td>257 Avenue</td>                      
-                                <td>
-Normal                              
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-                            <tr>
-<td>#USER259</td>
-<td>Clarence A. Morgan</td>  
-<td>ClarMor1990@crossover.org</td>                                 
-
-<td>2001-12-05</td>                                    
-<td>370 Memorial</td>                                        
-                                                                                                    
-                                <td>
-Normal                            
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-
-                            <tr>
-<td>#USER121</td>
-<td>Michael L. Williams</td>
-<td>michael152004@crossover.org</td>
-                                   
-<td>1998-01-12</td>                                        
-<td>37 Royal Terrace</td>                                   
- 
-                                <td>
-Normal
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="las la-edit"></span>
-                                        <span class="las la-lock"></span>
-                                    </div>
-                                  </td>
-                            </tr>
-                       
-                     
-                            
-                        </tbody>
-                    </table>
-
-                    <ul class="pagination" id="pagination">
-                        <li onclick="prevPage()">Prev</li>
-                       <li class="active">1</li>
-                        <li onclick="nextPage()">Next</li>
-                      </ul>
+            ?>
+            <tr>
+              <td><?php echo $row['tendangnhap']?></td>
+              <td><?php echo $row['hovaten']?></td>
+              <td><?php echo $row['email']?></td>
+              <td><?php echo $row['namsinh']?></td>
+              <td>
+                <?php echo $row['quanhuyen'] . ', ' .
+                           $row['tptinh'] . ', ' .
+                           $row['quocgia']
+                ?>
+              </td>
+              <td>
+                <?php
+                  if($row['trangthai'] == 1) {
+                    echo "
+                    <p>
+                        <a href='block-user.php?tdn=".$row['tendangnhap']."
+                        &trangthai=0' style='color: green;'
+                        '>
+                        Hoạt động 
+                        <i class='fa fa-unlock-alt' aria-hidden='true'></i>
+                        </a>
+                    </p>";
+                  } else {
+                    echo "
+                    <p>
+                        <a href='open-user.php?tdn=".$row['tendangnhap']."
+                        &trangthai=1' style='color: red;'>
+                        Không hoạt động
+                        <i class='fa fa-lock' aria-hidden='true'></i>
+                        </a>
+                    </p>";
+                  }
+                ?>                          
+              </td>
+              <td>
+                <div class="actions">
+                  <a href="admin-update-user.php?edit=<?php echo $row['tendangnhap']?>">
+                    Sửa<span class="las la-edit"></span>
+                  </a>
                 </div>
+              </td>
+            </tr>  
+            <?php
+          }
+      }
+    ?>   
+        </tbody>
+      </table>
 
-            </div>
+      <!-- phần phân trang -->
+      <!-- displaying the page info text -->
+      <div class="page-info">
+    <?php 
+      if(!isset($_GET['page-nr'])) {
+          $page = 1;
+      } else {
+          $page = $_GET['page-nr'];
+      }
+    ?>
+    <p style="text-align: center; padding-top: 15px;">Hiện <?php echo $page?> trên <?php echo $pages?> trang</p>
+  </div>
+
+  <!-- displaying the pagination buttons -->
+  <div class="pagination">
+    <!-- Tới trang đầu tiên -->
+    <a href="?page-nr=1" style="padding: 0 15px;">Trang đầu</a>
+
+    <!-- Tới trang trước -->
+    <?php 
+      if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1) {
+          ?>
+          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>" style="padding: 0 15px;">Trang trước</a>            
+          <?php
+      } else {
+          ?>
+          <a href="" style="padding: 0 15px;">Trang trước</a>
+          <?php
+      }
+    ?>
+
+        <!-- Output the page numbers -->
+        <div class="page-numbers">
+            <?php 
+                for($counter=1; $counter <= $pages; $counter++) {
+                    ?>
+                    <a href="?page-nr=<?php echo $counter?>" style="padding: 0 15px;"><?php echo $counter?></a>
+                    <?php
+                }
+            ?>
+        </div>
+
+        <!-- Go to the next page -->
+        <?php 
+            if(!isset($_GET['page-nr'])) {
+                ?>
+                <a href="?page-nr=2" style="padding: 0 15px;">Trang sau</a>
+                <?php
+            }else {
+                if($_GET['page-nr'] >= $pages) {
+                    ?>
+                    <a href="" style="padding: 0 15px;">Trang cuối</a>
+                    <?php
+                } else {
+                    ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>" style="padding: 0 15px;">Trang sau</a>
+                    <?php
+                }
+            }
+        ?>
+
+
+        <!-- Go to the last page -->
+        <a href="?page-nr=<?php echo $pages?>" style="padding: 0 15px;">Trang cuối</a>
+    </div>
         
     
 
 </main>
 
-<div id="container-inputs">
-
-    <div class="user-tab">
-      <h1>ADD USER</h1>
-    <i class="fa-solid fa-xmark" id="closeadd" onclick="hideadd()"></i>
-  
-    
-                  <div class="user-input" style="margin-top: 30px;">  
-                      <label>Full Name:</label>
-  <input type="text" name="fname" id="fname">
-               </div>
-  
-               <div class="user-input">
-                  <label>Email:</label>
-                  <input type="text" name="email" id="email"> 
-          </div>
-      
-            <div class="user-input">
-              <label>Birthday:</label>
-            <input type="date" name="birth" id="birth">
-  
-       </div>
-                 <div class="user-input">
-                  <label>Address:</label>
-                     <input type="text" name="address" id="address">
-  
-                 </div>
-            
-           <div class="user-input" style="display: none;">
-              Status:<input type="text" name="status" id="status" ></input>
-            </div>
-  
-            <div class="user-input" style="display: none;">
-              Action:<input type="text" name="action" id="action">    
-        </div>
-  
-  <div style="text-align: center;" id="button-submit">
-    <button>Submit</button>
-
-  </div>
-  </div>
-  </html>
+</html>
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-
+<!-- script của phần phân trang -->
 <script>
-      window.addEventListener("DOMContentLoaded", function() {
-        var predefinedContent = 'Normal';
-        document.getElementById("status").value = predefinedContent;
-      });
-      window.addEventListener("DOMContentLoaded", function() {
-        var predefinedContent = '  <div class="actions"><span class="lab la-telegram-plane"></span><span class="las la-edit"></span><span class="las la-trash"></span></div>';
-        document.getElementById("action").value = predefinedContent;
-      });
-    
-        var rIndex,
-            table = document.getElementById("table-user");
-
-        function checkEmptyInput()
-        {
-            var isEmpty = false,
-            iduser = document.getElementById("id-user").value,
-            fname = document.getElementById("fname").value,
-            email = document.getElementById("email").value,
-               
-               birth = document.getElementById("birth").value,
-                address = document.getElementById("address").value, 
-                status = document.getElementById("status").value,          
-                action= document.getElementById("action").value;
-                if(iduser === ""){
-                    alert("Please fill in");
-                isEmpty = true;
-            }
-            else if(fname === ""){
-                alert("Please fill in");
-                isEmpty = true;
-            }
-            else if(email === ""){
-                alert("Please fill in");
-                isEmpty = true;
-            }
-         
-            else if(birth === ""){
-                alert("Please fill in");
-                isEmpty = true;
-            }
-            else if(address === ""){
-                alert("Please fill in");
-                isEmpty = true;
-            }
-         
-            return isEmpty;
-        }
-
-        function addHtmlTableRow()
-        {
-          
-            if(!checkEmptyInput()){
-            var newRow = table.insertRow(table.length),
-                cell1 = newRow.insertCell(0),
-                cell2 = newRow.insertCell(1),
-                cell3 = newRow.insertCell(2),
-                cell4 = newRow.insertCell(3),
-                cell5 = newRow.insertCell(4),
-                cell6 = newRow.insertCell(5),
-                cell7 = newRow.insertCell(6),
-                iduser = document.getElementById("id-user").value,
-                fname = document.getElementById("fname").value,
-                email = document.getElementById("email").value,
-               birth = document.getElementById("birth").value,
-                address = document.getElementById("address").value,
-                status = document.getElementById("status").value,
-                action = document.getElementById("action").value;
-                cell1.innerHTML = iduser;
-                cell2.innerHTML = fname;
-                cell3.innerHTML = email;
-            cell4.innerHTML =  birth;
-            cell5.innerHTML =address;
-            cell6.innerHTML = status;
-            cell7.innerHTML = action;
-    
-            selectedRowToInput();
-        }
-        resetForm();
-        }
-
-
-        function blockUser() {
-  var currentRow = table.rows[rIndex];
-  var confirmation = confirm("Are you sure you want to block this user?");
-  if (confirmation) {
-    currentRow.cells[5].innerHTML = "Blocked";
-    currentRow.cells[5].style.color = "red";
-    editButton.innerHTML = 'Edit <span class="las la-edit"></span>'; 
-    const addButton = document.querySelector('button[onclick="addHtmlTableRow();"]');
-      if (addButton.disabled) {
-        addButton.disabled = false;
-                };
-                editButton.disabled = true; 
-                document.getElementById("blockButton").disabled=true;
-                document.getElementById("blockButton1").disabled=true;
-                addButton.style.visibility = 'visible';
-              editButton.style.visibility = 'hidden';
-              document.getElementById("blockButton").style.visibility= 'hidden';
-              document.getElementById("blockButton1").style.visibility= 'hidden';
-    resetForm();
-  }
-  else {
-         event.preventDefault();
-       
-       }
-}
-
-document.getElementById("blockButton").addEventListener("click", blockUser);
-
-function unblockUser() {
-  var currentRow = table.rows[rIndex];
-  var confirmation = confirm("Are you sure you want to unblock this user?");
-  if (confirmation) {
-    currentRow.cells[5].innerHTML = "Normal";
-    currentRow.cells[5].style.color = "black";
-
-    const addButton = document.querySelector('button[onclick="addHtmlTableRow();"]');
-      if (addButton.disabled) {
-        addButton.disabled = false;
-                };
-                editButton.disabled = true; 
-                document.getElementById("blockButton").disabled=true;
-                document.getElementById("blockButton1").disabled=true;
-                addButton.style.visibility = 'visible';
-              editButton.style.visibility = 'hidden';
-              document.getElementById("blockButton").style.visibility= 'hidden';
-              document.getElementById("blockButton1").style.visibility= 'hidden';
-    resetForm();
-  }
-  else { 
-         event.preventDefault();     
-       }
-}
-document.getElementById("blockButton1").addEventListener("click", unblockUser);
- 
-
-
-
-function selectedRowToInput()
-        {
-            
-            for(var i = 1; i < table.rows.length; i++)
-            {
-                table.rows[i].onclick = function()
-                {
-            
-                  rIndex = this.rowIndex;
-                  document.getElementById("id-user").value = this.cells[0].innerHTML;
-                  document.getElementById("fname").value = this.cells[1].innerHTML;
-                  document.getElementById("email").value = this.cells[2].innerHTML;
-                 
-                  document.getElementById("birth").value = this.cells[3].innerHTML;
-                  document.getElementById("address").value = this.cells[4].innerHTML;
-              
-                  const addButton = document.querySelector('button[onclick="addHtmlTableRow();"]');
-      if (!addButton.disabled) {
-        addButton.disabled = true;
-                };
-                const editButton = document.getElementById('editButton');
-                addButton.style.visibility= 'hidden';
-              editButton.style.visibility = 'visible';
-              document.getElementById("blockButton").style.visibility= 'visible';
-              document.getElementById("blockButton1").style.visibility= 'visible';
-                editButton.disabled = false; 
-                document.getElementById("blockButton").disabled=false;
-                document.getElementById("blockButton1").disabled=false;
-              editButton.innerHTML = 'Update <span class="las la-check"></span>'; 
-            }
-        }
-    }
-        selectedRowToInput();
-        
-        function editHtmlTbleSelectedRow()
-        {
-            var   iduser = document.getElementById("id-user").value,
-            fname = document.getElementById("fname").value,
-            email = document.getElementById("email").value,
-               birth = document.getElementById("birth").value,
-                address = document.getElementById("address").value,
-               status = document.getElementById("status").value,
-               action = document.getElementById("action").value;
-           if(!checkEmptyInput()){
-            table.rows[rIndex].cells[0].innerHTML = iduser;
-            table.rows[rIndex].cells[1].innerHTML = fname;
-            table.rows[rIndex].cells[2].innerHTML = email;
-            table.rows[rIndex].cells[3].innerHTML = birth;
-            table.rows[rIndex].cells[4].innerHTML = address;
-            
-          }
-          resetForm();
-          const addButton = document.querySelector('button[onclick="addHtmlTableRow();"]');
-      if (addButton.disabled) {
-        addButton.disabled = false;
-                };
-                const editButton = document.getElementById('editButton');
-              
-              addButton.style.visibility = 'visible';
-              editButton.style.visibility = 'hidden';
-              document.getElementById("blockButton").style.visibility= 'hidden';
-              document.getElementById("blockButton1").style.visibility= 'hidden';
-              editButton.disabled = true; 
-                document.getElementById("blockButton").disabled=true;
-                document.getElementById("blockButton1").disabled=true;
-        }
-        
-        function removeSelectedRow()
-        {
-            if (rIndex > 0) {
-        var result = confirm("Are you sure you want to delete?");
-        if (result == true) {
-          table.deleteRow(rIndex);
-        } else {
-         
-          event.preventDefault();
-        }
-      }
-        
-            document.getElementById("id-user").value = "";
-            document.getElementById("fname").value = "";
-            document.getElementById("email").value = "";
-           
-            document.getElementById("birth").value = "";
-            document.getElementById("address").value = "";
-       
-        }
-        function resetForm() {
-            document.getElementById("id-user").value = "";
-            document.getElementById("fname").value = "";
-            document.getElementById("email").value = "";
-         
-            document.getElementById("birth").value = "";
-            document.getElementById("address").value = "";
-     
-  
-}
-        
-    </script>
-
-
-<script>
-    const htmlElement = document.querySelector('html');
-      const containerinputs=document.querySelector('#container-inputs');
-      const usertab = document.querySelector('.usertab');
-     function showadd(){
-        containerinputs.style.display="block";
-        usertab.style.display="block";
-        htmlElement.style.overflow = 'hidden';
-      }
-      function hideadd(){
-        var container = document.getElementById('container-inputs');
-    var inputs = container.querySelectorAll('input, select, textarea');
-
-    inputs.forEach(function (input) {
-        if (input.type !== 'button') {
-            input.value = '';
-        }
-    });
-        containerinputs.style.display="none";
-        usertab.style.display="none";
-        htmlElement.style.overflow = 'auto';
-      }
-        </script>
-    
-
+    let links = document.querySelectorAll('.page-numbers > a');
+    let bodyId = parseInt(document.body.id) - 1;
+    links[bodyId].classList.add("active");
+</script>

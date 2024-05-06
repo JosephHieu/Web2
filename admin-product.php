@@ -187,8 +187,11 @@
           <input type="text" name="tensp" id="tensp" required>
         </div>
         <div class="ada1">
+          <img src="" alt="xem trước" id="image-preview">
+          <div>
           <label for="hinhanh">Hình ảnh</label>
-          <input type="file" name="hinhanh" id="hinhanh" required>
+          <input type="file" name="hinhanh" id="image-input" accept="image/*" required>
+          </div>
         </div>
         <div class="ada1">
           <label for="loai">Loại sản phẩm</label>
@@ -302,7 +305,8 @@ if(mysqli_num_rows($display_product)>0) {
             </a>
             <!-- icon xóa sản phẩm -->
             <a href="delete.php?delete=<?php echo $row['masp']; ?>"
-            class="delete_product_btn" onclick="return confirm('Bạn có muốn xóa sản phẩm này')">
+            class="delete_product_btn" onclick="return confirm('Sản phẩm này chưa được bán ra. Bạn có muốn xóa sản phẩm này')"> 
+            
               <i class="fas fa-trash"></i>
             </a>
           </div>
@@ -402,5 +406,25 @@ if(mysqli_num_rows($display_product)>0) {
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script>
+  const imageInput = document.getElementById('image-input');
+  const imagePreview = document.getElementById('image-preview');
 
+  imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function() {
+        imagePreview.src = reader.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+</script>
 
+<style>
+  #image-preview {
+    max-width: 100px;
+    max-height: 80px;
+  }
+</style>

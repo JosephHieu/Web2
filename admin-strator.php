@@ -9,20 +9,28 @@
         $sdt          = $_POST['sdt'];
         $diachi       = $_POST['diachi'];
         $matkhau      = md5($_POST['matkhau']);
+        $matkhau1     = md5($_POST['matkhau1']);
         $trangthai    = 'Bình thường';
 
         // truy vấn thêm quản lý
         $insert_query = mysqli_query($conn, "insert into nguoiquantri
         (tendangnhap, matkhau, vaitro, email, sdt, diachi, trangthai)
         values ('$tendangnhap', '$matkhau', '$vaitro', '$email', '$sdt', 
-        '$diachi', '$trangthai')") or die('truy vấn thất bại');
+        '$diachi', '$trangthai')") or die('truy vấn thêm quản lý thất bại');
 
-        if($insert_query) {
-            $display_message = "Thêm thành công";
+        if($matkhau !== $matkhau1) {
+            echo "<script>
+                alert('Mật khẩu không khớp');
+            </script>";
+        }else {
+            if($insert_query) {
+                $display_message = "Thêm thành công";
+            }
+            else {
+                $display_message = "Thêm thất bại";
+            }
         }
-        else {
-            $display_message = "Thêm thất bại";
-        }
+
     }
 ?>
 
@@ -176,6 +184,10 @@
                             <label for="matkhau">Mật khẩu</label>
                             <input type="password" name='matkhau' id='matkhau' required>
                         </div>
+                        <div class="ada1">
+                            <label for="matkhau1">Nhập lại mật khẩu</label>
+                            <input type="password" name='matkhau1' id='matkhau1' required>
+                        </div>
                     </div>
                     <div style="display: flex; justify-content: left-start; margin-left: 100px; margin-top: 20px;">
                         <button type="submit" name="add_strator" style="padding: 10px 15px;">Thêm +</button>
@@ -220,9 +232,6 @@
                         <?php echo $row['diachi']?>
                         </td>
                         <td>
-                        <?php 
-                        // echo $row['trangthai'];
-                        ?>
                         <!-- block admin strator -->
                         <?php
                             if($row['trangthai'] == 1) {

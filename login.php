@@ -14,7 +14,8 @@
     // truy vấn để lấy dữ liệu đăng nhập
     $sql = "select * from khachhang where
     tendangnhap = '$tendangnhap'
-    and matkhau = '$matkhau'";
+    and matkhau = '$matkhau'
+    and trangthai=1";
 
     $result = mysqli_query($conn, $sql);
 
@@ -22,7 +23,7 @@
     if(mysqli_num_rows($result) == 1) {
       $_SESSION['mySession'] = $tendangnhap;
       header('location: index-user.php?tdn='.$tendangnhap.'');
-    } else {
+    }else {
       echo "<script>
         alert('Tên đăng nhập hoặc mật khẩu không chính xác');
       </script>";
