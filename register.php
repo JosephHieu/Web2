@@ -55,11 +55,15 @@
 
   if(isset($_POST['dangky'])) {
       $tendangnhap = $_POST['tendangnhap'];
+      $hovaten     = $_POST['hovaten'];
       $sdt         = $_POST['sdt'];
       $email       = $_POST['email'];
       $matkhau     = md5($_POST['matkhau']);
       $matkhau2    = md5($_POST['matkhau2']);
-
+      $namsinh     = $_POST['namsinh'];
+      $quanhuyen   = $_POST['quanhuyen'];
+      $tptinh      = $_POST['tptinh'];
+      $quocgia     = $_POST['quocgia'];
       $trangthai = 1;
 
       if(strlen($tendangnhap < 6)) {
@@ -80,15 +84,25 @@
       else {
           // $sql = "insert into khachhang (tendangnhap, hoten, sdt, email, namsinh, quanhuyen, tptinh, quocgia, trangthai)
           // values ('$tendangnhap', null, '$sdt', '$email', null, null, null, null, '$trangthai')";
-          $sql = "INSERT INTO khachhang (tendangnhap, hovaten, sdt, email, matkhau, trangthai)
-           VALUES ('$tendangnhap', '', '$sdt', '$email', '$matkhau', '$trangthai')";
+          $sql = "INSERT INTO khachhang (tendangnhap, hovaten, sdt, email, matkhau,
+          namsinh, quanhuyen, tptinh, quocgia, trangthai)
+          VALUES ('$tendangnhap', '$hovaten', '$sdt', '$email', '$matkhau', 
+          '$namsinh', '$quanhuyen', '$tptinh', '$quocgia', '$trangthai')";
 
           $result = mysqli_query($conn, $sql);
 
-          echo "<script>
-               alert('Đăng ký thành công');
-               
-              </script>";     
+          if($result) {
+            echo "<script>
+                alert('Đăng ký thành công');
+                window.location.href='login.php';
+                </script>";     
+          }
+          else {
+            echo "<script>
+                 alert('Đăng ký thất bại');
+                 
+                </script>";  
+          }
       }
       
   }
@@ -150,14 +164,13 @@
 </section>
 
 <!-- Phần đăng ký -->
- <section id="section-login">
-  <div class="container" id="container">
+ <section id="section-login" style="height: 790px;">
+  <div class="container" id="container" style="width: 70%; margin: auto auto;">
     <div class="f-box" id="fbox">
           <h1 id="tittle">Đăng ký</h1>
-          <form  action="register.php" method="post" enctype="multipart/form-data" id="form">
-            <div class="input-group">
-              
-              <div class="input-field" >
+          <form action="register.php" method="post" enctype="multipart/form-data" id="form">
+            <div class="input-group">             
+              <div class="input-field">
                 <i class="fa-solid fa-user"></i>
                 <input type="text" name="tendangnhap" placeholder="Tên đăng nhập" id="username" required>
                 <div class="error">
@@ -169,7 +182,19 @@
                 </div>
               </div>
 
-              <div class="input-field" >
+              <div class="input-field">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="hovaten" placeholder="Họ và tên" id="username" required>
+                <div class="error">
+                  <?php
+                  // if(isset($display_message)) {
+                  //   echo $display_message;
+                  // }
+                  ?>
+                </div>
+              </div>
+
+              <div class="input-field">
                 <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
                 <input type="number" name="sdt" placeholder="Số điện thoại" id="username" required>
                 <div class="error">
@@ -217,6 +242,24 @@
                   ?>
                 </div>
               </div>
+
+              <div class="input-field">
+                <i class="fa-solid fa-user"></i>
+                <input type="date" name="Ngày sinh" placeholder="Ngày tháng năm sinh" id="username" required>
+                <div class="error">
+                  <?php
+                  // if(isset($display_message)) {
+                  //   echo $display_message;
+                  // }
+                  ?>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-around;">
+                <input type="text" name="quanhuyen" class="bosung" style="border: 2px solid #e5e5e5;background: rgb(255, 255, 255);margin: 15px 0;border-radius: 10px;display: flex;align-items: center;margin-bottom: 18px;" placeholder="Số nhà, tên đường, quận" required>
+                <input type="text" name="tptinh" class="bosung" style="border: 2px solid #e5e5e5;background: rgb(255, 255, 255);margin: 15px 0;border-radius: 10px;display: flex;align-items: center;margin-bottom: 18px;" placeholder="TP/tỉnh" required>
+                <input type="text" name="quocgia" class="bosung" style="border: 2px solid #e5e5e5;background: rgb(255, 255, 255);margin: 15px 0;border-radius: 10px;display: flex;align-items: center;margin-bottom: 18px;" placeholder="Quốc gia" required>
+              </div>
   
              <div class="b-field">
                 <button type="button" onclick="window.location.href='login.php'" id="subtn" >Đăng nhập</button>
@@ -226,11 +269,11 @@
     </div>
   </div>
 </section>
-
-<?php
+<!-- phần chân trang -->
+<?php 
   include "footer.php";
 ?>
-
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 

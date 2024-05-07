@@ -77,9 +77,10 @@
                                 <th>Hành động</th>
                             </tr>';
                             $i = 0;
+                            $tong = 0;
                         foreach($_SESSION['giohang'] as $item) {
                             $tt = $item[3] * $item[4];
-                            
+                            $tong += $tt;
                             echo '<tr>
                                 <td>'.($i+1).'</td>
                                 <td>'.$item[1].'</td>
@@ -97,11 +98,20 @@
                             </tr>';
                             $i++;
                         }
+                        echo '<tr>
+                            <td colspan="5">Tổng cộng</td><td>'.$tong.'vnđ</td><td></td>
+                        </tr>';
                         echo '</table>';
                     }
                 ?>
                 <br>
-                <a href="shop.php">Tiếp tục mua sắm</a> | <a href="#">Thanh toán</a> | <a href="giohangxoa.php">Xóa giỏ hàng</a>
+                    <div class="thea" style="display: flex; gap: 50px;">
+                        <a href="shop.php">Tiếp tục mua sắm</a>
+                        <a href="#" onclick="return confirm('Bạn cần đăng nhập để mua những sản phẩm này')">
+                            Thanh toán
+                        </a> 
+                        <a href="giohangxoa.php">Xóa giỏ hàng</a>
+                    </div>
                 </div>
 
                 <!-- right -->

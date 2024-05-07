@@ -1,11 +1,7 @@
-<?php 
+t<?php 
     include "connect.php";
-
-    // pagelayout tdn = tendangnhap
-    // tendangnhap là khóa chính của khách hàng
-    if(isset($_GET['pay'])) {
-        $tdn = $_GET['pay'];
-    }
+    session_start();
+    
 ?>
 
 <!DOCTYPE html>
@@ -49,17 +45,31 @@
                                             <div class="mb-3">
                                                 <div class="row">
                                                     <div class="col-lg-4 col-sm-6" >
-                                                        <div data-bs-toggle="collapse" id="address-pay" >
-                                                            <label class="card-radio-label mb-0">
-                                                                <input type="radio" name="address" id="info-address1" class="card-radio-input">
-                                                                <div class="card-radio text-truncate p-3">
-                                                                    <span class="fs-14 mb-4 d-block">Địa chỉ của bạn</span>
-                                                                    <span class="fs-14 mb-2 d-block">USA</span>
-                                                                    <span class="text-muted fw-normal text-wrap mb-1 d-block">109 Clarksburg Park Road Show Low, AZ 85901</span>                                                                  
-                                                                    <span class="text-muted fw-normal d-block">+17637745710</span>
-                                                                </div>
-                                                            </label>                                              
-                                                        </div>
+                                                            <div data-bs-toggle="collapse" id="address-pay" >
+                                                                <label class="card-radio-label mb-0">
+                                                                    <input type="radio" name="address" id="info-address1" class="card-radio-input">
+                                                                    <!-- php code lấy ra thông tin địa chỉ của khách hàng -->
+                                                                    <?php
+                                                    if(isset($_GET['tdn'])) {
+                                                        $tendangnhap = $_GET['tdn'];
+                                                        $sql = "select * from khachhang where tendangnhap='$tendangnhap'";
+                                                        $result = mysqli_query($conn, $sql);
+                                                        if(mysqli_num_rows($result) > 0) {
+                                                            $fetch_khachhang=mysqli_fetch_assoc($result);
+                                                            ?>
+
+                                                            <div class="card-radio text-truncate p-3">
+                                                                <span class="fs-14 mb-4 d-block">Địa chỉ của bạn</span>
+                                                                <span class="fs-14 mb-2 d-block"><?php echo $fetch_khachhang['quanhuyen'] . " " . $fetch_khachhang['tptinh']?></span>
+                                                                <span class="text-muted fw-normal text-wrap mb-1 d-block"><?php echo $fetch_khachhang['quocgia']?></span>                                                                  
+                                                                <span class="text-muted fw-normal d-block">+84<?php echo $fetch_khachhang['sdt']?></span>
+                                                            </div>
+                                                            <?php
+                                                        } 
+                                                    }
+                                                            ?>
+                                                                </label>                                              
+                                                            </div>
                                                     </div>
         
                                                     <div class="col-lg-4 col-sm-6" >
@@ -87,34 +97,27 @@
                                     <div> 
                                         <div class="mb-3">
                                             <label class="form-label" for="billing-address">Địa chỉ</label>
-                                            <textarea maxlength="100" class="form-control" id="billing-address" rows="3" placeholder="Enter address"></textarea>
+                                            <textarea maxlength="100" class="form-control" id="billing-address" rows="3" placeholder="Số nhà, tên đường, quận/huyện, TP/tỉnh"></textarea>
                                         </div> 
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-4 mb-lg-0">
-                                                    <label class="form-label">Country</label>
+                                                    <label class="form-label">Quốc gia</label>
                                                     <select class="form-control form-select" title="Country">
-                                                        <option value="0">Select Country</option>
-                                                        <option value="AL">Vietnam</option>
-                                                        <option value="AF">USA</option>
-                                                        <option value="DZ">England</option>
-                                                        <option value="AS">Korea</option>
+                                                        <option value="0">Chọn</option>
+                                                        <option value="AL">Việt Nam</option>
+                                                        <option value="AF">Thái Lan</option>
+                                                        <option value="DZ">Lào</option>
+                                                        <option value="AS">Campuchia</option>
                                                                                        
                                                     </select>
                                                 </div>
                                             </div>
   
                                             <div class="col-lg-4">
-                                                <div class="mb-4 mb-lg-0">
-                                                    <label class="form-label" for="billing-city">City</label>
-                                                    <input type="text" class="form-control" id="billing-city" placeholder="Enter City">
-                                                </div>
-                                            </div>
-  
-                                            <div class="col-lg-4">
                                                 <div class="mb-0">
-                                                    <label class="form-label" for="zip-code">Phone</label>
-                                                    <input min="0" type="number" class="form-control" id="zip-code" inputmode="numeric" placeholder="Enter phone number">
+                                                    <label class="form-label" for="zip-code">Số điện thoại</label>
+                                                    <input min="0" type="number" class="form-control" id="zip-code" inputmode="numeric" placeholder="Nhập số điện thoại">
                                                 </div>
                                             </div>
                                         </div>
@@ -131,10 +134,10 @@
                             </div>
                             <div class="feed-item-list">
                                 <div>
-                                    <h5 class="font-size-16 mb-1">Payment Info</h5>                                   
+                                    <h5 class="font-size-16 mb-1">Thông tin thanh toán</h5>                                   
                                 </div>
                                 <div>
-                                    <h5 class="font-size-14 mb-3">Payment method :</h5>
+                                    <h5 class="font-size-14 mb-3">Phương thức thanh toán:</h5>
                                     <div class="row">
                                         <div class="col-lg-3 col-sm-6" style="margin-bottom: 8px;">
                                             <div>
@@ -142,7 +145,7 @@
                                                     <input type="radio" name="pay-method" id="pay-methodoption3" class="card-radio-input" checked="">  
                                                     <span class="card-radio py-3 text-center text-truncate">                                                        
                                                     <i class="fa-regular fa-money-bill-1 d-block h2 mb-3"></i>
-                                                    <span>Cash On Delivery</span>
+                                                    <span>Thanh toán khi giao hàng</span>
                                                     </span>
                                                 </label>
                                             </div>
@@ -154,7 +157,7 @@
                                                     <input type="radio" name="pay-method" id="pay-methodoption2" class="card-radio-input" >
                                                     <span class="card-radio py-3 text-center text-truncate">
                                                         <i class="fa-solid fa-building-columns d-block h2 mb-3"></i>
-                                                        Bank Payment
+                                                        Thanh toán ngân hàng
                                                     </span>
                                                 </label>
                                             </div>
@@ -193,8 +196,8 @@
 
                     <div class="row my-4">
                         <div class="float-start">                   
-                            <a href="shop-user.html" class="btn btn-link text-muted" id="continue-shopping-btn" style="margin-right: 10px;"><i class="mdi mdi-arrow-left me-1"></i> Continue Shopping </a>                             
-                            <a  class="btn btn-success" id="success-pay-btn"><i class="mdi mdi-cart-outline me-1"></i> Proceed </a>                                              
+                            <a href="shop-user.php?s-user=<?php echo $_GET['tdn']?>" class="btn btn-link text-muted" id="continue-shopping-btn" style="margin-right: 10px;"><i class="mdi mdi-arrow-left me-1"></i> Tiếp tục mua sắm </a>                             
+                            <a  class="btn btn-success" id="success-pay-btn"><i class="mdi mdi-cart-outline me-1"></i> Hoàn tất </a>                                              
                         </div>
                     </div>
                 </div>
@@ -208,38 +211,37 @@
                         <h5 class="font-size-30 mb-0" style="font-weight: 600;">Đơn hàng</h5> 
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-centered mb-0 table-nowrap">
-                            <?php
-                    $select_cart_products = mysqli_query($conn, "select * from giohang");
-                    $grand_total = 0;
-                    if(mysqli_num_rows($select_cart_products)>0) {
-                        echo '
-                        <thead>
-                                <tr>
-                                    <th class="border-top-0" style="width: 110px;" scope="col">Sản phẩm</th>
-                                    <th class="border-top-0" scope="col">Chi tiết</th>
-                                    <th class="border-top-0" scope="col">Giá tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                        ';
-                        while($fetch_cart_products=mysqli_fetch_assoc($select_cart_products)) {
-                            ?>
-                            <tr>
-                                <th scope="row"><img src="images/<?php echo $fetch_cart_products['hinhanh']?>" alt="product-img" title="product-img" class="avatar-lg rounded"></th>
-                                <td>
-                                    <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark"><?php echo $fetch_cart_products['tensp']?></a></h5>
-                                    <p class="text-muted mb-0 mt-1"><?php echo $fetch_cart_products['giaban']?>vnđ x <?php echo $fetch_cart_products['soluong']?></p>
-                                </td>
-                                <td><?php echo ($fetch_cart_products['giaban'] * $fetch_cart_products['soluong'])?>vnđ</td>
-                            </tr>
                         <?php
+                        if(isset($_SESSION['giohang'])&&(count($_SESSION['giohang'])>0)) {
+                            echo '<table class="table table-centered mb-0 table-nowrap"">
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th>Chi tiết</th>
+                                <th>Giá tiền</th>
+                            </tr>';
+                            $tong = 0;
+                            foreach($_SESSION['giohang'] as $item) {
+                                $tt = $item[3] * $item[4];
+                                $tong += $tt;
+                                echo '<tr>
+                                <td>
+                                <img src="images/'.$item[2].'" alt="ảnh sản phẩm" style="width: 70px; height: 70px;">     
+                                </td>
+                                <td>
+                                    <h5 class="font-size-16 text-truncate"><a href="#" class="text-dark">'.$item[1].'</a></h5>
+                                    <p class="text-muted mb-0 mt-1">'.$item[3].' x '.$item[4].'</p>
+                                </td>
+                                <td>'.$tt.'vnđ</td>                               
+                            </tr>';
+                            }
+                            echo '<tr>
+                            <td colspan="2">Tổng cộng: </td><td>'.$tong.'vnđ</td><td></td>
+                        </tr>';
+                            echo "</table>";
+                        } else {
+                            echo "Đơn hàng trống";
                         }
-                    }
                         ?>
-
-                            </tbody>
-                        </table>                         
                     </div>
                 </div>
             </div>        
@@ -307,7 +309,7 @@
     const btnbuy = document.querySelector('#success-pay-btn');
     btnbuy.onclick=function(){
         alert('Successful payment');
-            window.location.href='shop-user.html';
+            window.location.href='shop-user.php?s-user=<?php echo $_GET['tdn']?>';
     }
 </script>
 

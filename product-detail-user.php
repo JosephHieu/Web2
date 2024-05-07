@@ -3,24 +3,8 @@
     include "connect.php";
 
     $id = $_GET['id'];
-
-    // cắt chuỗi lấy id
-    $parts_id = explode('?', $id);
-    $first_parts_id = $parts_id[0];
-    // echo $first_parts_id;
-
-    // Cắt chuỗi lấy tensp
-    $parts_tensp = explode('?', $id);
-    $product_info = $parts_tensp[1];
-    $product_parts_tensp = explode('=', $product_info);
-    $tensp = $product_parts_tensp[1];
-    // echo $tensp;
-
-    // cắt chuỗi lấy tendangnhap
-    preg_match('/prod-user=([^&]+)/', $id, $matches);
-    $tdn = urldecode($matches[1]); // Giải mã URL nếu cần
-    // echo $tdn;
-
+    $tensp = $_GET['tensp'];
+    $tdn = $_GET['prod-user'];
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +120,29 @@
     <?php
             }
     ?>
+    <!-- lấy thông tin để làm giỏ hàng -->
+    <?php 
+    if(isset($_GET['id']) && isset($_GET['tensp'])) {
+      $manh = $_GET['id'];
+      $tensp = $_GET['tensp'];
+      $sql = "select * from sanpham where manh='$manh' and tensp='$tensp'";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+        $fetch_product = mysqli_fetch_assoc($result);
+        ?>
+      <form action="giohang-user.php?tdn=<?php echo $tdn?>" method="post">
+        <input type="hidden" name="product_id" value="<?php echo $fetch_product['masp']?>">
+        <input type="hidden" name="product_name" value="<?php echo $fetch_product['tensp']?>">
+        <input type="hidden" name="product_price" value="<?php echo $fetch_product['giaban']?>">
+        <input type="hidden" name="product_image" value="<?php echo $fetch_product['hinhanh']?>">
+        <label for="soluong">Số lượng</label>
+        <input type="number" min="1" name="soluong" id="soluong">
+        <input type="submit" value="Thêm vào giỏ hàng" name="add_to_cart">
+      </form>
+        <?php
+      }
+    }
+      ?>
 
     <!-- Quay lại cửa hàng -->
     <div class="divider medium"></div>
