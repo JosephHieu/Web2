@@ -1,12 +1,7 @@
 
 <?php
     include "connect.php";
-
-    // cắt chuỗi lấy tên đăng nhập
-    $parts_tensp = explode('?', $id);
-    $product_info = $parts_tensp[1];
-    $product_parts_tensp = explode('=', $product_info);
-    $tensp = $product_parts_tensp[1];
+   
 ?>
 
 <!DOCTYPE html>
@@ -110,10 +105,35 @@
 
         }
     ?>
+      <!-- Lấy thông tin để làm giỏ hàng -->
+      <?php 
+    if(isset($_GET['id']) && isset($_GET['tensp'])) {
+      $manh = $_GET['id'];
+      $tensp = $_GET['tensp'];
+      $sql = "select * from sanpham where manh='$manh' and tensp='$tensp'";
+      $result = mysqli_query($conn, $sql);
+      if(mysqli_num_rows($result) > 0) {
+        $fetch_product = mysqli_fetch_assoc($result);
+        ?>
+      <form action="giohang.php" method="post">
+        <input type="hidden" name="product_id" value="<?php echo $fetch_product['masp']?>">
+        <input type="hidden" name="product_name" value="<?php echo $fetch_product['tensp']?>">
+        <input type="hidden" name="product_price" value="<?php echo $fetch_product['giaban']?>">
+        <input type="hidden" name="product_image" value="<?php echo $fetch_product['hinhanh']?>">
+        <label for="soluong">Số lượng</label>
+        <input type="number" min="1" name="soluong" id="soluong">
+        <input type="submit" value="Thêm vào giỏ hàng" name="add_to_cart">
+      </form>
+        <?php
+      }
+    }
+      ?>
 
     <!-- Quay lại cửa hàng -->
     <div class="divider medium"></div>
-    <a href="shop.php" class="btn-buy">Quay lại cửa hàng </a>
+    <a href="shop.php" class="btn-buy">Quay lại cửa hàng</a>
+    <div>
+    </div>
     </div>
     </div>
     </div>

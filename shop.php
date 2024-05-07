@@ -3,24 +3,24 @@
 
 
   // Phần giỏ hàng
-  if(isset($_POST['add_to_cart'])) {
-    $products_name     = $_POST['product_name'];
-    $products_price    = $_POST['product_price'];
-    $products_image    = $_POST['product_image'];
-    $products_quantity = 1;
+  // if(isset($_POST['add_to_cart'])) {
+  //   $products_name     = $_POST['product_name'];
+  //   $products_price    = $_POST['product_price'];
+  //   $products_image    = $_POST['product_image'];
+  //   $products_quantity = 1;
 
-    // Chọn dữ liệu giở hàng dựa trên điều kiện
-    $select_cart = mysqli_query($conn, "select * from giohang where tensp='$products_name'");
-    if(mysqli_num_rows($select_cart) > 0) {
-      $display_message[] = "Sản phẩm này đã có trong giỏ hàng";
-    }
-    else {
-      // chèn dữ liệu giỏ hàng trong bảng giỏ hàng
-      $insert_products = mysqli_query($conn, "insert into giohang (tensp, giaban, hinhanh, soluong)
-      values ('$products_name', '$products_price', '$products_image', $products_quantity)");
-      $display_message[] = "Đã thêm sản phẩm vào giỏ hàng";
-    }
-  }
+  //   // Chọn dữ liệu giở hàng dựa trên điều kiện
+  //   $select_cart = mysqli_query($conn, "select * from giohang where tensp='$products_name'");
+  //   if(mysqli_num_rows($select_cart) > 0) {
+  //     $display_message[] = "Sản phẩm này đã có trong giỏ hàng";
+  //   }
+  //   else {
+  //     // chèn dữ liệu giỏ hàng trong bảng giỏ hàng
+  //     $insert_products = mysqli_query($conn, "insert into giohang (tensp, giaban, hinhanh, soluong)
+  //     values ('$products_name', '$products_price', '$products_image', $products_quantity)");
+  //     $display_message[] = "Đã thêm sản phẩm vào giỏ hàng";
+  //   }
+  // }
 
   // Phần phân trang
   $start = 0;
@@ -178,7 +178,7 @@
           while($fetch_product = $result->fetch_assoc()) {
             ?>
             <div class="pro1 pepsi product-box">
-              <form action="shop.php" method="post" enctype="multipart/form-data">
+              <form action="giohang.php" method="post">
                 <a href="product-detail.php?id=<?php echo $fetch_product['manh']?>&tensp=<?php echo $fetch_product['tensp']?>">
                 <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt=""></a>           
                 <h5 class="product-title"><?php echo $fetch_product['tensp']?></h5>
@@ -186,10 +186,11 @@
                 <h4 class="product-price"><?php echo $fetch_product['giaban']?>vnđ</h4>
 
                 <!-- lấy thông tin sản phẩm để làm giỏ hàng -->
+                <button type="submit" class="add-cart" id="cart-plus" name="add_to_cart">Thêm vào giỏ hàng</button>
+                <input type="hidden" name="product_id" value="<?php echo $fetch_product['masp']?>">
                 <input type="hidden" name="product_name" value="<?php echo $fetch_product['tensp']?>">
                 <input type="hidden" name="product_price" value="<?php echo $fetch_product['giaban']?>">
                 <input type="hidden" name="product_image" value="<?php echo $fetch_product['hinhanh']?>">
-                <button type="submit" class="add-cart" id="cart-plus" name="add_to_cart">Thêm vào giỏ hàng</button>
               </form>
               
             </div> 

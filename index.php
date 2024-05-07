@@ -79,7 +79,7 @@
     <img src="images/kiến trúc cho tương lai.jpg">
     <h2 style="letter-spacing: 0.5px;">Kiến trúc cho tương lai</h2>
     <p style="padding-bottom: 5px; letter-spacing: 0.8px;">Sản phẩm được làm thủ công và nhiên liệu được lấy từ tự nhiên không hóa chất độc hại, không gây kích ứng cho da, phù hợp cho mọi đối tượng sử dụng.</p>
-      <button id="btn-blog" onclick="window.location.href='brand.php'">Xem sản phẩm</button>
+      <button id="btn-blog" onclick="window.location.href='shop.php'">Xem sản phẩm</button>
     </div>
   <div class="box">
     <img src="images/sẵn sàng cho một ngày mới.jpg">
