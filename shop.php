@@ -1,27 +1,6 @@
 <?php 
   include "connect.php";
 
-
-  // Phần giỏ hàng
-  // if(isset($_POST['add_to_cart'])) {
-  //   $products_name     = $_POST['product_name'];
-  //   $products_price    = $_POST['product_price'];
-  //   $products_image    = $_POST['product_image'];
-  //   $products_quantity = 1;
-
-  //   // Chọn dữ liệu giở hàng dựa trên điều kiện
-  //   $select_cart = mysqli_query($conn, "select * from giohang where tensp='$products_name'");
-  //   if(mysqli_num_rows($select_cart) > 0) {
-  //     $display_message[] = "Sản phẩm này đã có trong giỏ hàng";
-  //   }
-  //   else {
-  //     // chèn dữ liệu giỏ hàng trong bảng giỏ hàng
-  //     $insert_products = mysqli_query($conn, "insert into giohang (tensp, giaban, hinhanh, soluong)
-  //     values ('$products_name', '$products_price', '$products_image', $products_quantity)");
-  //     $display_message[] = "Đã thêm sản phẩm vào giỏ hàng";
-  //   }
-  // }
-
   // Phần phân trang
   $start = 0;
 
@@ -92,19 +71,13 @@
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
     </svg>
   </div> 
-      <!-- Giỏ hàng -->
-      <!-- php code -->
-      <?php
-  $select_product = mysqli_query($conn, "select * from giohang") or die('query failed');
-  $row_count = mysqli_num_rows($select_product);
-      ?>
       <li id="menu" >
-        <a href="cart.php" id="cart-icon">
+        <a href="giohang.php" id="cart-icon">
         <div class="cart-follow-icon">
           <!-- shopping cart icon -->
           <i class="fa-solid fa-cart-shopping add-cart"></i>
           <span id="count-cart-add" style="  font-size: 14px; color:white; font-weight: 500; margin: 0; letter-spacing: 1px;">
-          <?php echo $row_count?></span>
+          !</span>
         </div>
         </a>
       </li>
@@ -131,21 +104,6 @@
   </div>
 </section>
 
-<!-- Thông báo sản phẩm đã thêm vào giỏ hàng -->
-<div style="position: absolute; top: 18%; color: green; font-weight: 600; margin-left: 50px;">
-  <?php
-      if(isset($display_message)) {
-        foreach($display_message as $display_message) {
-            echo "<div class='display_message'>
-            <span>$display_message</span>
-            <i class='fas fatimes' onClick='this.parentElement.style.display=`none`';></i>
-            </div>";
-        }
-      }
-    ?>
-</div>
-
-
     <!-- Phân loại sản phẩm -->
 <section id="product11" class="section-p11" class="shop container" >
   <div  id="filter-buttons" style="padding-top: 150px;">   
@@ -169,7 +127,7 @@
     <div id="overlay"></div>
 
 <!-- Hiển thị sản phẩm -->
-<div class="pro-container1" id="product-list" >
+<div class="pro-container1" id="product-list" style="position: relative;">
       <?php 
         // truy vấn lấy sản phẩn trong bảng sanpham
         $select_products = mysqli_query($conn, "select * from sanpham");
@@ -211,7 +169,7 @@
   </div>
   
   <!-- displaying the pagination buttons -->
-  <div class="pagination">
+  <div class="pagination" style="position: absolute; bottom: 0; display: flex;">
     <!-- Tới trang đầu tiên -->
     <a href="?page-nr=1" style="padding: 0 15px;">Trang đầu</a>
 

@@ -1,3 +1,7 @@
+<?php
+    include "connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,7 +139,7 @@
         
         </article>
             <hr>
-            <a href="history.html" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+            <a href="history.php" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
         </div>
     </article>
 </div>

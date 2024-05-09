@@ -22,7 +22,7 @@
 
     if(mysqli_num_rows($result) == 1) {
       $_SESSION['mySession'] = $tendangnhap;
-      header('location: index-user.php?tdn='.$tendangnhap.'');
+      header('location: index-user.php');
     }else {
       echo "<script>
         alert('Tên đăng nhập hoặc mật khẩu không chính xác');

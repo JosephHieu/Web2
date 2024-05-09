@@ -1,3 +1,7 @@
+<?php
+    include "connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,29 +20,32 @@
   
 <div class="containerz">
     <div class="row">
+        <!-- Phần nav -->
         <div class="col-md-3" style="border: 1px solid #DFDFDF;padding-left: 0;padding-right: 0;" >
             <div class="osahan-account-page-left bg-white h-100">
                 <div class="border-bottom p-4">
                     <div style="display: flex; justify-content: center;"  id="logo-history">
-                        <img src="images/LOGO.webp" class="logo-user" style="cursor: pointer;" onclick="window.location.href='index-user.html' ">
+                        <img src="images/LOGO.webp" class="logo-user" style="cursor: pointer;" onclick="window.location.href='index-user.php' ">
                     </div>
                                    
                 </div>
               
            
                     <a class="list-group-item list-group-item-action" data-toggle="list"
-                    href="user.html">Thông Tin</a>
+                    href="user.php">Thông Tin</a>
                     <a class="list-group-item list-group-item-action active" data-toggle="list"
-                    href="history.html">Lịch Sử Mua Hàng</a>
+                    href="history.php">Lịch Sử Mua Hàng</a>
 
                 <a class="list-group-item list-group-item-action" data-toggle="list"
-                    href="changepass.html">Thay đổi mật khẩu</a>
+                    href="changepass.php">Thay đổi mật khẩu</a>
              
 
                    
                
             </div>
         </div>
+
+        <!-- Phần lịch sử mua hàng -->
         <div class="col-md-9" style="border: 1px solid #DFDFDF;padding-left: 6px; padding-right: 6px ;" class="right-containers">
             <div class="osahan-account-page-right  bg-white p-2 h-100">
                 <div class="tab-content" id="myTabContent">
@@ -95,7 +102,7 @@
                                         <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng thanh toán:</span> 80.000vnđ</p>
                                         <hr>
                                         <div class="float-right" >
-                                            <a class="btn btn-sm btn-outline-primary" href="user-order-info.html"><i class="icofont-headphone-alt"></i> Chi tiết đơn hàng</a>
+                                            <a class="btn btn-sm btn-outline-primary" href="user-order-info.php"><i class="icofont-headphone-alt"></i> Chi tiết đơn hàng</a>
                                            
                                         </div>
                                     </div>
@@ -173,7 +180,7 @@
 
                         
                         <div  id="profile-button" style="display: flex; justify-content:center;margin-top: 50px; margin-bottom: 20px;">
-                            <button type="button" class="btn btn-default" id="button-go-back" onclick="window.location.href='shop-user.html'"><i class="fa-solid fa-chevron-left"></i> Quay Lại</button>
+                            <button type="button" class="btn btn-default" id="button-go-back" onclick="window.location.href='shop-user.php'"><i class="fa-solid fa-chevron-left"></i> Quay Lại</button>
                             <button type="button" class="btn btn-primary">Lưu</button>&nbsp;
                            
                         </div>

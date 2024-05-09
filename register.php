@@ -245,7 +245,7 @@
 
               <div class="input-field">
                 <i class="fa-solid fa-user"></i>
-                <input type="date" name="Ngày sinh" placeholder="Ngày tháng năm sinh" id="username" required>
+                <input type="date" name="namsinh" placeholder="Ngày tháng năm sinh" id="username" required>
                 <div class="error">
                   <?php
                   // if(isset($display_message)) {

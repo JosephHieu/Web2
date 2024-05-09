@@ -2,9 +2,13 @@
 <?php
     include "connect.php";
 
+    session_start();
+    if(isset($_SESSION['mySession'])) {
+      $tendangnhap = $_SESSION['mySession'];
+    }
+
     $id = $_GET['id'];
     $tensp = $_GET['tensp'];
-    $tdn = $_GET['prod-user'];
 ?>
 
 <!DOCTYPE html>
@@ -24,16 +28,16 @@
 <body>
   <!-- header -->
 <section id="header">
-    <a href="index-user.php?tdn=<?php echo $tdn?>">
+    <a href="index-user.php">
       <img src="images/LOGO.webp" class="logo" alt="" >
    </a>
   <div>
    <ul id="icons">
     
-  <li id="menu"><a href="index-user.php?tdn=<?php echo $tdn?>"  class="choose" ><span>Trang Chủ</span></a></li>
-          <li id="menu"><a href="brand-user.php?brand=<?php echo $tdn?>" class="choose"><span>Nhãn Hàng</span></a></li>
+  <li id="menu"><a href="index-user.php"  class="choose" ><span>Trang Chủ</span></a></li>
+          <li id="menu"><a href="brand-user.php" class="choose"><span>Nhãn Hàng</span></a></li>
          
-          <li id="menu" ><a href="shop-user.php?s-user=<?php echo $tdn?>" class="choose"><span>Cửa Hàng</span></a></li>
+          <li id="menu" ><a href="shop-user.php" class="choose"><span>Cửa Hàng</span></a></li>
     
       <div class="group" id="search">
       <input type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()">
@@ -41,7 +45,7 @@
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
   </svg>
   </div> 
-     <li id="menu" id="lg-bag"><a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a>
+     <li id="menu" id="lg-bag"><a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>
       </li>
       <li id="menu" id="lg-bag"> <a onclick="toggleMenu()" id="userlogin"><i class="fa-solid fa-circle-user"></i></a>
       </li>
@@ -51,13 +55,13 @@
   <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
       <div class="user-info"> 
-        <h2><?php echo $tdn?></h2>
+        <h2><?php echo $tendangnhap?></h2>
       </div>
       <hr>
-      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
+      <a href="user.php" class="sub-menu-index-link">
         <p>> Tài khoản</p>  
       </a> 
-      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
+      <a href="history.php" class="sub-menu-index-link">
         <p>> Lịch sử mua hàng</p> 
       </a>
       <a href="logout.php" class="sub-menu-index-link">
@@ -67,10 +71,7 @@
   </div>
   <div id="mobile"> 
   
-    <a href="shop-user.php?s-user=<?php echo $tdn?>"><i class="fa-solid fa-cart-shopping"></i></a>
-   
-  <a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
-  
+    <a href="shop-user.php"><i class="fa-solid fa-cart-shopping"></i></a>  
   <i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
   
   </div>
@@ -130,13 +131,13 @@
       if(mysqli_num_rows($result) > 0) {
         $fetch_product = mysqli_fetch_assoc($result);
         ?>
-      <form action="giohang-user.php?tdn=<?php echo $tdn?>" method="post">
+      <form action="giohang-user.php" method="post">
         <input type="hidden" name="product_id" value="<?php echo $fetch_product['masp']?>">
         <input type="hidden" name="product_name" value="<?php echo $fetch_product['tensp']?>">
         <input type="hidden" name="product_price" value="<?php echo $fetch_product['giaban']?>">
         <input type="hidden" name="product_image" value="<?php echo $fetch_product['hinhanh']?>">
         <label for="soluong">Số lượng</label>
-        <input type="number" min="1" name="soluong" id="soluong">
+        <input type="number" min="1" name="soluong" id="soluong" value="1">
         <input type="submit" value="Thêm vào giỏ hàng" name="add_to_cart">
       </form>
         <?php
@@ -146,7 +147,7 @@
 
     <!-- Quay lại cửa hàng -->
     <div class="divider medium"></div>
-    <a href="shop-user.php?s-user=<?php echo $tdn?>" class="btn-buy">Quay lại cửa hàng </a>
+    <a href="shop-user.php" class="btn-buy">Quay lại cửa hàng </a>
     </div>
     </div>
     </div>
@@ -251,7 +252,7 @@
     }
     const search = () => {
       if (event.keyCode === 13) {
-  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
+  window.location.href='shop-user.php';
       }};
 </script>
 

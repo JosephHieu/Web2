@@ -1,4 +1,8 @@
 
+<?php
+    include "connect.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,29 +24,31 @@
 
         <div class="containerz">
             <div class="row">
+                <!-- phần nav -->
                 <div class="col-md-3" style="border: 1px solid #DFDFDF;padding-left: 0;padding-right: 0;">
                     <div class="osahan-account-page-left  bg-white h-100">
                         <div class="border-bottom p-4">
                          <div style="display: flex; justify-content: center;"  id="logo-history">
-                             <img src="images/LOGO.webp" class="logo-user" style="cursor: pointer;" onclick="window.location.href='index-user.html' ">
+                             <img src="images/LOGO.webp" class="logo-user" style="cursor: pointer;" onclick="window.location.href='index-user.php' ">
                          </div>
                                          
                         </div>
                       
                    
                             <a class="list-group-item list-group-item-action" 
-                            href="user.html">Thông tin</a>
+                            href="user.php">Thông tin</a>
                             <a class="list-group-item list-group-item-action" 
-                            href="history.html">lịch sử mua hàng</a>
+                            href="history.php">lịch sử mua hàng</a>
         
                         <a class="list-group-item list-group-item-action active" 
-                            href="changepass.html">Thay đổi mật khẩu</a>
+                            href="changepass.php">Thay đổi mật khẩu</a>
                      
                         
                        
                     </div>
                     
                 </div>
+                <!-- Phần xử lý mật khẩu -->
                 <div class="col-md-9" style="border: 1px solid #DFDFDF;padding-left: 0px; padding-right: 0px;">
                     <div class="osahan-account-page-right bg-white p-2 h-100">
                         <div class="tab-content" id="myTabContent">
@@ -50,11 +56,11 @@
                              <div class="card-body pb-2">
                                  <div class="form-group">
                                      <label class="form-label">Mật khẩu cũ</label>
-                                     <input type="password" class="form-control">
+                                     <input type="password" class="form-control" id="password1">
                                  </div>
                                  <div class="form-group">
                                      <label class="form-label">Mật khẩu mới</label>
-                                     <input type="password" class="form-control">
+                                     <input type="password" class="form-control" id="password2">
                                  </div>
                                  <div class="form-group">
                                      <label class="form-label">Xác nhận mật khẩu mới</label>
@@ -63,8 +69,8 @@
 
                                  
                                  <div  id="profile-button" style="display: flex; justify-content:center;margin-top: 50px;margin-bottom: 20px;">
-                                    <button type="button" class="btn btn-default" id="button-go-back" onclick="window.location.href='shop-user.html'"><i class="fa-solid fa-chevron-left"></i> Quay Lại</button>
-                                    <button type="button" class="btn btn-primary">Lưu</button>&nbsp;
+                                    <button type="button" class="btn btn-default" id="button-go-back" onclick="window.location.href='shop-user.php'"><i class="fa-solid fa-chevron-left"></i> Quay Lại</button>
+                                    <button type="button" class="btn btn-primary" id="saveButton">Lưu</button>&nbsp;
                                    
                                 </div>
                              </div>
@@ -84,5 +90,15 @@
 </html>
 
 
-
-
+<script>
+    document.getElementById("saveButton").addEventListener("click", function() {
+    var password1 = document.getElementById("password1").value;
+    var password2 = document.getElementById("password2").value;
+    
+    if (password1 !== password2) {
+        alert("Mật khẩu không khớp!");
+    }else {
+        alert("Đổi mật khẩu thành công");
+    }
+    });
+</script>

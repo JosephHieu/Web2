@@ -32,6 +32,28 @@
         }
 
     }
+
+    // Phân trang
+  // đặt start từ giá trị
+  $start = 0;
+
+  // đặt số lượng dòng để hiện trên một trang
+  $rows_per_page = 4;
+
+  // lấy tổng số côt
+  $records = $conn->query("select * from nguoiquantri");
+  $nr_of_rows = $records->num_rows;
+
+  // tính nr của pages
+  $pages = ceil($nr_of_rows / $rows_per_page);
+
+  // if the user clicks on the paginition buttons we set a new starting point
+  if(isset($_GET['page-nr'])) {
+    $page = $_GET['page-nr'] - 1;
+    $start = $page * $rows_per_page;
+  }
+
+  $result = $conn->query("select * from nguoiquantri limit ".$start.", ".$rows_per_page."");
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +71,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+ <!-- của phần phân trang -->
+ <?php 
+      if(isset($_GET['page-nr'])) {
+        $id = $_GET['page-nr'];
+      } else {
+        $id = 1;
+      }
+    ?>
+
+<body id="<?php echo $id?>">
    <input type="checkbox" id="menu-toggle">
    <div class="sidebar">
     <!-- side header -->
@@ -216,7 +247,8 @@
                 </thead>
                 <tbody>";
 
-                while($row=mysqli_fetch_assoc($display_strator)) {
+                // while($row=mysqli_fetch_assoc($display_strator)) {
+                while($row=$result->fetch_assoc()) {
                     ?>
                     <tr>                                                           
                         <td>
@@ -271,17 +303,86 @@
                 ?>                           
                     </tbody>
                 </table>
-                    <ul class="pagination" id="pagination">
-                        <li onclick="prevPage()">Trang trước</li>
-                       <li class="active">1</li>
-                        <li onclick="nextPage()">Trang sau</li>
-                      </ul>                
+                <!-- Phần phân trang -->
+  <!-- displaying the page info text -->
+  <div class="page-info">
+    <?php 
+      if(!isset($_GET['page-nr'])) {
+          $page = 1;
+      } else {
+          $page = $_GET['page-nr'];
+      }
+    ?>
+    <p style="text-align: center; padding-top: 15px;">Hiện <?php echo $page?> trên <?php echo $pages?> trang</p>
+  </div>
+
+  <!-- displaying the pagination buttons -->
+  <div class="pagination">
+    <!-- Tới trang đầu tiên -->
+    <a href="?page-nr=1" style="padding: 0 15px;">Trang đầu</a>
+
+    <!-- Tới trang trước -->
+    <?php 
+      if(isset($_GET['page-nr']) && $_GET['page-nr'] > 1) {
+          ?>
+          <a href="?page-nr=<?php echo $_GET['page-nr'] - 1?>" style="padding: 0 15px;">Trang trước</a>            
+          <?php
+      } else {
+          ?>
+          <a href="" style="padding: 0 15px;">Trang trước</a>
+          <?php
+      }
+    ?>
+
+        <!-- Output the page numbers -->
+        <div class="page-numbers">
+            <?php 
+                for($counter=1; $counter <= $pages; $counter++) {
+                    ?>
+                    <a href="?page-nr=<?php echo $counter?>" style="padding: 0 15px;"><?php echo $counter?></a>
+                    <?php
+                }
+            ?>
+        </div>
+
+        <!-- Go to the next page -->
+        <?php 
+            if(!isset($_GET['page-nr'])) {
+                ?>
+                <a href="?page-nr=2" style="padding: 0 15px;">Trang sau</a>
+                <?php
+            }else {
+                if($_GET['page-nr'] >= $pages) {
+                    ?>
+                    <a href="" style="padding: 0 15px;">Trang cuối</a>
+                    <?php
+                } else {
+                    ?>
+                    <a href="?page-nr=<?php echo $_GET['page-nr'] + 1?>" style="padding: 0 15px;">Trang sau</a>
+                    <?php
+                }
+            }
+        ?>
+
+
+        <!-- Go to the last page -->
+        <a href="?page-nr=<?php echo $pages?>" style="padding: 0 15px;">Trang cuối</a>
+
+
+  </div>              
                 </div>
             </div>           
         </main>       
     </div>
 </body>
 </html>
+
+<!-- của phần phân trang -->
+<script>
+    let links = document.querySelectorAll('.page-numbers > a');
+    let bodyId = parseInt(document.body.id) - 1;
+    links[bodyId].classList.add("active");
+</script>
 
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

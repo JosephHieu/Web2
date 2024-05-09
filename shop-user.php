@@ -1,30 +1,10 @@
 <?php 
   include "connect.php";
 
-  // pagelayout tdn = tendangnhap
-  // tendangnhap là khóa chính của khách hàng
-  $tdn = $_GET['s-user'];
-
-  // Phần giỏ hàng
-  // if(isset($_POST['add_to_cart'])) {
-  //   $products_name     = $_POST['product_name'];
-  //   $products_price    = $_POST['product_price'];
-  //   $products_image    = $_POST['product_image'];
-  //   $products_quantity = 1;
-
-  //   // Chọn dữ liệu giở hàng dựa trên điều kiện
-  //   $select_cart = mysqli_query($conn, "select * from giohang where tensp='$products_name'");
-  //   if(mysqli_num_rows($select_cart) > 0) {
-  //     $display_message[] = "Sản phẩm này đã có trong giỏ hàng";
-      
-  //   }
-  //   else {
-  //     // chèn dữ liệu giỏ hàng trong bảng giỏ hàng
-  //     $insert_products = mysqli_query($conn, "insert into giohang (tensp, giaban, hinhanh, soluong)
-  //     values ('$products_name', '$products_price', '$products_image', $products_quantity)");
-  //     $display_message[] = "Đã thêm sản phẩm vào giỏ hàng";
-  //   }
-  // }
+  session_start();
+  if(isset($_SESSION['mySession'])) {
+    $tendangnhap = $_SESSION['mySession'];
+  }
 
   // Phần phân trang
   $start = 0;
@@ -77,28 +57,22 @@
 <body id="<?php echo $id?>">
   <!-- header -->
 <section id="header">
-  <a href="index-user.php?tdn=<?php echo $tdn?>">
+  <a href="index-user.php">
     <img src="images/LOGO.webp" class="logo" alt="" >
   </a>
   <div>
   <ul id="icons">  
-    <li id="menu"><a href="index-user.php?tdn=<?php echo $tdn?>" class="choose" ><span>Trang Chủ</span></a></li>
-    <li id="menu"><a href="brand-user.php?brand=<?php echo $tdn?>" class="choose"><span>Nhãn Hàng</span></a></li>       
-    <li id="menu" ><a class="act-on" href="shop-user.php?s-user=<?php echo $tdn?>" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
+    <li id="menu"><a href="index-user.php" class="choose" ><span>Trang Chủ</span></a></li>
+    <li id="menu"><a href="brand-user.php" class="choose"><span>Nhãn Hàng</span></a></li>       
+    <li id="menu" ><a class="act-on" href="shop-user.php" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
     <div class="group" id="search">
     <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()"  tabindex="1">
     <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
       <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
     </svg>
   </div> 
-      <!-- Giỏ hàng -->
-      <!-- php code -->
-      <?php
-  $select_product = mysqli_query($conn, "select * from giohang") or die('query failed');
-  $row_count = mysqli_num_rows($select_product);
-      ?>
       <li id="menu" >
-        <a href="giohang-user.php?tdn=<?php echo $tdn?>" id="cart-icon">
+        <a href="giohang-user.php" id="cart-icon">
         <div class="cart-follow-icon">
           <!-- shopping cart icon -->
           <i class="fa-solid fa-cart-shopping add-cart"></i>
@@ -120,13 +94,14 @@
   <div class="sub-menu-wrap" id="subMenu">
     <div class="sub-menu">
       <div class="user-info"> 
-        <h2><?php echo $tdn?></h2>
+        <!-- Cần sửa chỗ này -->
+        <h2><?php echo $tendangnhap?></h2>  
       </div>
       <hr>
-      <a href="user.php?user=<?php echo $tdn?>" class="sub-menu-index-link">
+      <a href="user.php" class="sub-menu-index-link">
         <p>> Tài khoản</p>  
       </a> 
-      <a href="history.php?history=<?php echo $tdn?>" class="sub-menu-index-link">
+      <a href="history.php" class="sub-menu-index-link">
         <p>> Lịch sử mua hàng</p> 
       </a>
       <a href="logout.php" class="sub-menu-index-link">
@@ -134,37 +109,7 @@
       </a> 
     </div>
   </div>
-
-  <div id="mobile"> 
-    <a id="cart-icon1">
-      <div class="cart-follow-icon">
-        <i class="fa-solid fa-cart-shopping add-cart"></i>
-        <span id="count-cart-add1" style="  font-size: 14px; color:white; font-weight: 500; margin: 0; letter-spacing: 1px;">0</span>
-      </div>
-    </a>
-    <a id="glass-search" onclick="showbar()" ><i class="fa-solid fa-magnifying-glass"></i> </a>
-    <a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
-    <i id="bar" class="fa-solid fa-bars" style="color: #000000;"></i>
-  </div>
-  <div class="search-bars">
-    <input type="text" placeholder="SEARCH...">
-    <i class="fa-solid fa-xmark" id="xmark" onclick="closebar()"></i>
-  </div>
 </section>
-
-<!-- Thông báo sản phẩm đã thêm vào giỏ hàng -->
-<div style="position: absolute; top: 18%; color: green; font-weight: 600; margin-left: 50px;">
-  <?php
-      if(isset($display_message)) {
-        foreach($display_message as $display_message) {
-            echo "<div class='display_message'>
-            <span>$display_message</span>
-            <i class='fas fatimes' onClick='this.parentElement.style.display=`none`';></i>
-            </div>";
-        }
-      }
-    ?>
-</div>
 
 
     <!-- Phân loại sản phẩm -->
@@ -190,8 +135,8 @@
           while($fetch_product = $result->fetch_assoc()) {
             ?>
             <div class="pro1 pepsi product-box">
-              <form action="giohang-user.php?tdn=<?php echo $tdn?>" method="post" enctype="multipart/form-data">
-                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>&tensp=<?php echo $fetch_product['tensp']?>&prod-user=<?php echo $tdn?>">
+              <form action="giohang-user.php" method="post" enctype="multipart/form-data">
+                <a href="product-detail-user.php?id=<?php echo $fetch_product['manh']?>&tensp=<?php echo $fetch_product['tensp']?>">
                  <img  src="images/<?php echo $fetch_product['hinhanh']?>" class="product-img" alt="">
                 </a>           
                 <h5 class="product-title"><?php echo $fetch_product['tensp']?></h5>
@@ -333,7 +278,7 @@
     }
     const search = () => {
       if (event.keyCode === 13) {
-  window.location.href='shop-user.php?s-user=<?php echo $tdn?>';
+  window.location.href='shop-user.php';
       }};
 </script>
 

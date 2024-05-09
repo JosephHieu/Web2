@@ -59,7 +59,7 @@
 <body>
     <section class="ab-info-main py-5">
         <div class="container" py-3>
-            <h3 class="title text-center" style="padding-top: 30px;">Giỏ hàng của tôi</h3>
+            <h3 class="title text-center" style="padding-top: 30px; font-size: 24px; font-weight: 600;">Giỏ hàng của tôi</h3>
             <div class="row contact-main-info mt-5">
                 <div class="col-md-6 contact-right-content">
                 <!-- left -->
@@ -79,7 +79,7 @@
                             $i = 0;
                             $tong = 0;
                         foreach($_SESSION['giohang'] as $item) {
-                            $tt = $item[3] * $item[4];
+                            $tt = (double)$item[3] * (double)$item[4];
                             $tong += $tt;
                             echo '<tr>
                                 <td>'.($i+1).'</td>
@@ -93,7 +93,7 @@
                                 </td>
                                 <td>'.$tt.'</td>
                                 <td>
-                                    <a href="giohangxoa-user.php?i='.$i.'&tdn='.$_GET['tdn'].'">Xóa</a>
+                                    <a href="giohangxoa-user.php?i='.$i.'">Xóa</a>
                                 </td>
                             </tr>';
                             $i++;
@@ -102,19 +102,21 @@
                             <td colspan="5">Tổng cộng</td><td>'.$tong.'vnđ</td><td></td>
                         </tr>';
                         echo '</table>';
+                    } else {
+                        echo "Giỏ hàng trống";
                     }
                 ?>
                 <!-- Lấy thông tin để thanh toán -->
-                <form action="pay.php?tdn=<?php $_GET['tdn']?>" method="post">
+                <form action="thanhtoan.php" method="post">
                     <input type="hidden" name="tongdonhang" value="<?=$tong?>">
                 </form>
                 <br>
                     <div class="thea" style="display: flex; gap: 50px;">
-                        <a href="shop-user.php?s-user=<?php echo $_GET['tdn']?>">Tiếp tục mua sắm</a>
-                        <a href="pay.php?tdn=<?php echo $_GET['tdn']?>">
+                        <a href="shop-user.php?" style="font-size: 18px;">Tiếp tục mua sắm</a>
+                        <a href="thanhtoan.php" style="font-size: 18px;">
                             Thanh toán
                         </a> 
-                        <a href="giohangxoa-user.php?tdn=<?php echo $_GET['tdn']?>">Xóa giỏ hàng</a>
+                        <a href="giohangxoa-user.php?" style="font-size: 18px;">Xóa giỏ hàng</a>
                     </div>
                 </div>
 

@@ -59,7 +59,7 @@
 <body>
     <section class="ab-info-main py-5">
         <div class="container" py-3>
-            <h3 class="title text-center" style="padding-top: 30px;">Giỏ hàng của tôi</h3>
+            <h3 class="title text-center" style="padding-top: 30px;  font-size: 24px; font-weight: 600;">Giỏ hàng của tôi</h3>
             <div class="row contact-main-info mt-5">
                 <div class="col-md-6 contact-right-content">
                 <!-- left -->
@@ -79,7 +79,7 @@
                             $i = 0;
                             $tong = 0;
                         foreach($_SESSION['giohang'] as $item) {
-                            $tt = $item[3] * $item[4];
+                            $tt = (double)$item[3] * (double)$item[4];
                             $tong += $tt;
                             echo '<tr>
                                 <td>'.($i+1).'</td>
@@ -102,15 +102,17 @@
                             <td colspan="5">Tổng cộng</td><td>'.$tong.'vnđ</td><td></td>
                         </tr>';
                         echo '</table>';
+                    } else {
+                        echo "giỏ hàng trống";
                     }
                 ?>
                 <br>
                     <div class="thea" style="display: flex; gap: 50px;">
-                        <a href="shop.php">Tiếp tục mua sắm</a>
-                        <a href="#" onclick="return confirm('Bạn cần đăng nhập để mua những sản phẩm này')">
+                        <a href="shop.php" style="font-size: 18px;">Tiếp tục mua sắm</a>
+                        <a href="#" onclick="return confirm('Bạn cần đăng nhập để mua những sản phẩm này')" style="font-size: 18px;">
                             Thanh toán
                         </a> 
-                        <a href="giohangxoa.php">Xóa giỏ hàng</a>
+                        <a href="giohangxoa.php" style="font-size: 18px;">Xóa giỏ hàng</a>
                     </div>
                 </div>
 

@@ -1,7 +1,47 @@
-t<?php 
+<?php 
     include "connect.php";
     session_start();
-    
+
+
+    // echo $_POST['tongdonhang'];
+    if(isset($_GET['tdn'])) {
+        $tdn = $_GET['tdn'];
+        $select_info_cus = mysqli_query($conn, "select * from khachhang where tendangnhap='$tdn'");
+        
+        $row=mysqli_fetch_assoc($select_info_cus);
+
+        // lấy thông tin khách hàng
+        $mahd = "DH".rand(0, 999999); // mã hóa đơn lấy random
+        $hoten = $row['hovaten'];
+        $diachi = $row['quanhuyen'] . ", " . $row['tptinh'];
+        $ngaydathang = date("Y-m-d");
+        $trangthai  = 1;
+
+        // truy vấn đưa thông tin khách hàng lên hóa đơn
+        $sql_order = "insert into hoadon (mahd, tendangnhap, diachi, ngaydathang, trangthai)
+        values ('$mahd', '$hoten', '$diachi', '$ngaydathang', '$trangthai')";
+
+        $result = mysqli_query($conn, $sql_order);
+        if($result) {
+            echo "thành công";
+        } else {
+            echo "thất bại";
+        }
+
+
+
+        if(isset($_POST['update_address'])) {
+            $quanhuyen = $_POST['quanhuyen'];
+            $tptinh    = $_POST['tptinh'];
+            $quocgia   = $_POST['quocgia'];
+            $sdt       = $_POST['sdt'];
+            echo $quanhuyen;
+            echo $tptinh;
+            echo $quocgia;
+            echo $sdt;
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -93,32 +133,42 @@ t<?php
 
                         <li class="checkout-item">                          
                             <div class="mb-3" id="disappear-add-address">
-                                <form id="address-info">
+                                <!-- form thêm địa chỉ mới -->
+                                <form action="pay.php?tdn=<?php echo $_GET['tdn']?>" id="address-info" method="post">
                                     <div> 
                                         <div class="mb-3">
                                             <label class="form-label" for="billing-address">Địa chỉ</label>
-                                            <textarea maxlength="100" class="form-control" id="billing-address" rows="3" placeholder="Số nhà, tên đường, quận/huyện, TP/tỉnh"></textarea>
+                                            <textarea maxlength="100" name="quanhuyen" class="form-control" id="billing-address" rows="3" placeholder="Số nhà, tên đường, quận/huyện"></textarea>
                                         </div> 
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-4 mb-lg-0">
                                                     <label class="form-label">Quốc gia</label>
-                                                    <select class="form-control form-select" title="Country">
+                                                    <select name="quocgia" class="form-control form-select" title="Country">
                                                         <option value="0">Chọn</option>
                                                         <option value="AL">Việt Nam</option>
                                                         <option value="AF">Thái Lan</option>
                                                         <option value="DZ">Lào</option>
-                                                        <option value="AS">Campuchia</option>
-                                                                                       
+                                                        <option value="AS">Campuchia</option>                                 
                                                     </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="mb-0">
+                                                    <label class="form-label" for="zip-code">Thành phố</label>
+                                                    <input type="text" name="tptinh" class="form-control" id="zip-code" placeholder="Thành phố sinh sống">
                                                 </div>
                                             </div>
   
                                             <div class="col-lg-4">
                                                 <div class="mb-0">
-                                                    <label class="form-label" for="zip-code">Số điện thoại</label>
-                                                    <input min="0" type="number" class="form-control" id="zip-code" inputmode="numeric" placeholder="Nhập số điện thoại">
+                                                    <label name="sdt" class="form-label" for="zip-code">Số điện thoại</label>
+                                                    <input min="0" type="number" name="sdt" class="form-control" id="zip-code" inputmode="numeric" placeholder="Nhập số điện thoại">
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <input type="submit" name="update_address" value="Thêm" style="padding: 10px 20px; margin-top: 30px;">
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +216,7 @@ t<?php
 
                                     <div class="col-lg-4" style="margin-top: 10px; display: none;" id="pay-card-number" >
                                         <div class="mb-4 mb-lg-0">
-                                            <label class="form-label" for="card-number">Card Number</label>
+                                            <label class="form-label" for="card-number">Số thẻ</label>
                                             <input type="number" inputmode="numeric" class="form-control" style="display: none;" id="card-number" placeholder="Enter Card Number">
                                         </div>                                       
                                     </div>
@@ -174,8 +224,8 @@ t<?php
                                     <div class="row" style="margin-top: 10px; display: none;" id="pay-date-cvv">                                 
                                         <div class="col-lg-4">
                                             <div class="mb-4 mb-lg-0">
-                                                <label class="form-label" for="billing-city">Expiry Date</label>
-                                                <input type="date" style="display: none;" class="form-control" id="expiry-date" placeholder="Enter Expiry Date" >
+                                                <label class="form-label" for="billing-city">Ngày hết hạn</label>
+                                                <input type="date" style="display: none;" class="form-control" id="expiry-date" placeholder="Nhập ngày hết hạn" >
                                             </div>
                                         </div>
 
@@ -187,8 +237,8 @@ t<?php
                                         </div>                                 
                                     </div>
                                     <div class="mb-3" style="margin-top: 10px;">
-                                        <label class="form-label" for="billing-address">Order Notes</label>
-                                        <textarea class="form-control" maxlength="200" rows="3" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                        <label class="form-label" for="billing-address">Lưu ý giao hàng</label>
+                                        <textarea class="form-control" maxlength="200" rows="3" placeholder="Lưu ý về đơn hàng của bạn, những điều cần làm khi giao hàng"></textarea>
                                     </div>       
                             </div>
                         </li>
@@ -211,6 +261,7 @@ t<?php
                         <h5 class="font-size-30 mb-0" style="font-weight: 600;">Đơn hàng</h5> 
                     </div>
                     <div class="table-responsive">
+                        <!-- Hiển thị đơn hàng từ giỏ hàng -->
                         <?php
                         if(isset($_SESSION['giohang'])&&(count($_SESSION['giohang'])>0)) {
                             echo '<table class="table table-centered mb-0 table-nowrap"">
@@ -237,6 +288,11 @@ t<?php
                             echo '<tr>
                             <td colspan="2">Tổng cộng: </td><td>'.$tong.'vnđ</td><td></td>
                         </tr>';
+                            ?>
+                        <form action="pay.php?tdn=<?php echo $_GET['tdn']?>" method="post">
+                            <input type="hidden" name="tongdonhang" value="<?=$tong?>">
+                        </form>
+                            <?php
                             echo "</table>";
                         } else {
                             echo "Đơn hàng trống";
@@ -291,27 +347,6 @@ t<?php
         }
 </script>
 
-<script>
-    const accountaddress=document.querySelector('#address-pay');
-    const addressadd=document.querySelector('#address-add');
-    const addressinfo=document.querySelector('#address-info');
-    const disappearaddress=document.querySelector('#disappear-add-address');
-    accountaddress.onclick = function(){
-    addressinfo.style.display="none";
-    disappearaddress.style.display="none";
-
-    }
-    addressadd.onclick=function(){
-        addressinfo.style.display="block";
-        disappearaddress.style.display="block";
-    
-    }
-    const btnbuy = document.querySelector('#success-pay-btn');
-    btnbuy.onclick=function(){
-        alert('Successful payment');
-            window.location.href='shop-user.php?s-user=<?php echo $_GET['tdn']?>';
-    }
-</script>
 
 <script>
     const bar = document.getElementById('bar');

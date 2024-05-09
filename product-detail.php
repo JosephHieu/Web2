@@ -121,7 +121,7 @@
         <input type="hidden" name="product_price" value="<?php echo $fetch_product['giaban']?>">
         <input type="hidden" name="product_image" value="<?php echo $fetch_product['hinhanh']?>">
         <label for="soluong">Số lượng</label>
-        <input type="number" min="1" name="soluong" id="soluong">
+        <input type="number" min="1" value="1" name="soluong" id="soluong">
         <input type="submit" value="Thêm vào giỏ hàng" name="add_to_cart">
       </form>
         <?php
