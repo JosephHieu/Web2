@@ -25,7 +25,12 @@
     $start = $page * $rows_per_page;
   }
 
-  $result = $conn->query("select * from sanpham limit ".$start.", ".$rows_per_page."");
+  if(isset($_GET['loaisp'])) {
+    $loaisp = $_GET['loaisp'];
+    $result = $conn->query("select * from sanpham where loaisp = '$loaisp' limit ".$start.", ".$rows_per_page."");
+  } else {
+    $result = $conn->query("select * from sanpham limit ".$start.", ".$rows_per_page."");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -115,12 +120,23 @@
     <!-- Phân loại sản phẩm -->
 <section id="product11" class="section-p11" class="shop container" >
   <div  id="filter-buttons" style="padding-top: 150px;">       
-    <button class="btn" id="btnfil">Bút</button>
-    <button class="btn" id="btnfil" >Tập</button>
-    <button class="btn" id="btnfil" >Giấy Note</button>
-    <button class="btn" id="btnfil">Thước Kẻ</button>   
+    <!-- php code -->
+    <a href="shop-user.php?loaisp=bút">
+        <button class="btn" id="btnfil">Bút</button>
+      </a>
+      <a href="shop-user.php?loaisp=tập">
+        <button class="btn" id="btnfil" >Tập</button>
+      </a>
+      <a href="shop-user.php?loaisp=giấy note">
+        <button class="btn" id="btnfil" >Giấy Note</button>
+      </a>
+      <a href="shop-user.php?loaisp=thước kẻ">
+        <button class="btn" id="btnfil">Thước Kẻ</button>   
+      </a>
     <div>
-      <button id="btn-ad-search" class="btn">Tìm kiếm <i class="fa-solid fa-magnifying-glass"></i></button>
+      <a href="shop-user.php">
+       <button id="btn-ad-search" class="btn">Tất cả</button>
+      </a>
     </div>
   </div>
     <div id="overlay"></div>

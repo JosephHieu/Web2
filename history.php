@@ -1,5 +1,14 @@
 <?php
     include "connect.php";
+    session_start();
+
+    $tendangnhap = $_SESSION['mySession'];
+    // $sql=mysqli_query($conn, "select * from chitiethoadon where tendangnhap='$tendangnhap'");
+    // if(mysqli_num_rows($sql)>0) {
+    //     while($row=mysqli_fetch_assoc($sql)) {
+    //         echo $row['mahd'];
+    //     }
+    // }
 ?>
 
 <!DOCTYPE html>
@@ -56,128 +65,69 @@
                             <div class="gold-members p-4">
                                 <a href="#">
                                 </a>
+                                <!-- truy vấn lấy thông tin sản phẩm trong chitiethoadon -->
+                                <!-- php code -->
+                                <?php
+                            $sql=mysqli_query($conn, "select * from chitiethoadon where tendangnhap='$tendangnhap'");
+                            if(mysqli_num_rows($sql)>0) {
+                                while($row=mysqli_fetch_assoc($sql)) {
+                                    ?>
                                 <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="images/butbi1.png" alt="Generic placeholder image">
-                                    </a>
                                     
-                                    <div class="media-body">
-                                       
-                                        <h6 class="mb-2" style="font-size: 18px;">
-                                         
-                                            bút bi nhiều màu
-                                        </h6>
-                                        <div class="flex-container">
-                                            <p class="mb-3"> 20.000vnđ</p>
-                                            <p class="text-gray mb-1">x2</p>
-                                            
-                                          </div>
+                                    <!-- Cắt chuỗi để lấy thông tin sản phẩm -->
+                                    <?php
+                                        $chuoi = $row['tensp'];
+                                        $chuoi_rieng_le=explode(", ", rtrim($chuoi, ", "));
                                         
-                                        <p  style="color: #26aa99;" id="successful"> Thành công</p>
-                                    
+                                        // Cắt chuỗi để lấy số lượng sản phẩm
+                                        $chuoi2=$row['soluongmua'];
+                                        $mang=explode(", ", $chuoi2);
+                                        array_pop($mang);
+                                        $a = 0;
+                                        foreach($chuoi_rieng_le as $phan) {
+                                            ?>
+                                            <div class="media-body">   
+                                                        <?php
+                                                    $sql2=mysqli_query($conn, "select * from sanpham where tensp='$phan'");
+                                                    $row3=mysqli_fetch_assoc($sql2);
+                                                        ?>
+                                                <a href="#">
+                                                    <img class="mr-4" src="images/<?php echo $row3['hinhanh']?>" alt="Generic placeholder image">
+                                                </a>
+                                                <h6 class="mb-2" style="font-size: 18px;">                                         
+                                                    <?php echo $phan?>
+                                                </h6>
+
+                                                <div class="flex-container">
+                                                    <!-- truy vấn lấy ra giá của sp -->
+                                                        <p class="mb-3"><?php echo $row3['giaban']?>vnđ</p>
+                                                        <p class="text-gray mb-1">x<?php echo $mang[$a]?></p>                                         
+                                                </div>                                  
+                                                <?php
+                                                $a++;
+                                        }
+                                        ?>   
+                                            <div style="display: flex; justify-content: space-between;">
+                                                <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng thanh toán:</span> <?php echo $row['tongtien']?>vnđ</p>
+                                                <a class="btn btn-sm btn-outline-primary" href="user-order-info.php?mahd=<?php echo $row['mahd']?>">
+                                                    <i class="icofont-headphone-alt"></i>
+                                                    Chi tiết đơn hàng
+                                                </a>                                          
+                                            </div>
                                         <hr>
-                                      
                                     </div>
                                 </div>
-                                <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="images/butbi2.png" alt="Generic placeholder image">
-                                    </a>
-                                    
-                                    <div class="media-body">
-                                       
-                                        <h6 class="mb-2" style="font-size: 18px;">
-                                         
-                                          bút bi nhiều màu
-                                        </h6>
-                                        <div class="flex-container">
-                                            <p class="mb-3">20.000vnđ</p>
-                                            <p class="text-gray mb-1">x2</p>
-                                           
-                                          </div>
-                                
-                                        
-                                        <p  style="color: #26aa99;" id="successful"> Thành công </p>
-                                      
-                                        <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng thanh toán:</span> 80.000vnđ</p>
-                                        <hr>
-                                        <div class="float-right" >
-                                            <a class="btn btn-sm btn-outline-primary" href="user-order-info.php"><i class="icofont-headphone-alt"></i> Chi tiết đơn hàng</a>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                              
-                            
+
+                                    <?php
+                                }
+                            }
+                            else {
+                                echo "Chưa có đơn hàng nào. Hãy đặt đơn hàng đầu tiên !!!";
+                            }
+                                ?>
                             </div>
                         </div>
                      
-                        <div class="bg-white card mb-4 order-list shadow-sm">
-                            <div class="gold-members p-4">
-                                <a href="#">
-                                </a>
-                                <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="images/butbi3.png" alt="Generic placeholder image">
-                                    </a>
-                                    <div class="media-body">
-                                       
-                                        <h6 class="mb-2" style="font-size: 18px;">
-                                            bút bi nhiều màu
-                                        </h6>
-                                        <div class="flex-container">
-                                           
-                                            <p class="mb-3">20.000vnđ</p>
-                                            <p class="text-gray mb-1">x1</p>
-                                          </div>
-                                      
-                                        <p  style="color: #26aa99;" id="successful">Thành công</p>
-                                    
-                                        <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng thanh toán:</span> 15.000vnđ
-                                        </p>
-                                        <hr>
-                                        <div class="float-right">
-                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> Chi tiết đơn hàng</a>
-                                           
-                                        </div>
-                                   
-                                      
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="images/butbi4.png" alt="Generic placeholder image">
-                                    </a>
-                                    <div class="media-body">
-                                       
-                                        <h6 class="mb-2" style="font-size: 18px;">
-                                            bút
-                                        </h6>
-                                        <div class="flex-container">
-                                           
-                                            <p class="mb-3">5.000vnđ</p>
-                                            <p class="text-gray mb-1">x2</p>
-                                          </div>
-                                      
-                                        <p  style="color: #26aa99;" id="successful">Thành công</p>
-                                    
-                                        <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng thanh toán:</span> 20.000vnđ
-                                        </p>
-                                        <hr>
-                                        <div class="float-right">
-                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> Chi tiết đơn hàng</a>
-                                           
-                                        </div>
-                                   
-                                      
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            
-                        </div>
-
                         
                         <div  id="profile-button" style="display: flex; justify-content:center;margin-top: 50px; margin-bottom: 20px;">
                             <button type="button" class="btn btn-default" id="button-go-back" onclick="window.location.href='shop-user.php'"><i class="fa-solid fa-chevron-left"></i> Quay Lại</button>

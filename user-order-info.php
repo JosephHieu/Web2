@@ -1,5 +1,9 @@
 <?php
     include "connect.php";
+
+    if(isset($_GET['mahd'])) {
+        $mahd = $_GET['mahd'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -19,118 +23,110 @@
   <div class="container">
     <article class="card">
         <header class="card-header" style="display: flex; justify-content: start; align-items: center;"> 
-        <h3 style="font-size: 17px; font-weight: 600; margin-right: 15px;">My Orders</h3>
-        <h3 style="font-size: 17px;">ID: OD45345345435</h3>
+        <h3 style="font-size: 17px; font-weight: 600; margin-right: 15px;">Đơn hàng của tôi</h3>
+        <h3 style="font-size: 17px;">ID: <?php echo $mahd?></h3>
         </header>
-        <div class="card-body">
-           
+        <!-- php code -->
+        <?php
+            $sql = mysqli_query($conn, "select * from hoadon where mahd='$mahd'");
+            $row = mysqli_fetch_assoc($sql);
+        ?>
+
+        <div class="card-body">         
             <article class="card">
                 <div class="card-body col">
-                  <div class="row" style="display: flex; justify-content: flex-start;"> 
-                
-                    <span style="margin-right: 25px; margin-left: 10px;"><strong>Date Order:</strong> 21-4-2021    </span> 
-                  
-                   
-                
-                      <span> <strong>Delivery Date:</strong> 23-4-2021</span> 
-                 
+                  <div class="row" style="display: flex; justify-content: flex-start;">                 
+                    <span style="margin-right: 25px; margin-left: 10px;"><strong>Ngày đặt hàng:</strong> <?php echo $row['ngaydathang']?></span>              
+                    </div>                    
                 </div>
-             
-                  
-                   
-                   
-                </div>
-            
             </article>
             <div class="track">
-                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Order confirmed</span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Picked by courier</span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> On the way </span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Ready for pickup</span> </div>
+                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Xác nhận đơn hàng</span> </div>
+                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Lấy chuyển phát nhanh</span> </div>
+                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
+                <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Sẵn sàng nhận hàng</span> </div>
             </div>
             <hr>
             <div class="osahan-account-page-right  bg-white p-2 h-100">
-              <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                  
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <div class="media">
 
-                      <div class="bg-white card mb-4 order-list shadow-sm">
-                          <div class="gold-members p-4">
-                              <a href="#">
-                              </a>
-                              <div class="media">
-                                  <a href="#">
-                                      <img class="mr-4" src="assets/images/sp/cocaori.png" alt="Generic placeholder image">
-                                  </a>
-                                  
-                                  <div class="media-body">
-                                     
-                                      <h6 class="mb-2" style="font-size: 18px;">
-                                       
-                                          Coca Original
-                                      </h6>
-                                      <div class="flex-container">
-                                          <p class="mb-3"> $13.00</p>
-                                          <p class="text-gray mb-1">x2</p>
-                                          
-                                        </div>
-                                      
-                                      <p  style="color: #26aa99;"><i class="fa-solid fa-truck"></i> Delivery successful</p>
-                                  
-                                      <hr>
-                                    
-                                  </div>
-                              </div>
-                              <div class="media">
-                                  <a href="#">
-                                      <img class="mr-4" src="assets/images/sp/lemon.png" alt="Generic placeholder image">
-                                  </a>
-                                  
-                                  <div class="media-body">
-                                     
-                                      <h6 class="mb-2" style="font-size: 18px;">
-                                       
-                                         Lemon Tea
-                                      </h6>
-                                      <div class="flex-container">
-                                          <p class="mb-3">$16.00</p>
-                                          <p class="text-gray mb-1">x2</p>
-                                         
-                                        </div>
-                              
-                                      
-                                      <p  style="color: #26aa99;"><i class="fa-solid fa-truck"></i> Delivery successful </p>
+                                <!-- php code -->
+                                <?php 
+                            $sql1=mysqli_query($conn, "select * from chitiethoadon where mahd='$mahd'");
+                            $row1=mysqli_fetch_assoc($sql1);
+                            // echo $row1['tensp'];
 
-                                      <p class="mb-0 text-black pt-2" id="total-money" style="font-size: 16px;"><span class="text-black font-weight-bold"> Subtotal:</span> $58.00</p>
-                                      <p class="mb-0 text-black pt-2" id="total-money" style="font-size: 16px;"><span class="text-black font-weight-bold"> Shipping:</span> $2.00</p>
-                                      <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Total:</span> $60.00</p>
-                                     
-                              
-                                  </div>
-                              </div>
-                            
-                          
-                          </div>
-                      </div>
-                   
-                 
+                            // Cắt chuỗi để lấy tên sản phẩm
+                            $chuoi = $row1['tensp'];
+                            $chuoi_rieng_le = explode(", ", rtrim($chuoi, ", "));
 
-                  </div>
-              </div>
-          </div>
-          <h6>Delivery Address</h6>
+                            // Cắt chuỗi để lấy số lượng sản phẩm
+                            $chuoi2 = $row1['soluongmua'];
+                            $mang = explode(", ", $chuoi2);
+                            array_pop($mang);
+                            $a = 0;
+
+                            foreach($chuoi_rieng_le as $phan) {
+                                ?>
+                                <!-- truy vấn lấy ra thông tin sản phẩm -->
+                                <?php
+                            $sql4=mysqli_query($conn, "select * from sanpham where tensp='$phan'");
+                            $row4=mysqli_fetch_assoc($sql4);
+                                ?>
+                        
+                        <div class="media-body">                                    
+                                <a href="#">
+                                    <img class="mr-4" src="images/<?php echo $row4['hinhanh']?>" alt="Generic placeholder image">
+                                </a>
+                                <h6 class="mb-2" style="font-size: 18px;">
+                                    <?php echo $phan?>
+                                </h6>
+                                <div class="flex-container">
+                                    <p class="mb-3"><?php echo $row4['giaban']?>vnđ</p>
+                                    <p class="text-gray mb-1">x<?php echo $mang[$a]?></p>                                        
+                                </div>
+                                            
+                                <p  style="color: #26aa99;"><i class="fa-solid fa-truck"></i> Giao hàng thành công</p>
+
+                                <?php
+                                $a++;
+                            }
+                                ?>
+
+                                        <p class="mb-0 text-black text-primary pt-2" id="total-money"><span class="text-black font-weight-bold"> Tổng tiền:</span> <?php echo $row1['tongtien']?>vnđ</p>                           
+                                    </div>
+                                </div>              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6>Thông tin giao hàng</h6>
+
+          <!-- truy vấn lấy thông tin khách hàng -->
+
+          <?php
+            $tdn = $row['tendangnhap'];
+            $sql2=mysqli_query($conn, "select * from khachhang where tendangnhap='$tdn'");
+            $row3=mysqli_fetch_assoc($sql2);
+          ?>
+
           <article class="card">
             <div class="card-body row"  style="padding-bottom: 0;">
-              <div class="col"> <strong>Lam Dieu Quang </strong><br> (+17) 637745710 <br>xyz@emxaple.com</div>
+              <div class="col"> <strong><?php echo $row3['hovaten']?> </strong><br> (+84) <?php echo $row3['sdt']?> <br><?php echo $row3['email']?></div>
            
-              <div class="col"> <strong>Address:</strong> 45 Beaver St KLOIW wewrw rwrwr</div>
+              <div class="col"> <strong>Địa chỉ:</strong> <?php echo $row3['quanhuyen'] . ", " . $row3['tptinh'] . ", " . $row3['quocgia']?></div>
              
          
   
             </div>
          
             <div class="card-body row">
-              <div class="col"> <strong>Your note:</strong> I love your web!!</div>
+              <div class="col"> <strong>Ghi chú:</strong> <?php echo $row1['luuy']?> </div>
         
          
                
@@ -139,7 +135,7 @@
         
         </article>
             <hr>
-            <a href="history.php" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Back to orders</a>
+            <a href="history.php" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Quay lại</a>
         </div>
     </article>
 </div>
