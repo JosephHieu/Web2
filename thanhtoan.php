@@ -65,6 +65,10 @@
         $insert_order_detail=mysqli_query($conn, "insert into chitiethoadon (mahd, masp, tendangnhap, ptthanhtoan, luuy, tensp, soluongmua, tongtien)
         values ('$mahd', '$masp', '$tendangnhap', '$ptthanhtoan', '$luuy', '$tenallsp', '$soluongmua', '$tongtien')")
         or mysqli_error($insert_order);
+
+        if($insert_order_detail) {
+            header('location: history.php');
+        }
     }
 
 ?>
@@ -181,7 +185,7 @@
                                 <input type="radio" name="ptthanhtoan" id="option1" value="COD" required>
 
                                 <label for="tructuyen">Thanh toán Trực tuyến</label>
-                                <input type="radio" name="ptthanhtoan" id="option2" value="Thanh toán trực tuyến" required>
+                                <input type="radio" name="ptthanhtoan" id="option2" value="Thanh toán trực tuyến">
                             </div>
                             
                             <div id="hiddenDiv" class="hidden">
@@ -203,8 +207,7 @@
                             <div>
                                 <a href="shop-user.php"><- Tiếp tục mua sắm</a>
                                 <button type="submit" name="add_order" class="done" style="margin-top: 20px; margin-left: 20px; padding: 10px 15px; background: green; font-weight: 600; border-radius: 5px;"
-                                onclick="return confirm('Bạn có muốn đặt hàng không ?');
-                                alert('Đặt hàng thành công.');">Hoàn tất</button>
+                                >Hoàn tất</button>
                             </div>
                         </form>
                     </div>

@@ -198,7 +198,34 @@
                     </td>
                     <td>
                       <?php 
-                      echo $row['trangthai'];
+                        if($row['trangthai'] == 1) {
+                          echo "
+                            <p>
+                                <a href='admin-update-order.php?mahd=".$row['mahd']."' style='color: green;'
+                                '>
+                                Đã giao thành công 
+                                <i class='fas fa-edit'></i>
+                                </a>
+                            </p>";
+                        } else if($row['trangthai'] == 2) {
+                          echo "
+                            <p>
+                                <a href='admin-update-order.php?mahd=".$row['mahd']."' style='color: #f89c0e;'
+                                '>
+                                Đã xác nhận
+                                <i class='fas fa-edit'></i> 
+                                </a>
+                            </p>";
+                        } else {
+                          echo "
+                            <p>
+                                <a href='admin-update-order.php?mahd=".$row['mahd']."' style='color: red;'
+                                '>
+                                Hủy đơn 
+                                <i class='fas fa-edit'></i>
+                                </a>
+                            </p>";
+                        }
                       ?>
                     </td>
                     <td>

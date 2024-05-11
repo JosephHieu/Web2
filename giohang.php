@@ -103,13 +103,13 @@
                         </tr>';
                         echo '</table>';
                     } else {
-                        echo "giỏ hàng trống";
+                        echo "<h2>Giỏ hàng hiện trống</h2>";
                     }
                 ?>
                 <br>
                     <div class="thea" style="display: flex; gap: 50px;">
                         <a href="shop.php" style="font-size: 18px;">Tiếp tục mua sắm</a>
-                        <a href="#" onclick="return confirm('Bạn cần đăng nhập để mua những sản phẩm này')" style="font-size: 18px;">
+                        <a href="login.php" onclick="return confirm('Bạn cần đăng nhập để mua những sản phẩm này !!!')" style="font-size: 18px;">
                             Thanh toán
                         </a> 
                         <a href="giohangxoa.php" style="font-size: 18px;">Xóa giỏ hàng</a>

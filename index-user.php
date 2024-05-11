@@ -68,7 +68,7 @@
         <p>> Tài khoản</p>
       </a>
 
-      <a href="history.php>" class="sub-menu-index-link">
+      <a href="history.php" class="sub-menu-index-link">
         <p>> Lịch sử mua hàng</p>
       </a>
       <a href="logout.php" class="sub-menu-index-link">

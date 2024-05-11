@@ -84,29 +84,29 @@
         <div class="pro">
           <a >
             
-      <img  src="images/brand4.png" id="img1" alt="">
+      <img  src="images/brand4.png" id="img1" alt="" title="Sẵn sàng học tốt">
       
       </a>
      
       </div> 
       <div class="pro">
         <a >
-        <img src="images/brand2.svg" alt=""></a>
+        <img src="images/brand2.svg" alt="" title="Sắc màu thông minh"></a>
      
   </div> 
   <div class="pro">
     <a>
-    <img src="images/brand1.svg" alt=""></a>
+    <img src="images/brand1.svg" alt="" title="Bút ký sang trọng"></a>
  
 </div> 
 <div class="pro">
     <a >
-    <img src="images/brand3.svg" alt=""></a>
+    <img src="images/brand3.svg" alt="" title="Sức mạnh tri thức"></a>
  
 </div> 
 <div class="pro">
     <a >
-    <img src="images/brand5.jpg" alt=""></a>
+    <img src="images/brand5.jpg" alt="" title="Sản phẩm cho giới văn phòng"></a>
  
 </div> 
  

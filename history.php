@@ -63,8 +63,7 @@
 
                         <div class="bg-white card mb-4 order-list shadow-sm">
                             <div class="gold-members p-4">
-                                <a href="#">
-                                </a>
+                                
                                 <!-- truy vấn lấy thông tin sản phẩm trong chitiethoadon -->
                                 <!-- php code -->
                                 <?php
@@ -72,7 +71,6 @@
                             if(mysqli_num_rows($sql)>0) {
                                 while($row=mysqli_fetch_assoc($sql)) {
                                     ?>
-                                <div class="media">
                                     
                                     <!-- Cắt chuỗi để lấy thông tin sản phẩm -->
                                     <?php
@@ -86,6 +84,7 @@
                                         $a = 0;
                                         foreach($chuoi_rieng_le as $phan) {
                                             ?>
+                                            <div class="media">
                                             <div class="media-body">   
                                                         <?php
                                                     $sql2=mysqli_query($conn, "select * from sanpham where tensp='$phan'");

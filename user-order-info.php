@@ -22,15 +22,15 @@
 <body>
   <div class="container">
     <article class="card">
-        <header class="card-header" style="display: flex; justify-content: start; align-items: center;"> 
-        <h3 style="font-size: 17px; font-weight: 600; margin-right: 15px;">Đơn hàng của tôi</h3>
-        <h3 style="font-size: 17px;">ID: <?php echo $mahd?></h3>
-        </header>
-        <!-- php code -->
         <?php
             $sql = mysqli_query($conn, "select * from hoadon where mahd='$mahd'");
             $row = mysqli_fetch_assoc($sql);
         ?>
+        <header class="card-header" style="display: flex; justify-content: start; align-items: center;"> 
+        <h3 style="font-size: 17px; font-weight: 600; margin-right: 15px;">Đơn hàng của <?php echo $row['tendangnhap']?></h3>
+        <h3 style="font-size: 17px;">ID: <?php echo $mahd?></h3>
+        </header>
+        <!-- php code -->
 
         <div class="card-body">         
             <article class="card">
@@ -40,12 +40,7 @@
                     </div>                    
                 </div>
             </article>
-            <div class="track">
-                <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">Xác nhận đơn hàng</span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text"> Lấy chuyển phát nhanh</span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text"> Đang giao </span> </div>
-                <div class="step active"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">Sẵn sàng nhận hàng</span> </div>
-            </div>
+            
             <hr>
             <div class="osahan-account-page-right  bg-white p-2 h-100">
                 <div class="tab-content" id="myTabContent">
