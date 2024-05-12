@@ -1,6 +1,10 @@
 <?php 
   include "connect.php";
 
+  // if(isset($_POST['search'])) {
+  //   echo $_POST['search'];
+  // }
+
   // Phần phân trang
   $start = 0;
 
@@ -22,9 +26,27 @@
 
   if(isset($_GET['loaisp'])) {
     $loaisp = $_GET['loaisp'];
-    $result = $conn->query("select * from sanpham where loaisp = '$loaisp' limit ".$start.", ".$rows_per_page."");
-  } else {
-    $result = $conn->query("select * from sanpham limit ".$start.", ".$rows_per_page."");
+    $result = $conn->query("SELECT * from sanpham where loaisp = '$loaisp' limit ".$start.", ".$rows_per_page."");
+  }
+  elseif(isset($_POST['search'])) { // truy vấn tìm kiếm sản phẩm cơ bản
+    $timten = $_POST['search'];
+    $result = $conn->query("SELECT * from sanpham where tensp like '%".$timten."%' limit ".$start.", ".$rows_per_page."");
+  }
+  elseif(isset($_POST['search_advance'])) {
+    $tensanpham  = $_POST['tensanpham'];
+    $loaisanpham = $_POST['loaisanpham'];
+    $giatu       = $_POST['giatu'];
+    $giaden      = $_POST['giaden'];
+
+    // truy vấn tìm kiếm sản phẩm nâng cao kết hợp nhiều điều kiện cùng một lúc
+    $result = $conn->query("SELECT * from sanpham     
+    where tensp like '%".$timten."%'
+    and loaisp='$loaisanpham'
+    and giaban between '$giatu' and '$giaden'
+    limit ".$start.", ".$rows_per_page."");
+  }
+  else {
+    $result = $conn->query("SELECT * from sanpham limit ".$start.", ".$rows_per_page."");
   }
 ?>
 
@@ -87,8 +109,7 @@
         </a>
       </li>
      
-      <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a>
-      </li>
+      <li id="menu" id="lg-user"><a href="register.php"><i class="fa-regular fa-circle-user fa-lg" ></i></a></li>
       <a  id="close"><i class="fa-solid fa-x"></i></a>
    </ul>
   </div>
@@ -110,8 +131,8 @@
 </section>
 
     <!-- Phân loại sản phẩm -->
-<section id="product11" class="section-p11" class="shop container" >
-  <div  id="filter-buttons" style="padding-top: 150px;">   
+<section id="product11" class="section-p11" class="shop container">
+  <div  id="filter-buttons" style="padding-top: 150px; position: relative;">   
       <!-- php code -->
       <a href="shop.php?loaisp=bút">
         <button class="btn" id="btnfil">Bút</button>
@@ -130,6 +151,38 @@
        <button id="btn-ad-search" class="btn">Tất cả</button>
       </a>
     </div>
+    <div>
+      <button class="btn searchLink" id="btnfil">Tìm kiếm</button>
+      <div class="searchDiv" style="display: none;">
+      <!-- form tìm kiếm nâng cao -->
+        <form action="shop.php" method="post" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <div>
+                <label for="" style="font-size: 18px;">Tên sản phẩm: </label>
+                <input type="text" name="tensanpham" style="border: 1px solid black; padding: 10px;" placeholder="Nhập tên sản phẩm">
+            </div>
+
+            <div>
+                <label for="" style="font-size: 18px;">Loại sản phẩm:</label>
+                <select name="loaisanpham" style="font-size: 18px;">
+                    <option>Chọn</option>
+                    <option>bút</option>
+                    <option>tập</option>
+                    <option>giấy note</option>
+                    <option>thước kẻ</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="" style="font-size: 18px;">Khoảng giá</label>
+                    <div style="font-size: 18px;">
+                        Từ: <input type="number" name="giatu" style="border: 1px solid black;">
+                        Đến: <input type="number" name="giaden" style="border: 1px solid black;">
+                    </div>
+            </div>
+            <input type="submit" name="search_advance" value="Tìm kiếm" style="margin-top: 20px; padding: 10px 15px;">
+        </form>
+    </div>
+    </div>
   </div>
     <div id="overlay"></div>
 
@@ -137,7 +190,7 @@
 <div class="pro-container1" id="product-list" style="position: relative;">
       <?php 
         // truy vấn lấy sản phẩn trong bảng sanpham
-        $select_products = mysqli_query($conn, "select * from sanpham");
+        $select_products = mysqli_query($conn, "SELECT * from sanpham");
         if(mysqli_num_rows($select_products)>0) {
           // while($fetch_product = mysqli_fetch_assoc($select_products)) {
           while($fetch_product = $result->fetch_assoc()) {
@@ -250,12 +303,22 @@
     links[bodyId].classList.add("active");
 </script>
 
+<!-- script hiện phần tìm kiếm nâng cao -->
+<script>
+  var searchLinks = document.querySelectorAll(".searchLink");
+  searchLinks.forEach(function(searchLink) {
+    searchLink.addEventListener("click", function(event){
+        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
 
-
-
-
-
-
+        var searchDiv = searchLink.nextElementSibling; // Lấy phần tử kế tiếp của thẻ a, tức là khối div tương ứng
+        if (searchDiv.style.display === "none") {
+            searchDiv.style.display = "block";
+        } else {
+            searchDiv.style.display = "none";
+        }
+    });
+  });
+</script>
 
 
 

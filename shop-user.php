@@ -28,7 +28,25 @@
   if(isset($_GET['loaisp'])) {
     $loaisp = $_GET['loaisp'];
     $result = $conn->query("select * from sanpham where loaisp = '$loaisp' limit ".$start.", ".$rows_per_page."");
-  } else {
+  } 
+  elseif(isset($_POST['search'])) {
+    $timten = $_POST['search'];
+    $result = $conn->query("SELECT * from sanpham where tensp like '%".$timten."%' limit ".$start.", ".$rows_per_page."");
+  }
+  elseif(isset($_POST['search_advance'])) {
+    $tensanpham  = $_POST['tensanpham'];
+    $loaisanpham = $_POST['loaisanpham'];
+    $giatu       = $_POST['giatu'];
+    $giaden      = $_POST['giaden'];
+
+    // truy vấn tìm kiếm sản phẩm nâng cao kết hợp nhiều điều kiện cùng một lúc
+    $result = $conn->query("SELECT * from sanpham     
+    where tensp like '%".$timten."%'
+    and loaisp='$loaisanpham'
+    and giaban between '$giatu' and '$giaden'
+    limit ".$start.", ".$rows_per_page."");
+  }
+  else {
     $result = $conn->query("select * from sanpham limit ".$start.", ".$rows_per_page."");
   }
 ?>
@@ -71,11 +89,14 @@
     <li id="menu"><a href="brand-user.php" class="choose"><span>Nhãn Hàng</span></a></li>       
     <li id="menu" ><a class="act-on" href="shop-user.php" class="choose" ><span class="act-on">Cửa Hàng</span></a></li>    
     <div class="group" id="search">
-    <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="text" class="input" onkeyup="search()"  tabindex="1">
-    <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-      <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
-    </svg>
-  </div> 
+      <!-- tìm kiếm sản phẩm cơ bản -->
+      <form action="shop-user.php" method="post">
+        <input id="search-item" type="text" placeholder="Tìm kiếm sản phẩm" name="search" class="input" onkeyup="search()"  tabindex="1">
+      </form>
+      <svg fill="#000000" width="20px" height="20px" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+        <path d="M790.588 1468.235c-373.722 0-677.647-303.924-677.647-677.647 0-373.722 303.925-677.647 677.647-677.647 373.723 0 677.647 303.925 677.647 677.647 0 373.723-303.924 677.647-677.647 677.647Zm596.781-160.715c120.396-138.692 193.807-319.285 193.807-516.932C1581.176 354.748 1226.428 0 790.588 0S0 354.748 0 790.588s354.748 790.588 790.588 790.588c197.647 0 378.24-73.411 516.932-193.807l516.028 516.142 79.963-79.963-516.142-516.028Z" fill-rule="evenodd"></path>
+      </svg>
+    </div> 
       <li id="menu" >
         <a href="giohang-user.php" id="cart-icon">
         <div class="cart-follow-icon">
@@ -138,6 +159,38 @@
        <button id="btn-ad-search" class="btn">Tất cả</button>
       </a>
     </div>
+    <div>
+      <button class="btn searchLink" id="btnfil">Tìm kiếm</button>
+      <div class="searchDiv" style="display: none;">
+      <!-- form tìm kiếm nâng cao -->
+        <form action="shop.php" method="post" style="display: flex; flex-direction: column; align-items: flex-start;">
+            <div>
+                <label for="" style="font-size: 18px;">Tên sản phẩm: </label>
+                <input type="text" name="tensanpham" style="border: 1px solid black; padding: 10px;" placeholder="Nhập tên sản phẩm">
+            </div>
+
+            <div>
+                <label for="" style="font-size: 18px;">Loại sản phẩm:</label>
+                <select name="loaisanpham" style="font-size: 18px;">
+                    <option>Chọn</option>
+                    <option>bút</option>
+                    <option>tập</option>
+                    <option>giấy note</option>
+                    <option>thước kẻ</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="" style="font-size: 18px;">Khoảng giá</label>
+                    <div style="font-size: 18px;">
+                        Từ: <input type="number" name="giatu" style="border: 1px solid black;">
+                        Đến: <input type="number" name="giaden" style="border: 1px solid black;">
+                    </div>
+            </div>
+            <input type="submit" name="search_advance" value="Tìm kiếm" style="margin-top: 20px; padding: 10px 15px;">
+        </form>
+    </div>
+</div>
   </div>
     <div id="overlay"></div>
 
@@ -257,54 +310,17 @@
 </script>
 
 <script>
-      const bar = document.getElementById('bar');
-      const icon = document.getElementById('icons');
-    
-      if(bar){
-        bar.addEventListener('click',() =>{
-      icon.classList.add('active');
-        })}
-      
-      const icons = document.getElementById("icons");
-    const dong = document.getElementById("close");
-    const barmenu = document.getElementById('bar');
-    dong.addEventListener("click", function() {
-    
-      icons.style.right = "-300px";
+  var searchLinks = document.querySelectorAll(".searchLink");
+  searchLinks.forEach(function(searchLink) {
+    searchLink.addEventListener("click", function(event){
+        event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+
+        var searchDiv = searchLink.nextElementSibling; // Lấy phần tử kế tiếp của thẻ a, tức là khối div tương ứng
+        if (searchDiv.style.display === "none") {
+            searchDiv.style.display = "block";
+        } else {
+            searchDiv.style.display = "none";
+        }
     });
-    barmenu.addEventListener("click", function() {
-      icons.style.right = "0px";
-    });
-    window.addEventListener("resize", function() {
-
-    if (window.innerWidth >= 1138) {
-      icons.classList.remove('active');
-    }
-    else{
-        icons.style.right="-300px";
-      }
-    }
-    );
+  });
 </script>
-
-<script>
-    let subMenu = document.getElementById("subMenu");
-    function toggleMenu(){
-      subMenu.classList.toggle("open-menu");
-    }
-    const search = () => {
-      if (event.keyCode === 13) {
-  window.location.href='shop-user.php';
-      }};
-</script>
-
-
-
-
-
-
-
-
-
-
-

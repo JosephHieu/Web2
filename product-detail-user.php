@@ -171,7 +171,7 @@
 
     <div class="pro2">
       <a href="#">
-      <img src="images/tap4-2.jpg" alt="">
+      <img src="images/mota1.jpg" alt="">
     </a>
        
     <h5>Tập học sinh 90 trang</h5>
@@ -197,7 +197,7 @@
 
       <div class="pro2">
         <a href="#">
-        <img src="images/butchigo2.png" alt="">
+        <img src="images/mota2.jpg" alt="">
       </a>
       
           <h5>Bút chì gỗ</h5>
