@@ -19,7 +19,11 @@
 
         if(mysqli_num_rows($result) == 1) {
             $_SESSION['mySession'] = $tendangnhap;
-            header('location: admin-strator.php');
+            // header('location: admin-strator.php');
+            echo "<script>
+                alert('Xin chào ".$_SESSION['mySession']."');
+                window.location.href='admin-strator.php';
+            </script>";
         } else {
             echo "<script>
                 alert('Tên đăng nhập hoặc mật khẩu không chính xác');

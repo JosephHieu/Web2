@@ -33,6 +33,8 @@
             $item = array($masp, $tensp, $hinhanh, $giaban, $soluong);
             $_SESSION['giohang'][]=$item;
         }
+
+        unset($_SESSION['giohang']);
     }
 
 ?>

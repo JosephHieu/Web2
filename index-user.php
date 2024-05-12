@@ -6,9 +6,6 @@
   // tendangnhap là khóa chính của khách hàng
   if(isset($_SESSION['mySession'])) {
     $tendangnhap = $_SESSION['mySession'];
-    echo "<script>
-      alert('Xin chào ".$tendangnhap."')
-    </script>";
   }
 
   // $sql = "select * from khachhang where tendangnhap = '$tdn'";

@@ -121,7 +121,7 @@
                   </a>
               </li>
               <li>
-                <a href="admin-order.php">
+                <a href="admin-statistic.php">
                       <span class="las la-shopping-cart"></span>
                       <small>Thống kê</small>
                   </a>

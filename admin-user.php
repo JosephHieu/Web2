@@ -157,7 +157,7 @@ function passwords_match($password1, $password2) {
                   </a>
               </li>
               <li>
-                <a href="admin-order.php">
+                <a href="admin-statistic.php">
                       <span class="las la-shopping-cart"></span>
                       <small>Thống kê</small>
                   </a>

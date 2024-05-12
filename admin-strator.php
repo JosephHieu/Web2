@@ -1,5 +1,8 @@
 <?php
     include "connect.php";
+    session_start();
+
+    $quanly = $_SESSION['mySession'];
 
     // truy vấn thêm strator
     if(isset($_POST['add_strator'])) {
@@ -80,6 +83,7 @@
       }
     ?>
 
+
 <body id="<?php echo $id?>">
    <input type="checkbox" id="menu-toggle">
    <div class="sidebar">
@@ -122,7 +126,7 @@
                   </a>
               </li>
               <li>
-                <a href="admin-order.php">
+                <a href="admin-statistic.php">
                       <span class="las la-shopping-cart"></span>
                       <small>Thống kê</small>
                   </a>

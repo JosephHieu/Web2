@@ -26,7 +26,45 @@
     $start = $page * $rows_per_page;
   }
 
-  $result = $conn->query("select * from hoadon limit ".$start.", ".$rows_per_page."");
+  if(isset($_POST['lochoadon'])) {
+    // Lấy thông tin từ form để lấy thông tin lọc đơn hàng
+    $trangthai = $_POST['tinhtrang'];
+    $tungay    = $_POST['tungay'];
+    $denngay   = $_POST['denngay'];
+    $diachi    = $_POST['diachi'];
+
+    // echo $tinhtrang;
+    // echo $tungay . ", " . $denngay;
+    // echo $diachi;
+
+    
+    if(!empty($trangthai) && !empty($tungay) && !empty($denngay) && !empty($diachi)) {
+      $result = $conn->query("SELECT * from hoadon
+      where ngaydathang between '$tungay' and '$denngay'
+      and trangthai='$trangthai'
+      and diachi like '%$diachi%'
+      limit ".$start.", ".$rows_per_page."")
+      or die(mysqli_error($conn));
+    } 
+    elseif(!empty($trangthai) && empty($tungay) && empty($denngay) && empty($diachi)) {
+      $result = $conn->query("SELECT * from hoadon
+      where trangthai='$trangthai'
+      limit ".$start.", ".$rows_per_page."")
+      or die(mysqli_error($conn));
+    }
+    elseif(empty($trangthai) && empty($tungay) && empty($denngay) && !empty($diachi)) {
+      $result = $conn->query("SELECT * from hoadon
+      where diachi like '%$diachi%'
+      limit ".$start.", ".$rows_per_page."")
+      or die(mysqli_error($conn));
+    }
+    else {
+      $result = $conn->query("select * from hoadon limit ".$start.", ".$rows_per_page."");
+    }
+  }
+  else {
+    $result = $conn->query("select * from hoadon limit ".$start.", ".$rows_per_page."");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +132,7 @@
                   </a>
               </li>
               <li>
-                <a href="admin-order.php">
+                <a href="admin-statistic.php">
                       <span class="las la-shopping-cart"></span>
                       <small>Thống kê</small>
                   </a>
@@ -136,12 +174,39 @@
         <div class="page-content" style="margin-top: 50px;">
             <h1 style="padding: 1.3rem 0rem;color: #74767d;" id="order">Đơn hàng</h1>
             <div >
-                <button style="margin-bottom: 8px;" id="showadd" onclick="showadd()"><i class="fa-solid fa-circle-plus" style="margin-right: 4px;"></i> Lọc đơn hàng</button>                          
+                <a href="admin-order.php">
+                  <button style="margin-bottom: 8px;" id="showadd" onclick="showadd()"><i class="fa-solid fa-circle-plus" style="margin-right: 4px;"></i>
+                   Tất cả đơn hàng
+                  </button> 
+                </a>                         
             </div>
+            <!-- form lọc đơn hàng -->
+            <form action="admin-order.php" method="post">
+              <div class="lochd" style="margin: 20px 0 0 50px;">
+                <div class="ada" style="margin-top: 20px;">
+                  <label for="">Tình trạng đơn hàng</label>
+                  <select name="tinhtrang" id="tinhtrang">
+                    <option>Chọn</option>
+                    <option value="1">Đã giao thành công</option>
+                    <option value="2">Đã xác nhận</option>
+                    <option value="0">Hủy đơn</option>
+                  </select>
+                </div>
+                <div class="ada" style="margin-top: 20px;">
+                  <!-- <label for="">Thời gian đặt hàng</label> -->
+                  Từ ngày: <input type="date" name="tungay">
+                  Đến ngày: <input type="date" name="denngay">
+                </div>
+                <div class="ada" style="margin-top: 20px;">
+                  <label for="">Địa điểm giao hàng</label>
+                  <input type="text" name="diachi">
+                </div>
+              </div>
+              <button type="submit" name="lochoadon" style="margin-left: 50px; margin-top: 20px; padding: 10px 15px;">Lọc đơn hàng</button>
+              
         </div>
         
-        <div class="records table-responsive" >
-           
+        <div class="records table-responsive" >         
             <div class="record-header">
               <div class="browse">
                 <input type="search" placeholder="Tìm kiếm (#ID)" class="record-search">
