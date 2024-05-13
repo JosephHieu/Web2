@@ -9,13 +9,13 @@
     } else {
         if(isset($_SESSION['giohang'])) {
             unset($_SESSION['giohang']);
-            header('location: giohang-user.php?tdn='.$_GET['tdn'].'');
+            header('location: giohang-user.php');
         }
     }
     
     if(isset($_SESSION['giohang'])&&(count($_SESSION['giohang'])>0)) {
-        header('location: giohang-user.php?tdn='.$_GET['tdn'].'');
+        header('location: giohang-user.php');
     } else {
-        header('location: shop-user.php?s-user='.$_GET['tdn'].'');
+        header('location: shop-user.php');
     }
 ?>
