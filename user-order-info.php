@@ -85,7 +85,7 @@
                                     <p class="text-gray mb-1">x<?php echo $mang[$a]?></p>                                        
                                 </div>
                                             
-                                <p  style="color: #26aa99;"><i class="fa-solid fa-truck"></i> Giao hàng thành công</p>
+                                <p  style="color: #26aa99;"><i class="fa-solid fa-truck"></i> Đang giao hàng</p>
 
                                 <?php
                                 $a++;
