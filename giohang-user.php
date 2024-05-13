@@ -33,8 +33,6 @@
             $item = array($masp, $tensp, $hinhanh, $giaban, $soluong);
             $_SESSION['giohang'][]=$item;
         }
-
-        unset($_SESSION['giohang']);
     }
 
 ?>
@@ -61,7 +59,7 @@
 <body>
     <section class="ab-info-main py-5">
         <div class="container" py-3>
-            <h3 class="title text-center" style="padding-top: 30px; font-size: 24px; font-weight: 600;">Giỏ hàng của tôi</h3>
+            <h3 class="title text-center" style="padding-top: 30px;  font-size: 24px; font-weight: 600;">Giỏ hàng của tôi</h3>
             <div class="row contact-main-info mt-5">
                 <div class="col-md-6 contact-right-content">
                 <!-- left -->
@@ -105,20 +103,16 @@
                         </tr>';
                         echo '</table>';
                     } else {
-                        echo "Giỏ hàng trống";
+                        echo "<h2>Giỏ hàng hiện trống</h2>";
                     }
                 ?>
-                <!-- Lấy thông tin để thanh toán -->
-                <form action="thanhtoan.php" method="post">
-                    <input type="hidden" name="tongdonhang" value="<?=$tong?>">
-                </form>
                 <br>
                     <div class="thea" style="display: flex; gap: 50px;">
-                        <a href="shop-user.php?" style="font-size: 18px;">Tiếp tục mua sắm</a>
+                        <a href="shop-user.php" style="font-size: 18px;">Tiếp tục mua sắm</a>
                         <a href="thanhtoan.php" style="font-size: 18px;">
                             Thanh toán
                         </a> 
-                        <a href="giohangxoa-user.php?" style="font-size: 18px;">Xóa giỏ hàng</a>
+                        <a href="giohangxoa-user.php" style="font-size: 18px;">Xóa giỏ hàng</a>
                     </div>
                 </div>
 
